@@ -1,0 +1,31 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.Controller">
+    <top>
+        <HBox alignment="CENTER" spacing="5" style="-fx-padding: 5; -fx-background-color: #336699;">
+            <Button fx:id="previousWeekButton" text="Semaine précédente" onAction="#loadPreviousWeek" style="-fx-background-color: lightgray;"/>
+            <Text fx:id="displayedWeekText" text="Semaine du XX au YY" style="-fx-fill: white;"/>
+            <Button fx:id="nextWeekButton" text="Semaine suivante" onAction="#loadNextWeek" style="-fx-background-color: lightgray;"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <GridPane fx:id="gridPane" hgap="5" vgap="5" style="-fx-background-color: #eaeaea;">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </GridPane>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
+
