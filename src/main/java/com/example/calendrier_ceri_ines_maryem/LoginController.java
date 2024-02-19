@@ -26,6 +26,7 @@ public class LoginController {
             new User("Smith", "Jane", "Designer", "janesmith", "password456"),
             new User("Smith", "Jane", "Designer", "1", "1")
     );
+    // ajustement d'une seule page
     public void showCalendarPage(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("calendrier.fxml"));
@@ -35,13 +36,19 @@ public class LoginController {
             AppPageController appPageController = loader.getController();
             appPageController.setUserDetails(user.getNom(), user.getPrenom(), user.getFonction(), user.getInitiales());
 
-            // Affichage de la scène
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            // Récupération de la scène actuelle à partir d'un élément de la scène (par exemple, usernameField)
+            Scene currentScene = usernameField.getScene();
+            Stage stage = (Stage) currentScene.getWindow();
+
+            // Mise à jour de la scène avec le nouveau contenu
+            currentScene.setRoot(root);
+
+            // pour ajuster la taille de la fenêtre
+            // stage.sizeToScene();
+
+
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 

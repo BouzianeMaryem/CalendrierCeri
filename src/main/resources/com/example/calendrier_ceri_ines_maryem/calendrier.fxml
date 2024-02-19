@@ -17,65 +17,65 @@
       <Pane id="monPanneau" layoutX="14.0" layoutY="47.0" prefHeight="487.0" prefWidth="200.0" styleClass="monPanneau" stylesheets="@appCalendrier.css">
          <children>
             <Circle fill="WHITE" layoutX="34.0" layoutY="59.0" radius="20.0" stroke="WHITE" strokeType="INSIDE" />
-            <Label fx:id="initialesText" layoutX="25.0" layoutY="51.0" text="MB" textAlignment="CENTER" />
+            <Label fx:id="initialesText" layoutX="28.0" layoutY="51.0" text="MB" textAlignment="CENTER" />
             <Text fx:id="prenomText" layoutX="62.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maryem" />
             <Text fx:id="nomText" layoutX="112.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="fonctionText" fill="#383838" layoutX="62.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etudiante" />
             <Line endX="91.60000610351562" layoutX="100.0" layoutY="103.0" startX="-91.60000610351562" />
             <Line endX="91.60000610351562" layoutX="101.0" layoutY="388.0" startX="-91.60000610351562" />
-            <Button layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="173.0" text="Aide                               ">
+            <Button fx:id="helpButton" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="173.0" text="Aide                               ">
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconHelp" fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@help.png" />
+                        <Image url="@images/noHover/helpWhite.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="17.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="167.0" text="Déconnexion               ">
+            <Button fx:id="DeconnexionButton" layoutX="17.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="167.0" text="Déconnexion               ">
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconDeconnexion" fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@logout.png" />
+                        <Image url="@images/noHover/deconnexionwhite.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <MenuButton layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" style="-fx-text-fill: white;" styleClass="Menubtn" text="Formation" textFill="WHITE">
+            <MenuButton  fx:id="formationButton" layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" style="-fx-text-fill: white;" styleClass="Menubtn" text="Formation" textFill="WHITE">
                <items>
                   <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 1" />
                   <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 2" />
                </items>
                <graphic>
-                  <ImageView fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconFormation" fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@formationIcone.png" />
+                        <Image url="@images/noHover/formationIconeWhite.png" />
                      </image>
                   </ImageView>
                </graphic>
             </MenuButton>
-            <MenuButton layoutX="6.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" styleClass="Menubtn" text="Enseignant">
+            <MenuButton fx:id="profButton" layoutX="6.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" styleClass="Menubtn" text="Enseignant">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                   <MenuItem mnemonicParsing="false" text="Action 2" />
                </items>
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconProf" fitHeight="26.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@profIcon.png" />
+                        <Image url="@images/noHover/profIconeWhite.png" />
                      </image>
                   </ImageView>
                </graphic>
             </MenuButton>
-            <MenuButton layoutX="6.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="Salle            ">
+            <MenuButton fx:id="salleButton" layoutX="6.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="Salle            ">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                   <MenuItem mnemonicParsing="false" text="Action 2" />
                </items>
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="iconSalle" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@salleIcon.png" />
+                        <Image url="@images/noHover/salleIconeWhite.png" />
                      </image>
                   </ImageView>
                </graphic>
