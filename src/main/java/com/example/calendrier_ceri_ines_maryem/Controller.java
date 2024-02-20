@@ -4,8 +4,13 @@ import javafx.scene.layout.StackPane;
 import java.util.Objects;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import java.util.HashMap;
+import javafx.fxml.FXMLLoader;
+import java.io.IOException;
+
+
 import java.util.Map;
 import java.time.LocalTime;
+import javafx.scene.layout.BorderPane;
 
 import javafx.geometry.Insets;
 
@@ -22,6 +27,9 @@ import java.util.Locale;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
@@ -40,6 +48,7 @@ import java.time.DayOfWeek;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.time.LocalDate;
+import javafx.scene.control.ScrollPane;
 
 public class Controller {
 
@@ -50,16 +59,31 @@ public class Controller {
     private Text displayedWeekText;
     @FXML
     private LocalDate currentWeekStart = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
+    private final int gridStartHour = 8; // Début de la grille à 8 heures
+    private final int gridEndHour = 19; // Fin de la grille à 19 heures
+    private final int rowsPerHour = 1; // Nombre de lignes par heure, pour les segments de 30 minutes
 
 
 
+    private void displayHours(int startHour, int endHour) {
+        for (int hour = startHour; hour <= endHour; hour++) {
+            gridPane.setVgap(0);
 
-
+            String hourText = String.format("%02d:00", hour);
+            Text textNode = new Text(hourText);
+            StackPane cellPane = new StackPane();
+            cellPane.getChildren().add(textNode);
+            cellPane.setStyle("-fx-background-color: #41c039; -fx-border-color: #72ef5d; -fx-border-width: 0 0 1 1;");
+            cellPane.setPadding(new Insets(5));
+            // Note: on suppose que la première rangée est réservée pour les noms des jours de la semaine
+            gridPane.add(cellPane, 0, hour - startHour + 1); // +1 pour ajuster avec la rangée des jours
+        }
+    }
 
 
     @FXML
     public void initialize() {
-        // Assurez-vous que currentWeekStart est initialisé ici ou dans un bloc d'initialisation
+
         updateDisplayedWeekText();
         loadWeekEvents();
     }
@@ -68,7 +92,7 @@ public class Controller {
     @FXML
     public void loadWeekEvents() {
         new Thread(() -> {
-            // Désactiver la validation stricte
+
             System.setProperty("net.fortuna.ical4j.parsing.relaxed", "true");
             System.setProperty("net.fortuna.ical4j.validation.relaxed", "true");
             System.setProperty("net.fortuna.ical4j.unfolding.relaxed", "true");
@@ -123,12 +147,13 @@ public class Controller {
     }
 
     private void updateDisplayedWeekText() {
-        System.out.println("Current Week Start: " + currentWeekStart);
-        displayedWeekText.setText(
-                String.format("Semaine du %s au %s",
-                        currentWeekStart.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                        currentWeekStart.plusDays(4).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-        );
+        if (displayedWeekText != null) {
+            displayedWeekText.setText(
+                    String.format("Semaine du %s au %s",
+                            currentWeekStart.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                            currentWeekStart.plusDays(4).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+            );
+        }
     }
 
     private int calculateGridStartTime(Calendar calendar) {
@@ -154,36 +179,29 @@ public class Controller {
     }
 
 
-    private void displayEvents(Calendar calendar, int gridStartTime) {
-        // Définissez les noms des jours de la semaine dans l'ordre souhaité
-        String[] daysOfWeek = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"};
-
-        int gridStartHour = 8; // Début de la journée à 8h
-        int gridEndHour = 19; // Fin de la journée à 19h
-
+    private void displayEvents(Calendar calendar,int gridStartTime) {
         ZoneId zoneId = ZoneId.systemDefault();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
-
         int currentWeekNumber = currentWeekStart.get(weekFields.weekOfWeekBasedYear());
+
+        // Déclaration du tableau avec les noms des jours de la semaine
+        String[] daysOfWeek = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"};
 
         Platform.runLater(() -> {
             gridPane.getChildren().clear();
+            displayHours(gridStartHour, gridEndHour);
 
-            // Ajoutez les jours de la semaine dans la première ligne de la grille
+            // Ajoute les jours de la semaine dans la première ligne de la grille
             for (int i = 0; i < daysOfWeek.length; i++) {
                 Text dayText = new Text(daysOfWeek[i]);
                 StackPane cellPane = new StackPane();
                 cellPane.getChildren().add(dayText);
-                cellPane.setStyle("-fx-background-color: #e0e0e0; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 1;");
+                cellPane.setStyle("-fx-background-color: #7ace5e; -fx-border-color: #94e058; -fx-border-width: 0 0 1 1;");
                 cellPane.setPadding(new Insets(5));
-                gridPane.add(cellPane, i + 1, 0); // Commencez à partir de la deuxième colonne
+                gridPane.add(cellPane, i + 1, 0); // +1 pour ajuster avec la rangée des jours
             }
 
-            // Map pour suivre la dernière ligne utilisée pour chaque heure et jour
-            Map<LocalDate, Map<LocalTime, Integer>> lastUsedRowByTimeAndDay = new HashMap<>();
-
-            // Ajouter des événements au GridPane
             calendar.getComponents().forEach(component -> {
                 if (component instanceof VEvent) {
                     VEvent event = (VEvent) component;
@@ -194,49 +212,50 @@ public class Controller {
                         LocalDateTime startDate = LocalDateTime.ofInstant(start.getDate().toInstant(), zoneId);
                         LocalDateTime endDate = LocalDateTime.ofInstant(event.getEndDate().getDate().toInstant(), zoneId);
 
-                        int eventWeekNumber = startDate.get(weekFields.weekOfWeekBasedYear());
-                        if (eventWeekNumber == currentWeekNumber) {
-                            int dayOfWeek = startDate.getDayOfWeek().getValue();
-                            LocalDate date = startDate.toLocalDate();
-                            LocalTime time = startDate.toLocalTime();
+                        // Calcul de l'index de la ligne de début et de fin de l'événement
+                        int eventStartIndex = (startDate.getHour() - gridStartHour) * rowsPerHour;
+                        if (startDate.getMinute() >= 30) {
+                            eventStartIndex += 1; // Ajouter une demi-heure si nécessaire
+                        }
 
-                            int rowIndex = lastUsedRowByTimeAndDay
-                                    .computeIfAbsent(date, k -> new HashMap<>())
-                                    .compute(time, (k, v) -> (v == null) ? 1 : v + 1);
+                        int eventEndIndex = (endDate.getHour() - gridStartHour) * rowsPerHour;
+                        if (endDate.getMinute() > 0) {
+                            eventEndIndex += 1; // Ajouter une demi-heure si nécessaire
+                        }
 
-                            // Correction : Assurez-vous que rowIndex commence au bon endroit
-                            rowIndex += (time.getHour() - gridStartHour) * 2; // Multiplier par 2 si chaque heure est divisée en 2 rangées (30 min chacune)
+                        // Calcul de la durée de l'événement en nombre de rangées
+                        int eventDurationRows = eventEndIndex - eventStartIndex;
 
-                            if (dayOfWeek >= 1 && dayOfWeek <= 5 && time.getHour() >= gridStartHour && time.getHour() <= gridEndHour) {
-                                String eventName = summary.getValue();
-                                String startTime = startDate.format(timeFormatter);
-                                String endTime = endDate.format(timeFormatter);
-                                String[] eventDetailsArray = String.format("%s\n%s - %s", eventName, startTime, endTime).split("\\s+");
-                                StringBuilder eventDetailsBuilder = new StringBuilder();
-                                int wordCount = 0;
-                                for (String word : eventDetailsArray) {
-                                    if (wordCount >= 4) {
-                                        eventDetailsBuilder.append("\n"); // Nouvelle ligne après 4 mots
-                                        wordCount = 0;
-                                    }
-                                    eventDetailsBuilder.append(word).append(" ");
-                                    wordCount++;
+                        if (startDate.get(WeekFields.of(Locale.FRANCE).weekOfWeekBasedYear()) == currentWeekNumber) {
+                            String eventName = summary.getValue();
+                            String eventDetails = String.format("%s\n%s - %s", eventName, startDate.format(timeFormatter), endDate.format(timeFormatter));
+
+                            // Traitement des détails de l'événement pour une meilleure présentation
+                            String[] eventDetailsArray = eventDetails.split("\\s+");
+                            StringBuilder eventDetailsBuilder = new StringBuilder();
+                            int wordCount = 0;
+                            for (String word : eventDetailsArray) {
+                                if (wordCount >= 4) {
+                                    eventDetailsBuilder.append("\n"); // Nouvelle ligne après 4 mots
+                                    wordCount = 0;
                                 }
-                                Text eventText = new Text(eventDetailsBuilder.toString().trim());
-                                eventText.setStyle("-fx-font-size: 12px; -fx-fill: black;");
-                                StackPane cellPane = new StackPane();
-                                cellPane.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 1;");
-                                cellPane.getChildren().add(eventText);
-                                cellPane.setPadding(new Insets(5));
-
-                                // Ajouter l'événement à partir de la deuxième colonne
-                                gridPane.add(cellPane, dayOfWeek, rowIndex);
+                                eventDetailsBuilder.append(word).append(" ");
+                                wordCount++;
                             }
+
+                            Text eventText = new Text(eventDetailsBuilder.toString().trim());
+                            eventText.setStyle("-fx-font-size: 8px; -fx-fill: black;");
+                            StackPane eventPane = new StackPane();
+                            eventPane.getChildren().add(eventText);
+                            eventPane.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #cccccc;");
+                            eventPane.setPadding(new Insets(3));
+
+                            // Ajouter l'événement à la grille
+                            gridPane.add(eventPane, startDate.getDayOfWeek().getValue(), eventStartIndex + 1, 1, eventDurationRows);
                         }
                     }
                 }
             });
         });
     }
-
 }
