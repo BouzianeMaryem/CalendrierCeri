@@ -1,0 +1,87 @@
+.filtre {
+-fx-background-color: #2E3C49;
+-fx-background-radius: 40;
+-fx-border-color:linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+-fx-border-radius: 40;
+-fx-background-insets: 0;
+-fx-border-width: 3;
+        }
+.monPanneau {
+-fx-background-color: #2E3C49;
+-fx-background-radius: 40;
+-fx-background-insets: 0;
+
+        }
+
+.button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.PanePere{
+   -fx-background-color:#1D2733;
+}
+
+.button:hover {
+    -fx-text-fill: black;
+    -fx-background-radius: 40;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+    -fx-font-weight: bold;
+}
+.line-color{
+ -fx-stroke: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+
+}
+.modeButton:hover{
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+        -fx-text-fill: black;
+        -fx-background-radius: 40;
+
+}
+.button:pressed {
+    -fx-background-radius: 40;
+    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+    -fx-font-weight: bold;
+}
+#initialesText, #prenomText, #nomText, #fonctionText {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+.Menubtn{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.Menubtn:hover {
+    -fx-background-radius: 40;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+}
+#circleContainer{
+-fx-border-color:linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+-fx-border-width: 10;
+-fx-border-radius: 40;
+}
+
+.menu-item .label {
+    -fx-pref-width: 170px;
+}
+
+
+
+.Menubtn .label {
+    -fx-text-fill: white;
+}
+
+.Menubtn:hover .label{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.Menubtn:hover .{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}

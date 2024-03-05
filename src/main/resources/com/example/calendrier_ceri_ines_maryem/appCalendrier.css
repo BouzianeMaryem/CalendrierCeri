@@ -11,6 +11,9 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+.PanePere{
+   -fx-background-color:white;
+}
 
 
 .button:hover {

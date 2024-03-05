@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class AppPageController {
@@ -51,6 +52,18 @@ public class AppPageController {
     private ImageView iconProf;
     @FXML
     private MenuButton profButton;
+    //dark mode
+    @FXML
+    private Pane bigPane;
+
+    @FXML
+    private Button darkMode;
+
+    @FXML
+    private ImageView iconeMode;
+
+    // Supposons que c'est le mode initial
+    private boolean isDarkMode = false;
     public void initialize() {
         // configuration icone help
         Image imageNormalHelp = new Image(getClass().getResourceAsStream("images/noHover/helpWhite.png"));
@@ -83,7 +96,24 @@ public class AppPageController {
 
         profButton.setOnMouseEntered(e -> iconProf.setImage(imageHoverprof)); // Change to hover image
         profButton.setOnMouseExited(e -> iconProf.setImage(imageNormalprof)); // Revert to normal image
+        // Configurer le gestionnaire d'événements pour le bouton darkMode
+        darkMode.setOnAction(event -> toggleDarkMode());
 
+    }
+    private void toggleDarkMode() {
+        if (isDarkMode) {
+            // Passer au mode clair
+            bigPane.getStylesheets().clear();
+            bigPane.getStylesheets().add(getClass().getResource("appCalendrier.css").toExternalForm());
+            iconeMode.setImage(new Image(getClass().getResourceAsStream("images/nightMode.png")));
+            isDarkMode = false;
+        } else {
+            // Passer au mode sombre
+            bigPane.getStylesheets().clear();
+            bigPane.getStylesheets().add(getClass().getResource("darkMode.css").toExternalForm());
+            iconeMode.setImage(new Image(getClass().getResourceAsStream("images/lightMode.png")));
+            isDarkMode = true;
+        }
     }
     }
 

@@ -12,17 +12,24 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="973.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.AppPageController">
+<Pane fx:id="bigPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="973.0" styleClass="PanePere" stylesheets="@appCalendrier.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.AppPageController">
    <children>
-      <Pane id="monPanneau" layoutX="14.0" layoutY="47.0" prefHeight="487.0" prefWidth="200.0" styleClass="monPanneau" stylesheets="@appCalendrier.css">
+      <Pane id="monPanneau" layoutX="14.0" layoutY="47.0" prefHeight="487.0" prefWidth="200.0" styleClass="monPanneau">
          <children>
-            <Circle fill="WHITE" layoutX="34.0" layoutY="59.0" radius="20.0" stroke="WHITE" strokeType="INSIDE" />
-            <Label fx:id="initialesText" layoutX="28.0" layoutY="51.0" text="MB" textAlignment="CENTER" />
-            <Text fx:id="prenomText" layoutX="62.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maryem" />
+            <Pane fx:id="circleContainer" layoutX="13.0" layoutY="34.0" prefHeight="50" prefWidth="50" styleClass="gradient-border">
+               <children>
+                  <Circle fill="WHITE" layoutX="25.0" layoutY="25.0" radius="20" />
+               </children>
+            </Pane>
+
+
+
+            <Label fx:id="initialesText" layoutX="32.0" layoutY="51.0" text="MB" textAlignment="CENTER" />
+            <Text fx:id="prenomText" layoutX="71.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maryem" />
             <Text fx:id="nomText" layoutX="112.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text fx:id="fonctionText" fill="#383838" layoutX="62.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etudiante" />
-            <Line endX="91.60000610351562" layoutX="100.0" layoutY="103.0" startX="-91.60000610351562" />
-            <Line endX="91.60000610351562" layoutX="101.0" layoutY="388.0" startX="-91.60000610351562" />
+            <Text fx:id="fonctionText" fill="#383838" layoutX="71.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etudiante" />
+            <Line styleClass="line-color" endX="91.60000610351562" layoutX="100.0" layoutY="103.0" startX="-91.60000610351562" />
+            <Line styleClass="line-color" endX="91.60000610351562" layoutX="101.0" layoutY="388.0" startX="-91.60000610351562" />
             <Button fx:id="helpButton" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="173.0" text="Aide                               ">
                <graphic>
                   <ImageView fx:id="iconHelp" fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
@@ -41,7 +48,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <MenuButton  fx:id="formationButton" layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" style="-fx-text-fill: white;" styleClass="Menubtn" text="Formation" textFill="WHITE">
+            <MenuButton fx:id="formationButton" layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" style="-fx-text-fill: white;" styleClass="Menubtn" text="Formation" textFill="WHITE">
                <items>
                   <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 1" />
                   <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 2" />
@@ -81,7 +88,7 @@
                </graphic>
             </MenuButton>
          </children></Pane>
-      <Pane layoutX="455.0" layoutY="27.0" prefHeight="40.0" prefWidth="167.0" styleClass="filtre" stylesheets="@appCalendrier.css">
+      <Pane layoutX="455.0" layoutY="27.0" prefHeight="40.0" prefWidth="167.0" styleClass="filtre">
          <children>
             <Button layoutX="8.0" layoutY="8.0" mnemonicParsing="false" styleClass="Jfiltre" text="Jour" />
             <Button layoutX="59.0" layoutY="8.0" mnemonicParsing="false" styleClass="Mfiltre" text="Mois" />
@@ -124,5 +131,14 @@
             </TextFlow>
          </children>
       </Pane>
+      <Button fx:id="darkMode" styleClass="modeButton" layoutX="847.0" layoutY="26.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="84.0">
+         <graphic>
+            <ImageView fx:id="iconeMode" fitHeight="35.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/nightMode.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </Pane>
