@@ -8,8 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.scene.input.KeyCode;
 
-public class AppPageController {
+public class PrincipaleControlleur {
 
     @FXML
     private Text nomText;
@@ -98,6 +99,22 @@ public class AppPageController {
         profButton.setOnMouseExited(e -> iconProf.setImage(imageNormalprof)); // Revert to normal image
         // Configurer le gestionnaire d'événements pour le bouton darkMode
         darkMode.setOnAction(event -> toggleDarkMode());
+
+        bigPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) { // La scène est maintenant disponible
+                newValue.setOnKeyPressed(event -> {
+                    if (event.isControlDown() && event.getCode() == KeyCode.D) {
+                        // Vérifie si Ctrl+D est pressé pour activer le mode sombre
+                        isDarkMode = false; // Assurez-vous que le mode sombre est désactivé avant de basculer
+                        toggleDarkMode();
+                    } else if (event.isControlDown() && event.getCode() == KeyCode.L) {
+                        // Vérifie si Ctrl+L est pressé pour activer le mode clair
+                        isDarkMode = true; // Assurez-vous que le mode sombre est activé avant de basculer
+                        toggleDarkMode();
+                    }
+                });
+            }
+        });
 
     }
     private void toggleDarkMode() {
