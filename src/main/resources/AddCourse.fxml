@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.calendrier_ceri_ines_maryem.EventDialogController"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@style1.css">
+
+    <VBox spacing="10" alignment="CENTER" layoutX="100" layoutY="50" styleClass="vbox">
+        <AnchorPane.leftAnchor>20.0</AnchorPane.leftAnchor>
+        <AnchorPane.rightAnchor>20.0</AnchorPane.rightAnchor>
+        <AnchorPane.topAnchor>20.0</AnchorPane.topAnchor>
+        <AnchorPane.bottomAnchor>20.0</AnchorPane.bottomAnchor>
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <!-- Ajout du titre au formulaire -->
+        <Label text="Ajouter un cours" styleClass="form-title"/>
+
+        <TextField fx:id="dateDebutField" promptText="Date de début"/>
+        <TextField fx:id="heureDebutField" promptText="Heure de début"/>
+        <TextField fx:id="dateFinField" promptText="Date de fin"/>
+        <TextField fx:id="heureFinField" promptText="Heure de fin"/>
+        <TextField fx:id="summaryField" promptText="Résumé"/>
+        <TextField fx:id="typeField" promptText="Type"/>
+        <TextField fx:id="matiereField" promptText="Matière"/>
+        <TextField fx:id="enseignantField" promptText="Enseignant"/>
+        <TextField fx:id="salleField" promptText="Salle"/>
+        <TextField fx:id="TDField" promptText="TD"/>
+        <TextField fx:id="couleur" promptText="couleur"/>
+        <Button text="Ajouter" onAction="#handleSubmit"/>
+    </VBox>
+
+
+</AnchorPane>

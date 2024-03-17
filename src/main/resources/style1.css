@@ -1,0 +1,63 @@
+/* Style général de l'arrière-plan de l'application */
+.anchor-pane {
+    -fx-background-color: #ffffff; /* Fond blanc pour tout l'arrière-plan */
+}
+
+/* Style du VBox pour bien centrer le formulaire et ajouter un peu de style */
+.vbox {
+    -fx-background-color: #FAFAFA; /* Couleur de fond légèrement grisée pour le formulaire */
+    -fx-background-radius: 15px; /* Coins arrondis pour le formulaire */
+    -fx-padding: 20px; /* Espacement intérieur pour ne pas coller aux bords */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 10); /* Ombre douce pour le relief */
+    -fx-alignment: center; /* Centre les éléments à l'intérieur */
+}
+
+/* Style des champs de texte pour les rendre plus attractifs */
+.text-field {
+    -fx-min-width: 250px; /* Assure une largeur minimale pour la lisibilité */
+    -fx-padding: 10px; /* Plus d'espace à l'intérieur pour la saisie */
+    -fx-border-radius: 5px; /* Coins arrondis */
+    -fx-background-radius: 5px; /* Assure que l'arrière-plan est aussi arrondi */
+    -fx-border: 2px solid #CCCCCC; /* Bordure plus visible mais élégante */
+}
+
+/* Amélioration du style du bouton pour qu'il soit plus engageant */
+.button {
+    -fx-background-color: #4CAF50; /* Vert attrayant */
+    -fx-text-fill: white; /* Texte en blanc pour contraster avec le fond vert */
+    -fx-padding: 10px 20px; /* Plus d'espacement à l'intérieur pour une meilleure ergonomie */
+    -fx-border-radius: 5px; /* Coins arrondis */
+    -fx-background-radius: 5px; /* Assure que l'arrière-plan est arrondi comme la bordure */
+    -fx-font-weight: bold; /* Rend le texte du bouton plus lisible */
+}
+
+/* Style supplémentaire pour le bouton lorsqu'il est survolé par la souris */
+.button:hover {
+    -fx-background-color: #367B37; /* Assombrit le bouton pour indiquer qu'il est interactif */
+}
+
+/* Style du VBox ajusté pour centrer le formulaire un peu plus précisément */
+.vbox {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 15px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 10);
+    -fx-alignment: center;
+    -fx-translate-y: -30%; /* Ajustement pour pousser vers le haut */
+}
+
+/* Style des champs de texte ajusté pour une taille plus petite */
+.text-field {
+    -fx-min-width: 200px; /* Largeur réduite pour les champs de texte */
+    -fx-padding: 8px; /* Padding légèrement réduit */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border: 2px solid #CCCCCC;
+}
+/* Style pour le titre du formulaire */
+.form-title {
+    -fx-font-size: 20px; /* Taille de police pour le titre */
+    -fx-font-weight: bold; /* Rendre le titre plus visible */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-padding: 0 0 10px 0; /* Espacement pour séparer du premier champ */
+}

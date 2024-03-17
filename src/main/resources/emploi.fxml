@@ -2,38 +2,465 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.Controller" >
-
+<BorderPane prefHeight="585.0" prefWidth="771.0" styleClass="semaineGrille" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.Controller">
     <top>
-        <HBox alignment="CENTER" spacing="5" style="-fx-padding: 5; -fx-background-color: #72ef5d;">
-            <Button fx:id="previousWeekButton" text="Semaine précédente" onAction="#loadPreviousWeek" style="-fx-background-color: lightgray;"/>
-
-            <Text fx:id="displayedWeekText" text="Semaine du XX au YY" style="-fx-fill: white;"/>
-            <Button  fx:id="nextWeekButton" text="Semaine suivante" onAction="#loadNextWeek" style="-fx-background-color: lightgray;"/>
-            <Button fx:id="dailyViewButton" text="Par jour" onAction="#loadDailyView" style="-fx-background-color: lightgray;"/>
-            <Button fx:id="previousDayButton" text="Jour précédent" onAction="#loadPreviousDay" visible="false" style="-fx-background-color: lightgray;"/>
-            <Button fx:id="nextDayButton" text="Jour suivant" onAction="#loadNextDay" visible="false" style="-fx-background-color: lightgray;"/>
+        <HBox alignment="CENTER" prefHeight="26.0" prefWidth="740.0" spacing="5" styleClass="semaineHeader">
+            <Button fx:id="previousWeekButton" onAction="#loadPreviousWeek" styleClass="semaineBtn" text="&lt;" />
+            <Text fx:id="displayedWeekText" fill="#10ac18" styleClass="semainetitre" text="Du 11 - 15 mars 2024" />
+            <Button fx:id="nextWeekButton" maxWidth="41.0" minHeight="11.0" onAction="#loadNextWeek" prefHeight="11.0" prefWidth="41.0" styleClass="semaineBtn" text="&gt;" />
+            <Button fx:id="addEventButton" onAction="#addNewEvent" text="Add Event" />
 
         </HBox>
 
     </top>
     <center>
-        <ScrollPane fitToWidth="true">
-            <content>
-                <GridPane fx:id="gridPane" hgap="5" vgap="5" style="-fx-background-color: #eaeaea;">
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
-                </GridPane>
-            </content>
-        </ScrollPane>
-    </center>
+        <GridPane fx:id="dynamicGridPane" gridLinesVisible="false" minHeight="50" prefHeight="559.0" prefWidth="741.0">
+            <padding>
+                <Insets bottom="30" left="0" right="20" top="20" />
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="6.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="18.8" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="18.8" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="18.8" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="18.8" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="18.8" />
+            </columnConstraints>
 
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="38.000003814697266" minHeight="26.800003051757812" percentHeight="4.1666" prefHeight="32.4000129699707" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="16.199996948242188" minHeight="4.999996185302734" percentHeight="4.1666" prefHeight="10.599987030029297" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints percentHeight="4.1666" vgrow="ALWAYS" />
+                <RowConstraints />
+            </rowConstraints>
+
+            <!-- Example for the first two rows with different colors -->
+            <!-- Row 0 -->
+            <Pane styleClass="row-color-0" GridPane.rowIndex="8">
+                <Label />
+            </Pane>
+            <Pane prefHeight="28.0" prefWidth="107.0" styleClass="row-color-0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                <Label layoutX="61.0" layoutY="-10.0" styleClass="labelJour" text="11" />
+                <Label layoutX="54.0" layoutY="3.0" styleClass="jourEcrit" text="Lundi" />
+            </Pane>
+            <Pane styleClass="row-color-0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                <children>
+                    <Label layoutX="53.0" layoutY="4.0" styleClass="jourEcrit" text="Mardi" />
+                    <Label layoutX="59.0" layoutY="-9.0" styleClass="labelJour" text="12" />
+                </children>
+            </Pane>
+            <Pane styleClass="row-color-0" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                <children>
+                    <Label layoutX="46.0" layoutY="3.0" styleClass="jourEcrit" text="Mercredi" />
+                    <Label layoutX="61.0" layoutY="-10.0" styleClass="labelJour" text="13" />
+                </children>
+            </Pane>
+            <Pane styleClass="row-color-0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                <children>
+                    <Label layoutX="49.0" layoutY="4.0" styleClass="jourEcrit" text="Jeudi" />
+                    <Label layoutX="52.0" layoutY="-11.0" styleClass="labelJour" text="14" />
+                </children>
+            </Pane>
+
+            <Pane styleClass="row-color-0" GridPane.columnIndex="5" GridPane.rowIndex="8">
+                <children>
+                    <Label layoutX="52.0" layoutY="2.0" styleClass="jourEcrit" text="Vendredi" />
+                    <Label layoutX="65.0" layoutY="-10.0" styleClass="labelJour" text="15" />
+                </children>
+            </Pane>
+            <!-- row 1-->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="9">
+                <Label styleClass="labelHeure" text="8:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="9">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="9">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="9">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="9">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 8:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="10">
+                <Label text=" " /> <!-- 8:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="10">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="10">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="10">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="10">
+            </Pane>
+            <!-- end row 2 / 8:30 -->
+
+            <!-- row 1 9:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="11">
+                <Label styleClass="labelHeure" text="9:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="11">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="11">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="11">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="11">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="11">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 9:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="12">
+                <Label text=" " /> <!-- 9:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="12">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="12">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="12">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="12">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="12">
+            </Pane>
+            <!-- end row 2 / 9:30 -->
+
+            <!-- row 1 /10:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="13">
+                <Label styleClass="labelHeure" text="10:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="13">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="13">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="13">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="13">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="13">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 10:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="14">
+                <Label text=" " /> <!-- 10:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="14">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="14">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="14">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="14">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="14">
+            </Pane>
+            <!-- end row 2 / 10:30 -->
+
+            <!-- row 1 /11:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="15">
+                <Label styleClass="labelHeure" text="11:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="15">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="15">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="15">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="15">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="15">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 11:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="16">
+                <Label text=" " /> <!-- 11:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="16">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="16">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="16">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="16">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="16">
+            </Pane>
+            <!-- end row 2 / 11:30 -->
+
+            <!-- row 1 /12:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="17">
+                <Label styleClass="labelHeure" text="12:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="17">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="17">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="17">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="17">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="17">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 12:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="18">
+                <Label text=" " /> <!-- 12:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="18">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="18">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="18">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="18">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="18">
+            </Pane>
+            <!-- end row 2 / 12:30 -->
+
+            <!-- row 1 /13:00 -->
+            <Pane prefHeight="22.0" prefWidth="82.0" styleClass="row-color-1" GridPane.rowIndex="19">
+                <Label styleClass="labelHeure" text="13:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="19">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="19">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="19">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="19">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="19">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 13:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="20">
+                <Label text=" " /> <!-- 13:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="20">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="20">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="20">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="20">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="20">
+            </Pane>
+            <!-- end row 2 / 13:30 -->
+
+            <!-- row 1 /14:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="21">
+                <Label styleClass="labelHeure" text="14:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="21">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="21">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="21">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="21">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="21">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 14:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="22">
+                <Label text=" " /> <!-- 14:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="22">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="22">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="22">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="22">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="22">
+            </Pane>
+            <!-- end row 2 / 14:30 -->
+
+            <!-- row 1 /15:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="23">
+                <Label styleClass="labelHeure" text="15:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="23">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="23">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="23">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="23">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="23">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 15:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="24">
+                <Label text=" " /> <!-- 15:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="24">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="24">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="24">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="24">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="24">
+            </Pane>
+            <!-- end row 2 / 15:30 -->
+
+            <!-- row 1 /16:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="25">
+                <Label styleClass="labelHeure" text="16:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="25">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="25">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="25">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="25">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="25">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 16:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="26">
+                <Label text=" " /> <!-- 16:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="26">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="26">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="26">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="26">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="26">
+            </Pane>
+            <!-- end row 2 / 16:30 -->
+
+            <!-- row 1 /17:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="27">
+                <Label styleClass="labelHeure" text="17:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="27">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="27">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="27">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="27">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="27">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 17:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="28">
+                <Label text=" " /> <!-- 17:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="28">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="28">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="28">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="28">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="28">
+            </Pane>
+            <!-- end row 2 / 17:30 -->
+
+            <!-- row 1 /18:00 -->
+            <Pane styleClass="row-color-1" GridPane.rowIndex="29">
+                <Label styleClass="labelHeure" text="18:00" />
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="1" GridPane.rowIndex="29">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="2" GridPane.rowIndex="29">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="3" GridPane.rowIndex="29">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="4" GridPane.rowIndex="29">
+            </Pane>
+            <Pane styleClass="row-color-1" GridPane.columnIndex="5" GridPane.rowIndex="29">
+            </Pane>
+            <!-- end row 1-->
+            <!-- row 2 / 18:30 -->
+            <Pane styleClass="row-color-2" GridPane.rowIndex="30">
+                <Label text=" " /> <!-- 18:30 -->
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="1" GridPane.rowIndex="30">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="2" GridPane.rowIndex="30">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="3" GridPane.rowIndex="30">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="4" GridPane.rowIndex="30">
+            </Pane>
+            <Pane styleClass="row-color-2" GridPane.columnIndex="5" GridPane.rowIndex="30">
+            </Pane>
+            <!-- end row 2 / 18:30 -->
+            <!-- row 1 /19:00 -->
+            <Pane styleClass="row-color-last" GridPane.rowIndex="31">
+                <Label styleClass="labelHeure" text="19:00" />
+            </Pane>
+            <Pane styleClass="row-color-last" GridPane.columnIndex="1" GridPane.rowIndex="31">
+            </Pane>
+            <Pane styleClass="row-color-last" GridPane.columnIndex="2" GridPane.rowIndex="31">
+            </Pane>
+            <Pane styleClass="row-color-last" GridPane.columnIndex="3" GridPane.rowIndex="31">
+            </Pane>
+            <Pane styleClass="row-color-last" GridPane.columnIndex="4" GridPane.rowIndex="31">
+            </Pane>
+            <Pane styleClass="row-color-last" GridPane.columnIndex="5" GridPane.rowIndex="31">
+            </Pane>
+            <!-- end row 1/ 19:00-->
+        </GridPane>
+    </center>
 </BorderPane>
