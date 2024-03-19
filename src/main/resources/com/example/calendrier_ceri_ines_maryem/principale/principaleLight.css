@@ -1,0 +1,94 @@
+.sidebar-margin {
+    -fx-padding: 0 0 50 10;
+}
+
+.sidebar ,.optionJour{
+        -fx-background-radius: 40;
+        -fx-background-insets: 0;
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+        -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
+}
+.Menubtn{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.Menubtn:hover {
+    -fx-background-radius: 40;
+    -fx-background-color: white;
+}
+.PanePere{
+   -fx-background-color:#fff;
+}
+
+.sidebar-margin .button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+.sidebar-margin .button:hover {
+    -fx-text-fill: black;
+    -fx-background-radius: 40;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+}
+
+.sidebar-margin .button:pressed {
+    -fx-background-radius: 40;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+}
+
+.header .button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+.header .button:hover {
+    -fx-text-fill: black;
+    -fx-background-radius: 40;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+}
+
+.header .button:pressed {
+    -fx-background-radius: 40;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+}
+.Menubtn{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.Menubtn:hover {
+    -fx-background-radius: 40;
+    -fx-background-color: white;
+}
+
+
+.menu-item .label {
+    -fx-pref-width: 170px;
+}
+
+
+
+.Menubtn .label {
+    -fx-text-fill: white;
+}
+
+.Menubtn:hover .label{
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
