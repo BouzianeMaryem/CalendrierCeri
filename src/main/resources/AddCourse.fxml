@@ -4,37 +4,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.calendrier_ceri_ines_maryem.EventDialogController"
             prefHeight="400.0" prefWidth="600.0" stylesheets="@style1.css">
 
-    <VBox spacing="10" alignment="CENTER" layoutX="100" layoutY="50" styleClass="vbox">
-        <AnchorPane.leftAnchor>20.0</AnchorPane.leftAnchor>
-        <AnchorPane.rightAnchor>20.0</AnchorPane.rightAnchor>
-        <AnchorPane.topAnchor>20.0</AnchorPane.topAnchor>
-        <AnchorPane.bottomAnchor>20.0</AnchorPane.bottomAnchor>
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-        </padding>
-
-        <!-- Ajout du titre au formulaire -->
+    <!-- Utilisation d'AnchorPane comme conteneur racine -->
+    <VBox fx:id="mainVBox" spacing="10" alignment="CENTER" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50">
         <Label text="Ajouter un cours" styleClass="form-title"/>
 
-        <TextField fx:id="dateDebutField" promptText="Date de début"/>
-        <TextField fx:id="heureDebutField" promptText="Heure de début"/>
-        <TextField fx:id="dateFinField" promptText="Date de fin"/>
-        <TextField fx:id="heureFinField" promptText="Heure de fin"/>
-        <TextField fx:id="summaryField" promptText="Résumé"/>
-        <TextField fx:id="typeField" promptText="Type"/>
-        <TextField fx:id="matiereField" promptText="Matière"/>
-        <TextField fx:id="enseignantField" promptText="Enseignant"/>
-        <TextField fx:id="salleField" promptText="Salle"/>
-        <TextField fx:id="TDField" promptText="TD"/>
-        <TextField fx:id="couleur" promptText="couleur"/>
-        <Button text="Ajouter" onAction="#handleSubmit"/>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+        </columnConstraints>
+            <TextField fx:id="heureDebutField" promptText="Heure de début" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="heureFinField" promptText="Heure de fin" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <TextField fx:id="dateDebutField" promptText="Date de début" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="dateFinField" promptText="Date de fin" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <TextField fx:id="summaryField" promptText="Résumé" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+            <TextField fx:id="TDField" promptText="TD" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="enseignantField" promptText="Enseignant" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <TextField fx:id="typeField" promptText="Type" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ColorPicker fx:id="couleurPicker" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="color-picker"/>
+
+            <TextField fx:id="matiereField" promptText="Matière" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="salleField" promptText="Salle" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Button text="Ajouter" onAction="#handleSubmit" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+        </GridPane>
     </VBox>
-
-
 </AnchorPane>

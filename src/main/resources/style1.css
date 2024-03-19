@@ -11,6 +11,18 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 10); /* Ombre douce pour le relief */
     -fx-alignment: center; /* Centre les éléments à l'intérieur */
 }
+.color-picker {
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.text-field, .color-picker {
+    -fx-min-width: 150px; /* Largeur minimale */
+    -fx-pref-width: 300px; /* Largeur préférée */
+    -fx-max-width: 600px; /* Largeur maximale */
+}
 
 /* Style des champs de texte pour les rendre plus attractifs */
 .text-field {
