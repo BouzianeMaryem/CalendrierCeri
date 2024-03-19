@@ -23,8 +23,8 @@ public class PrincipaleControlleur {
 
     public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
 
-        prenomText.setText(prenom+" "+nom); // Initialiser le Text du prénom avec le prénom de l'utilisateur
-        fonctionText.setText(fonction); // Initialiser le Text de la fonction avec la fonction de l'utilisateur
+        prenomText.setText(prenom+" "+nom);
+        fonctionText.setText(fonction);
         initialesText.setText(initiales);
     }
 //help
@@ -70,46 +70,45 @@ public class PrincipaleControlleur {
         Image imageNormalHelp = new Image(getClass().getResourceAsStream("images/noHover/helpWhite.png"));
         Image imageHoverHelp = new Image(getClass().getResourceAsStream("images/hover/help.png"));
 
-        helpButton.setOnMouseEntered(e -> iconHelp.setImage(imageHoverHelp)); // Change to hover image
-        helpButton.setOnMouseExited(e -> iconHelp.setImage(imageNormalHelp)); // Revert to normal image
+        helpButton.setOnMouseEntered(e -> iconHelp.setImage(imageHoverHelp));
+        helpButton.setOnMouseExited(e -> iconHelp.setImage(imageNormalHelp));
 
         //configuration icon deconnexion
         Image imageNormalDeconnexion = new Image(getClass().getResourceAsStream("images/noHover/deconnexionwhite.png"));
         Image imageHoverDeconnexion = new Image(getClass().getResourceAsStream("images/hover/deconnexionBlack.png"));
 
-        DeconnexionButton.setOnMouseEntered(e -> iconDeconnexion.setImage(imageHoverDeconnexion)); // Change to hover image
-        DeconnexionButton.setOnMouseExited(e -> iconDeconnexion.setImage(imageNormalDeconnexion)); // Revert to normal image
+        DeconnexionButton.setOnMouseEntered(e -> iconDeconnexion.setImage(imageHoverDeconnexion));
+        DeconnexionButton.setOnMouseExited(e -> iconDeconnexion.setImage(imageNormalDeconnexion));
         //configuration icon formation
         Image imageNormalformation = new Image(getClass().getResourceAsStream("images/noHover/formationIconeWhite.png"));
         Image imageHoverformation = new Image(getClass().getResourceAsStream("images/hover/formationIcone.png"));
 
-        formationButton.setOnMouseEntered(e -> iconFormation.setImage(imageHoverformation)); // Change to hover image
-        formationButton.setOnMouseExited(e -> iconFormation.setImage(imageNormalformation)); // Revert to normal image
+        formationButton.setOnMouseEntered(e -> iconFormation.setImage(imageHoverformation));
+        formationButton.setOnMouseExited(e -> iconFormation.setImage(imageNormalformation));
         //configuration icon salle
         Image imageNormalsalle = new Image(getClass().getResourceAsStream("images/noHover/salleIconeWhite.png"));
         Image imageHoversalle = new Image(getClass().getResourceAsStream("images/hover/salleIcon.png"));
 
-        salleButton.setOnMouseEntered(e -> iconSalle.setImage(imageHoversalle)); // Change to hover image
-        salleButton.setOnMouseExited(e -> iconSalle.setImage(imageNormalsalle)); // Revert to normal image
+        salleButton.setOnMouseEntered(e -> iconSalle.setImage(imageHoversalle));
+        salleButton.setOnMouseExited(e -> iconSalle.setImage(imageNormalsalle));
         //configuration icon prof
         Image imageNormalprof = new Image(getClass().getResourceAsStream("images/noHover/profIconeWhite.png"));
         Image imageHoverprof = new Image(getClass().getResourceAsStream("images/hover/profIcon.png"));
 
-        profButton.setOnMouseEntered(e -> iconProf.setImage(imageHoverprof)); // Change to hover image
-        profButton.setOnMouseExited(e -> iconProf.setImage(imageNormalprof)); // Revert to normal image
-        // Configurer le gestionnaire d'événements pour le bouton darkMode
+        profButton.setOnMouseEntered(e -> iconProf.setImage(imageHoverprof));
+        profButton.setOnMouseExited(e -> iconProf.setImage(imageNormalprof));
+
         darkMode.setOnAction(event -> toggleDarkMode());
 
         bigPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) { // La scène est maintenant disponible
+            if (newValue != null) {
                 newValue.setOnKeyPressed(event -> {
                     if (event.isControlDown() && event.getCode() == KeyCode.D) {
-                        // Vérifie si Ctrl+D est pressé pour activer le mode sombre
-                        isDarkMode = false; // Assurez-vous que le mode sombre est désactivé avant de basculer
+                        isDarkMode = false;
                         toggleDarkMode();
                     } else if (event.isControlDown() && event.getCode() == KeyCode.L) {
-                        // Vérifie si Ctrl+L est pressé pour activer le mode clair
-                        isDarkMode = true; // Assurez-vous que le mode sombre est activé avant de basculer
+
+                        isDarkMode = true;
                         toggleDarkMode();
                     }
                 });

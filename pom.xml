@@ -172,7 +172,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.calendrier_ceri_ines_maryem/com.example.calendrier_ceri_ines_maryem.HelloApplication
+                                com.example.calendrier_ceri_ines_maryem/com.example.calendrier_ceri_ines_maryem.CalendarApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
