@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane stylesheets="@mois.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.example.calendrier_ceri_ines_maryem.MoisControlleur">
+
+    <top>
+        <HBox alignment="CENTER" prefHeight="26.0" prefWidth="500.0" spacing="5" style="-fx-margin-bottom: 100;" styleClass="semaineHeader">
+            <padding>
+                <Insets top="0" right="0" bottom="20" left="0"/>
+            </padding>
+            <Button fx:id="previousMonthButton" onAction="#loadPreviousMonth" styleClass="moisBtn" text="&lt;" />
+            <Text fx:id="displayedMonthText" fill="#7bd759" styleClass="moistitre" text="Mars 2024" />
+            <Button fx:id="nextMonthButton" onAction="#loadNextMonth" styleClass="moisBtn" text="&gt;" />
+        </HBox>
+
+    </top>
+    <center>
+        <GridPane fx:id="dynamicGridPane" gridLinesVisible="false">
+                <columnConstraints>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
+                </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+            </rowConstraints>
+
+            <StackPane styleClass="row-color-0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <VBox alignment="CENTER">
+                    <Label styleClass="jourEcrit" text="Lundi" />
+                </VBox>
+            </StackPane>
+            <StackPane styleClass="row-color-0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <VBox alignment="CENTER">
+                    <Label styleClass="jourEcrit" text="Mardi" />
+                </VBox>
+            </StackPane>
+            <StackPane styleClass="row-color-0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <VBox alignment="CENTER">
+                    <Label styleClass="jourEcrit" text="Mercredi" />
+                </VBox>
+            </StackPane>
+            <StackPane styleClass="row-color-0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+
+                <VBox alignment="CENTER">
+                    <Label styleClass="jourEcrit" text="Jeudi" />
+                </VBox>
+            </StackPane>
+            <StackPane styleClass="row-color-0" GridPane.columnIndex="4" GridPane.rowIndex="0">
+
+                <VBox alignment="CENTER">
+                    <Label styleClass="jourEcrit" text="Vendredi" />
+                </VBox>
+            </StackPane>
+        </GridPane>
+    </center>
+</BorderPane>
