@@ -6,10 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-EventsCreateur :
-pour la creation de lists des evenements de fichier json et le lien en temps reel
- */
+
 public class EventsCreateur {
 
     public static List<CalendarEvent> creationListEventsJson(String jsonFilePath) {
