@@ -1,37 +1,24 @@
 package com.example.calendrier_ceri_ines_maryem;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-
 import java.io.IOException;
-
-import javafx.scene.layout.VBox;
-import java.time.DayOfWeek;
+import java.net.URL;
 import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import javafx.scene.control.Label;
-import javafx.geometry.Insets;
-import javafx.scene.layout.GridPane;
-import java.util.Optional;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.ButtonBar;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
 
 public class Controller implements Initializable {
     @FXML
@@ -45,7 +32,7 @@ public class Controller implements Initializable {
 
             Stage stage = new Stage();
             stage.setTitle("Ajouter un cours");
-            stage.setScene(new Scene(root,400,600));
+            stage.setScene(new Scene(root,480,360));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(dynamicGridPane.getScene().getWindow()); // Utilisez un élément UI présent pour obtenir la fenêtre
 
@@ -141,4 +128,3 @@ public class Controller implements Initializable {
         allEvents.forEach(this::addEventToCalendar); // Add events for the current week
     }
 }
-
