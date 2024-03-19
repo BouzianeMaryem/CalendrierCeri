@@ -15,7 +15,6 @@ public class CalendarEvent {
     private String enseignant;
     private boolean allDayEvent;
 
-    // Constructeur complet
     public CalendarEvent(String dateDebutStr, String dateFinStr, String heureDebutStr, String heureFinStr,
                          String summary, String type, String matiere, String enseignant, Boolean allDayEvent) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
