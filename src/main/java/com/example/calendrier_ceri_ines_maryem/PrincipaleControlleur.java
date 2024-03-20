@@ -3,8 +3,13 @@ package com.example.calendrier_ceri_ines_maryem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +41,8 @@ public class PrincipaleControlleur {
     private void onFormationM1_IA_CL() throws IOException {
         downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020091b8dcd18c4a880befa7fb87040d42d985c6fbcd0d3011d32156bb496675b547057ce8bd7ab394051c9dc7ddacf147330c2eb43c80b23b683441d94670e7378664fbde1a4c9b5d82690722604f6ede365c941a53","eventsM1-IA-CL.json");
         events = creationListEventsJson("eventsM1-IA-CL.json");
+        List<CalendarEvent> eventsajouts = creationListEventsJson("events.json");
+        events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
     }
 
@@ -95,5 +102,27 @@ public class PrincipaleControlleur {
         moisController.setEvents(events);
     }
 
+    @FXML
+    private void addNewEvent() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/AddCourse.fxml"));
+            Parent root = loader.load();
+
+            EventDialogController eventDialogController = loader.getController();
+            eventDialogController.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un cours");
+            stage.setScene(new Scene(root,480,360));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(mainPane.getScene().getWindow()); // Utilisez un élément UI présent pour obtenir la fenêtre
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

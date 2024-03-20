@@ -27,7 +27,7 @@ public class EventsCreateur {
                 String matiere = jsonObject.optString("Matière", "");
                 String salle = jsonObject.optString("Salle", "");
                 String enseignant = jsonObject.optString("Enseignant", "");
-                String color = jsonObject.optString("Color", "");
+                String color = jsonObject.optString("Couleur", "");
 
                 CalendarEvent event = new CalendarEvent(
                         dateDebut,

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.calendrier_ceri_ines_maryem.EventDialogController"
+            prefWidth="600.0" stylesheets="@style1.css">
+
+    <VBox fx:id="mainVBox" spacing="10" alignment="CENTER" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+        <Label text="Ajouter un cours" styleClass="form-title"/>
+
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <TextField fx:id="heureDebutField" promptText="Heure de début" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="heureFinField" promptText="Heure de fin" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <TextField fx:id="dateDebutField" promptText="Date de début" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="dateFinField" promptText="Date de fin" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <TextField fx:id="summaryField" promptText="Résumé" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+            <TextField fx:id="TDField" promptText="TD" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="enseignantField" promptText="Enseignant" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <TextField fx:id="typeField" promptText="Type" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ColorPicker fx:id="couleurPicker" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="color-picker"/>
+
+            <TextField fx:id="matiereField" promptText="Matière" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="salleField" promptText="Salle" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Button text="Ajouter" onAction="#handleSubmit" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+        </GridPane>
+    </VBox>
+</AnchorPane>

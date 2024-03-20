@@ -80,14 +80,7 @@ public class JourControlleur {
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
             eventButton.setStyle("-fx-text-fill: white;");
-            String styleClass = switch (event.getType()) {
-                case "TP" -> "event-tp";
-                case "CM" -> "event-cm";
-                case "TD" -> "event-td";
-                case "Evaluation" -> "event-evaluation";
-                default -> "event-autre";
-            };
-            eventButton.getStyleClass().add(styleClass);
+            applyEventStyle(event,eventButton);
             Tooltip tooltip = createEventTooltip(event);
             Tooltip.install(eventButton, tooltip);
 
@@ -102,7 +95,25 @@ public class JourControlleur {
             }
         }
     }
+    public void applyEventStyle(CalendarEvent event, Button eventButton) {
+        if (event.getColor().equals("")) {
+            String styleClass = switch (event.getType()) {
+                case "TP" -> "event-tp";
+                case "CM" -> "event-cm";
+                case "TD" -> "event-td";
+                case "Evaluation" -> "event-evaluation";
+                default -> "event-autre";
+            };
+            eventButton.getStyleClass().add(styleClass);
+        } else {
+            String hexColor = event.getColor();
 
+            double opacity = 0.9;
+
+            eventButton.setStyle(String.format("-fx-background-color: %s%02x;",
+                    hexColor, (int) (opacity * 255)));
+        }
+    }
 
     @FXML
     private void loadPreviousDay() {
