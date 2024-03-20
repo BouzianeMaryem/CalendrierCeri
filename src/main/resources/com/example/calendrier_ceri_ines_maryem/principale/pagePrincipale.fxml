@@ -26,13 +26,14 @@
                 <HBox alignment="CENTER_LEFT" prefHeight="137.0" prefWidth="165.0" spacing="10">
                     <Circle fill="#fffdfd" radius="20" styleClass="user-icon" />
                     <VBox>
+                  <VBox prefHeight="26.0" prefWidth="100.0" />
                         <Label />
                         <Label styleClass="user-name" text="Jane Smith" />
                         <Label styleClass="user-role" text="Designer" />
                     </VBox>
                 </HBox>
                 <Separator />
-                <VBox prefHeight="370.0" prefWidth="165.0" spacing="5">
+                <VBox prefHeight="154.0" prefWidth="176.0" spacing="5">
                     <MenuButton fx:id="formationButton" layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" styleClass="Menubtn" text="Formation">
                         <items>
                             <MenuItem mnemonicParsing="false" onAction="#onFormationM1_IA_CL" styleClass="MenuITM" text="M1-IA-CLA" />
@@ -74,6 +75,33 @@
                     </MenuButton>
                 </VBox>
                 <Separator />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="Filtrer" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" text="Filtre d'Evenements    ">
+                     <graphic>
+                        <ImageView fx:id="iconHelp1" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/noHover/filter_calendar_white.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <MenuButton fx:id="salleButton1" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="ajout d'activité">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="reserver une salle" />
+                        <MenuItem mnemonicParsing="false" text="ajouter un cours" />
+                     </items>
+                     <graphic>
+                        <ImageView fx:id="iconSalle1" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/noHover/add_calendar_white.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+               </children>
+            </VBox>
+            <Separator layoutX="25.0" layoutY="392.0" />
                 <VBox prefHeight="54.0" prefWidth="165.0" spacing="10">
                     <padding>
                         <Insets bottom="0" left="0" right="0" top="0" />
@@ -163,9 +191,9 @@
                 <padding>
                     <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
-                <Button fx:id="jourFilterButton" prefHeight="27.0" onAction="#onJourFilterButtonClicked"  prefWidth="50.0" styleClass="button-filter" text="Jour" />
+                <Button fx:id="jourFilterButton" onAction="#onJourFilterButtonClicked" prefHeight="27.0" prefWidth="50.0" styleClass="button-filter" text="Jour" />
                 <Button fx:id="semaineFilterButton" onAction="#onSemaineFilterButtonClicked" prefHeight="27.0" prefWidth="66.0" styleClass="button-filter" text="semaine" />
-                <Button fx:id="moisFilterButton"    onAction="#onMoisFilterButtonClicked" prefHeight="27.0" prefWidth="54.0" styleClass="button-filter" text="Mois" />
+                <Button fx:id="moisFilterButton" onAction="#onMoisFilterButtonClicked" prefHeight="27.0" prefWidth="54.0" styleClass="button-filter" text="Mois" />
             </HBox>
             <HBox prefHeight="38.0" prefWidth="142.0" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0">
