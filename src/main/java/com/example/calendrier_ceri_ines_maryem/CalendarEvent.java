@@ -16,8 +16,9 @@ public class CalendarEvent {
     private String enseignant;
     private String salle;
     private boolean allDayEvent;
+    String color;
     public CalendarEvent(String dateDebutStr, String dateFinStr, String heureDebutStr, String heureFinStr,
-                         String summary, String type, String matiere, String enseignant,String salle, Boolean allDayEvent) {
+                         String summary, String type, String matiere, String enseignant,String salle, Boolean allDayEvent,String color) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -31,6 +32,7 @@ public class CalendarEvent {
         this.enseignant = enseignant;
         this.salle=salle;
         this.allDayEvent = (allDayEvent != null) && allDayEvent;
+        this.color = color;
     }
 
     // Getters
@@ -68,6 +70,9 @@ public class CalendarEvent {
 
     public String getSalle() {
         return salle;
+    }
+    public String getColor() {
+        return color;
     }
     public boolean isAllDayEvent() {
         return allDayEvent;
@@ -107,6 +112,9 @@ public class CalendarEvent {
     }
     public void setSalle(String salle) {
         this.salle = salle;
+    }
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setAllDayEvent(boolean allDayEvent) {

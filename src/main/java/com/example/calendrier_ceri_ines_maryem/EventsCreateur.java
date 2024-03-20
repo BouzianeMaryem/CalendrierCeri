@@ -27,6 +27,7 @@ public class EventsCreateur {
                 String matiere = jsonObject.optString("Matière", "");
                 String salle = jsonObject.optString("Salle", "");
                 String enseignant = jsonObject.optString("Enseignant", "");
+                String color = jsonObject.optString("Color", "");
 
                 CalendarEvent event = new CalendarEvent(
                         dateDebut,
@@ -38,7 +39,8 @@ public class EventsCreateur {
                         matiere,
                         enseignant,
                         salle,
-                        allDay
+                        allDay,
+                        color
                 );
                 events.add(event);
             }
