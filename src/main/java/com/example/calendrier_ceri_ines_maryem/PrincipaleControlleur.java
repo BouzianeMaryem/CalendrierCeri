@@ -46,10 +46,16 @@ public class PrincipaleControlleur {
         prenomText.setText(prenom+" "+nom);
         fonctionText.setText(fonction);
         initialesText.setText(initiales);
+
     }
     @FXML
     private void initialize() {
+        SessionManager sessionManager = SessionManager.getInstance();
 
+        if (sessionManager.getNom() != null && sessionManager.getPrenom() != null) {
+            setUserDetails(sessionManager.getNom(), sessionManager.getPrenom(), sessionManager.getFonction(), sessionManager.getPrenom().substring(0, 1) + sessionManager.getNom().substring(0, 1));
+        }
+        //System.out.println(sessionManager.getFonction());
     }
 
     @FXML

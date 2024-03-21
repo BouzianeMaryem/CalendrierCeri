@@ -50,9 +50,11 @@ public class LoginController {
 
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                SessionManager.getInstance().loginUser(user.getPrenom(), user.getNom(), user.getFonction());
                 showCalendarPage(user);
                 return;
             }
         }
     }
+
 }
