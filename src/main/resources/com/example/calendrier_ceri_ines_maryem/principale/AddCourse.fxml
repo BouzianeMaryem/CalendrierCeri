@@ -28,9 +28,9 @@
                 <ColorPicker fx:id="couleurPicker" minWidth="139.0" prefHeight="30.0" prefWidth="139.0" styleClass="color-picker" />
                 <TextField fx:id="salleField" promptText="Salle" HBox.hgrow="ALWAYS" />
             </HBox>
-            <Button maxWidth="300" onAction="#handleSubmit" text="Ajouter" GridPane.columnSpan="3" GridPane.rowIndex="6" />
             <TextField fx:id="summaryField" maxWidth="300" promptText="Résumé" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-         <rowConstraints>
+            <Button maxWidth="300" onAction="#handleSubmit" text="Ajouter" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+            <rowConstraints>
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />

@@ -56,6 +56,7 @@ public class PrincipaleControlleur {
             setUserDetails(sessionManager.getNom(), sessionManager.getPrenom(), sessionManager.getFonction(), sessionManager.getPrenom().substring(0, 1) + sessionManager.getNom().substring(0, 1));
         }
         //System.out.println(sessionManager.getFonction());
+
     }
 
     @FXML
@@ -137,7 +138,7 @@ public class PrincipaleControlleur {
 
     @FXML
     private void addNewEvent() {
-      /*  try {
+       try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/AddCourse.fxml"));
             Parent root = loader.load();
 
@@ -148,14 +149,14 @@ public class PrincipaleControlleur {
             stage.setTitle("Ajouter un cours");
             stage.setScene(new Scene(root,480,360));
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(mainPane.getScene().getWindow()); // Utilisez un élément UI présent pour obtenir la fenêtre
+            stage.initOwner(mainPane.getScene().getWindow());
 
             stage.showAndWait();
 
 
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 }
