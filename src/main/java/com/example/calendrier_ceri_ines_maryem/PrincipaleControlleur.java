@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -33,7 +35,18 @@ public class PrincipaleControlleur {
 
     @FXML private VBox centerVBox;
     @FXML private BorderPane mainPane;
+    @FXML
+    private Label prenomText;
+    @FXML
+    private Label fonctionText;
+    @FXML
+    private Label initialesText;
 
+    public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
+        prenomText.setText(prenom+" "+nom);
+        fonctionText.setText(fonction);
+        initialesText.setText(initiales);
+    }
     @FXML
     private void initialize() {
 
@@ -118,7 +131,7 @@ public class PrincipaleControlleur {
 
     @FXML
     private void addNewEvent() {
-        try {
+      /*  try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/AddCourse.fxml"));
             Parent root = loader.load();
 
@@ -136,7 +149,7 @@ public class PrincipaleControlleur {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 }

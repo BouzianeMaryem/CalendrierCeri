@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 import javafx.stage.Stage;
 
 public class EventDialogController {
-
+/*
     private List<String> eventList = new ArrayList<>();
 
     @FXML
@@ -143,5 +143,5 @@ public class EventDialogController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+*/
 }

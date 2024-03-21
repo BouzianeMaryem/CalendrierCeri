@@ -28,7 +28,7 @@ public class LoginController {
 
     public void showCalendarPage(User user) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("calendrier.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/pagePrincipale.fxml"));
             Parent root = loader.load();
 
             PrincipaleControlleur appPageController = loader.getController();
