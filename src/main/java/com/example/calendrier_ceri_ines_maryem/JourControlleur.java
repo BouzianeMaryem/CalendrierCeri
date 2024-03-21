@@ -3,19 +3,16 @@ package com.example.calendrier_ceri_ines_maryem;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +27,9 @@ public class JourControlleur {
     private LocalDate currentDate;
     private List<CalendarEvent> events;
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    EmailFormController formManager = new EmailFormController();
+
 
     public void initialize() {
         currentDate = LocalDate.now();
@@ -75,11 +75,23 @@ public class JourControlleur {
             HBox hbox = timeSlotToHBoxMap.computeIfAbsent(key, k -> new HBox(2));
             hbox.setMinWidth(100);
 
-            Button eventButton = new Button(event.getSummary() + (event.isAllDayEvent() ? "" : "\n" + heureDebut + " - " + heureFin));
+            // Création du bouton de l'événement avec le nom de l'enseignant
+            String eventText = event.getSummary() +
+                    (event.isAllDayEvent() ? "" : "\n" + heureDebut + " - " + heureFin) +
+                    "\n" + event.getEnseignant(); // Utilisation de getEnseignant() pour inclure le nom de l'enseignant
+            Button eventButton = new Button(eventText);
             eventButton.setMaxWidth(Double.MAX_VALUE);
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
             eventButton.setStyle("-fx-text-fill: white;");
+
+            // Ajout d'un gestionnaire d'événements pour traiter les clics sur le nom de l'enseignant
+            eventButton.setOnAction(e -> {
+                // Insérez ici la logique à exécuter lors du clic sur le nom de l'enseignant
+                System.out.println("Enseignant cliqué: " + event.getEnseignant());
+            });
+
+            // Configuration du style et du tooltip
             String styleClass = switch (event.getType()) {
                 case "TP" -> "event-tp";
                 case "CM" -> "event-cm";
@@ -94,14 +106,16 @@ public class JourControlleur {
             HBox.setMargin(eventButton, new Insets(2));
             hbox.getChildren().add(eventButton);
 
-
             if (!dynamicGridPane.getChildren().contains(hbox)) {
                 GridPane.setConstraints(hbox, 1, startRowIndex, 1, rowSpan);
                 GridPane.setVgrow(hbox, Priority.ALWAYS);
                 dynamicGridPane.getChildren().add(hbox);
             }
+            eventButton.setOnAction(e -> formManager.showEmailForm(event));
         }
     }
+
+
 
 
     @FXML

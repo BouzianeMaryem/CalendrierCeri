@@ -16,6 +16,8 @@ import static com.example.calendrier_ceri_ines_maryem.EventsCreateur.creationLis
 
 public class PrincipaleControlleur {
 
+
+
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }

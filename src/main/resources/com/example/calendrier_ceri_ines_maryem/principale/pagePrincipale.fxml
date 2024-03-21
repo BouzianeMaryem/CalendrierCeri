@@ -61,7 +61,7 @@
                     </MenuButton>
                     <MenuButton fx:id="salleButton" layoutX="6.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="Salle            ">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="S3= C 036" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />
                         </items>
                         <graphic>
