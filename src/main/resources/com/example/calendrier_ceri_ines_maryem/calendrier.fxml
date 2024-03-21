@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<Pane fx:id="bigPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="973.0" styleClass="PanePere" stylesheets="@appCalendrier.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.AppPageController">
+   <children>
+      <Pane id="monPanneau" layoutX="14.0" layoutY="47.0" prefHeight="487.0" prefWidth="200.0" styleClass="monPanneau">
+         <children>
+            <Pane fx:id="circleContainer" layoutX="13.0" layoutY="34.0" prefHeight="50" prefWidth="50" styleClass="gradient-border">
+               <children>
+                  <Circle fill="WHITE" layoutX="25.0" layoutY="25.0" radius="20" />
+               </children>
+            </Pane>
+
+
+
+            <Label fx:id="initialesText" layoutX="32.0" layoutY="51.0" text="MB" textAlignment="CENTER" />
+            <Text fx:id="prenomText" layoutX="71.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maryem" />
+            <Text fx:id="nomText" layoutX="112.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="fonctionText" fill="#383838" layoutX="71.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etudiante" />
+            <Line styleClass="line-color" endX="91.60000610351562" layoutX="100.0" layoutY="103.0" startX="-91.60000610351562" />
+            <Line styleClass="line-color" endX="91.60000610351562" layoutX="101.0" layoutY="388.0" startX="-91.60000610351562" />
+            <Button fx:id="helpButton" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="173.0" text="Aide                               ">
+               <graphic>
+                  <ImageView fx:id="iconHelp" fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/noHover/helpWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="DeconnexionButton" layoutX="17.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="167.0" text="Déconnexion               ">
+               <graphic>
+                  <ImageView fx:id="iconDeconnexion" fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/noHover/deconnexionwhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <MenuButton fx:id="formationButton" layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" style="-fx-text-fill: white;" styleClass="Menubtn" text="Formation" textFill="WHITE">
+               <items>
+                  <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 2" />
+               </items>
+               <graphic>
+                  <ImageView fx:id="iconFormation" fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/noHover/formationIconeWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+            <MenuButton fx:id="profButton" layoutX="6.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" styleClass="Menubtn" text="Enseignant">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+               <graphic>
+                  <ImageView fx:id="iconProf" fitHeight="26.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/noHover/profIconeWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+            <MenuButton fx:id="salleButton" layoutX="6.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="Salle            ">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+               <graphic>
+                  <ImageView fx:id="iconSalle" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/noHover/salleIconeWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+         </children>
+      </Pane>
+      <Pane layoutX="455.0" layoutY="27.0" prefHeight="40.0" prefWidth="167.0" styleClass="filtre">
+         <children>
+            <Button layoutX="8.0" layoutY="8.0" mnemonicParsing="false" styleClass="Jfiltre" text="Jour" />
+            <Button layoutX="59.0" layoutY="8.0" mnemonicParsing="false" styleClass="Mfiltre" text="Mois" />
+            <Button layoutX="103.0" layoutY="7.0" mnemonicParsing="false" styleClass="Afiltre" text="Année" />
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="90.0" prefHeight="441.0" prefWidth="612.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="160.0" layoutX="29.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@emptyStateFormation.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="123.0" fitWidth="125.0" layoutX="235.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@emptyStateSalle.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="135.0" fitWidth="123.0" layoutX="423.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@emptyStateProf.png" />
+               </image>
+            </ImageView>
+            <TextFlow layoutX="124.0" layoutY="269.0" prefHeight="120.0" prefWidth="344.0" styleClass="emptyText" textAlignment="CENTER">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text="Prêt à organiser votre journée ? " wrappingWidth="189.587890625" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text="Sélectionnez " wrappingWidth="83.462158203125" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0C9DA9; -fx-font-size: 18;" styleClass="emp" text="Emploi du temps " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text=" pour " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text="une " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #42BA82; -fx-font-size: 18;" text="formation" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text=", " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #42BA82; -fx-font-size: 18;" text="salle" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text=" ou " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #42BA82; -fx-font-size: 18;" text="professeur" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text=" dans le " />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #77D65C; -fx-font-size: 18;" text="menu" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18; -fx-fill: #737373;" text=" pour commencer." />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+               </children>
+            </TextFlow>
+         </children>
+      </Pane>
+      <Button fx:id="darkMode" styleClass="modeButton" layoutX="847.0" layoutY="26.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="84.0">
+         <graphic>
+            <ImageView fx:id="iconeMode" fitHeight="35.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/nightMode.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</Pane>

@@ -15,12 +15,15 @@
                     <Insets bottom="15" left="15" right="15" top="15" />
                 </padding>
                 <HBox alignment="CENTER_LEFT" prefHeight="137.0" prefWidth="165.0" spacing="10">
-                    <Circle fill="#fffdfd" radius="20" styleClass="user-icon" />
+                    <StackPane alignment="CENTER">
+                        <Circle fill="#fffdfd" radius="20" styleClass="user-icon" />
+                        <Label fx:id="initialesText" text="JS" styleClass="user-icon-label" />
+                    </StackPane>
                     <VBox>
                   <VBox prefHeight="26.0" prefWidth="100.0" />
                         <Label />
-                        <Label styleClass="user-name" text="Jane Smith" />
-                        <Label styleClass="user-role" text="Designer" />
+                        <Label fx:id="prenomText" styleClass="user-name" text="Jane Smith" />
+                        <Label fx:id="fonctionText" styleClass="user-role" text="Designer" />
                     </VBox>
                 </HBox>
                 <Separator />
