@@ -40,7 +40,7 @@
                     </MenuButton>
                     <MenuButton fx:id="profButton" layoutX="6.0" layoutY="201.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" styleClass="Menubtn" text="Enseignant">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem onAction="#onNOE_CECILLON" mnemonicParsing="false" text="NOE Cecillon" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />
                         </items>
                         <graphic>
@@ -53,7 +53,7 @@
                     </MenuButton>
                     <MenuButton fx:id="salleButton" layoutX="6.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="Salle            ">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem  onAction="#onAmphi_ADA" mnemonicParsing="false" text="Amphi ADA" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />
                         </items>
                         <graphic>

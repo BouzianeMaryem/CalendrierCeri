@@ -1,9 +1,6 @@
 package com.example.calendrier_ceri_ines_maryem;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.ColorPicker;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 import java.io.*;
@@ -21,7 +18,11 @@ public class EventDialogController {
     private List<String> eventList = new ArrayList<>();
 
     @FXML
-    private TextField dateDebutField, dateFinField, heureDebutField, heureFinField, summaryField, typeField, matiereField, enseignantField,salleField,TDField,Couleur;
+    private TextField heureDebutField, heureFinField, summaryField, typeField, matiereField, enseignantField,salleField,TDField,Couleur;
+
+    @FXML
+    DatePicker dateDebutField;
+
     @FXML
     private ColorPicker couleurPicker;
     private PrincipaleControlleur mainController;
@@ -34,7 +35,6 @@ public class EventDialogController {
     @FXML
     public void initialize() {
         applyDateTextFormatter(dateDebutField);
-        applyDateTextFormatter(dateFinField);
         applyTimeTextFormatter(heureDebutField);
         applyTimeTextFormatter(heureFinField);
 
@@ -77,10 +77,9 @@ public class EventDialogController {
     @FXML
     private void handleSubmit() {
         try {
-            if (dateDebutField.getText().isEmpty() || dateFinField.getText().isEmpty() ||
+            if (dateDebutField.getText().isEmpty()  ||
                     heureDebutField.getText().isEmpty() || heureFinField.getText().isEmpty() ||
-                    summaryField.getText().isEmpty() || typeField.getText().isEmpty() ||
-                    matiereField.getText().isEmpty() || enseignantField.getText().isEmpty()) {
+                    summaryField.getText().isEmpty() || typeField.getText().isEmpty()) {
                 showAlert("Tous les champs sont obligatoires.");
                 return;
             }

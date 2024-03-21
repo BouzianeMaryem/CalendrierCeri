@@ -1,5 +1,6 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,6 +22,7 @@ import static com.example.calendrier_ceri_ines_maryem.EventsCreateur.creationLis
 
 public class PrincipaleControlleur {
 
+
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
@@ -41,12 +43,24 @@ public class PrincipaleControlleur {
     private void onFormationM1_IA_CL() throws IOException {
         downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020091b8dcd18c4a880befa7fb87040d42d985c6fbcd0d3011d32156bb496675b547057ce8bd7ab394051c9dc7ddacf147330c2eb43c80b23b683441d94670e7378664fbde1a4c9b5d82690722604f6ede365c941a53","eventsM1-IA-CL.json");
         events = creationListEventsJson("eventsM1-IA-CL.json");
+        setDisplayMode(currentDisplayMode);
+    }
+
+    @FXML
+    private void onAmphi_ADA() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def50200554dcd5e4c15e4dbcdd2e6a3afd78170c6171878a4c3a33cd9331302d645d787e3869758154caa878a55157b6514110371239edb1212a9e49714f269ed234d75d1efe47ca1a449724490e265a69e754d544c51999010d709","events-salle-ADA.json");
+        events = creationListEventsJson("events-salle-ADA.json");
+        setDisplayMode(currentDisplayMode);
+    }
+
+    @FXML
+    private void onNOE_CECILLON() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/enseignant/def5020014cf744f63f7181931e243c5139c5d8427de488f3da5b30b52905edfe9de85e8da750e291f852c095f6fd05f93658cbbf3260bf1308a84c444accdb9ab8f67de5f5758e0b59200e3c78068a677fc5055644c4635","events-prof-NOE.json");
+        events = creationListEventsJson("events-prof-NOE.json");
         List<CalendarEvent> eventsajouts = creationListEventsJson("events.json");
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
     }
-
-
     @FXML
     private void onJourFilterButtonClicked() throws IOException {
         setDisplayMode(DisplayMode.DAY);
