@@ -80,18 +80,23 @@
             <artifactId>google-oauth-client</artifactId>
             <version>1.32.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.13.0</version> <!-- Utilisez la version la plus récente de Jackson -->
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.13.0</version>
         </dependency>
-        <!-- Ajouter Jackson Databind -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.13.0</version> <!-- Assurez-vous d'utiliser la même version que celle de Jackson que vous utilisez actuellement -->
         </dependency>
+
 
         <dependency>
             <groupId>org.jfxtras</groupId>

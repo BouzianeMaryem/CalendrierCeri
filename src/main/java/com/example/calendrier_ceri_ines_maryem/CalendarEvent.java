@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 //classe calenderevent pour creer nos evenements sous forme objet
 public class CalendarEvent {
+
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private LocalTime heureDebut;
