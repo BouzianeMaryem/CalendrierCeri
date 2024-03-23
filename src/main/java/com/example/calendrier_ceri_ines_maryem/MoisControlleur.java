@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -11,6 +12,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MoisControlleur {
     @FXML
@@ -95,21 +98,24 @@ public class MoisControlleur {
         dateLabel.getStyleClass().add("labelJour");
         dayBox.getChildren().add(dateLabel);
 
-        long eventsCount = events.stream()
+        List<CalendarEvent> dayEvents = events.stream()
                 .filter(e -> e.getDateDebut().equals(date) ||
-                        (e.getDateDebut().isBefore(date) &&
-                                e.getDateFin().isAfter(date)))
+                        (e.getDateDebut().isBefore(date) && e.getDateFin().isAfter(date)))
                 .filter(e -> !"Férié".equals(e.getSummary()) && !"Vacances".equals(e.getSummary()))
-                .count();
+                .collect(Collectors.toList());
 
-        if (eventsCount > 0) {
+        if (!dayEvents.isEmpty()) {
             HBox circlesBox = new HBox(5);
-            for (int i = 0; i < eventsCount; i++) {
+            for (CalendarEvent event : dayEvents) {
                 Circle eventCircle = new Circle(5);
                 LinearGradient gradient = new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                         new Stop(0, Color.web("#0097B2")),
                         new Stop(1, Color.web("#7BD759")));
                 eventCircle.setFill(gradient);
+
+                Tooltip tooltip = createEventTooltip(event);
+                Tooltip.install(eventCircle, tooltip);
+
                 circlesBox.getChildren().add(eventCircle);
             }
             dayBox.getChildren().add(circlesBox);
@@ -127,5 +133,24 @@ public class MoisControlleur {
     public void loadNextMonth() {
         currentMonth = currentMonth.plusMonths(1);
         updateMonthView();
+    }
+    private Tooltip createEventTooltip(CalendarEvent event) {
+        StringBuilder tooltipText = new StringBuilder();
+        tooltipText.append("Résumé : ").append(event.getSummary()).append("\n");
+        if (!event.isAllDayEvent()) {
+            tooltipText.append("Début : ").append(event.getHeureDebut()).append("\n");
+            tooltipText.append("Fin : ").append(event.getHeureFin()).append("\n");
+        } else {
+            tooltipText.append("Toute la journée\n");
+        }
+        tooltipText.append("Type : ").append(event.getType()).append("\n");
+        tooltipText.append("Description : ").append(event.getSummary()).append("\n");
+        tooltipText.append("Enseignant : ").append(event.getEnseignant()).append("\n");
+        tooltipText.append("Matiere : ").append(event.getMatiere()).append("\n");
+        tooltipText.append("Salle : ").append(event.getSalle()).append("\n");
+        tooltipText.append("Groupe : ").append(event.getGroupe()).append("\n");
+        Tooltip tooltip = new Tooltip(tooltipText.toString());
+        tooltip.setShowDelay(Duration.seconds(0.1));
+        return tooltip;
     }
 }

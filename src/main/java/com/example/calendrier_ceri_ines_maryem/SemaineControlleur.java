@@ -2,8 +2,12 @@ package com.example.calendrier_ceri_ines_maryem;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -12,8 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -118,6 +124,12 @@ public class SemaineControlleur {
         clearGrid();
         updateGridWithEvents();
     }
+    private static long calculateDurationInHours(CalendarEvent event) {
+        if (event.getHeureDebut() != null && event.getHeureFin() != null) {
+            return ChronoUnit.HOURS.between(event.getHeureDebut(), event.getHeureFin());
+        }
+        return 0;
+    }
 
 
     public void displayEvent(List<CalendarEvent> events) {
@@ -133,26 +145,22 @@ public class SemaineControlleur {
                     boolean list2HasReservation = list2.stream().anyMatch(e -> "Reservation de salles".equals(e.getMatiere()));
 
                     if ((list1HasReservation && list2HasReservation) || (!list1HasReservation && !list2HasReservation)) {
-                        boolean list1Has3HourDuration = list1.stream().anyMatch(e -> {
-                            if (e.getHeureDebut() != null && e.getHeureFin() != null) {
-                                long hours = ChronoUnit.HOURS.between(e.getHeureDebut(), e.getHeureFin());
-                                return hours == 3;
-                            }
-                            return false;
-                        });
-                        boolean list2Has3HourDuration = list2.stream().anyMatch(e -> {
-                            if (e.getHeureDebut() != null && e.getHeureFin() != null) {
-                                long hours = ChronoUnit.HOURS.between(e.getHeureDebut(), e.getHeureFin());
-                                return hours == 3;
-                            }
-                            return false;
-                        });
-                        return Boolean.compare(list2Has3HourDuration, list1Has3HourDuration);
+                        boolean list1Has4HourDuration = list1.stream().anyMatch(e -> calculateDurationInHours(e) == 4);
+                        boolean list2Has4HourDuration = list2.stream().anyMatch(e -> calculateDurationInHours(e) == 4);
+
+                        if ((list1Has4HourDuration && list2Has4HourDuration) || (!list1Has4HourDuration && !list2Has4HourDuration)) {
+                            boolean list1Has3HourDuration = list1.stream().anyMatch(e -> calculateDurationInHours(e) == 3);
+                            boolean list2Has3HourDuration = list2.stream().anyMatch(e -> calculateDurationInHours(e) == 3);
+                            return Boolean.compare(list2Has3HourDuration, list1Has3HourDuration);
+                        }
+
+                        return Boolean.compare(list2Has4HourDuration, list1Has4HourDuration);
                     }
 
                     return Boolean.compare(list2HasReservation, list1HasReservation);
                 })
                 .collect(Collectors.toList());
+
 
 
         sortedGroupedEvents.forEach(group -> {
@@ -170,11 +178,25 @@ public class SemaineControlleur {
             HBox hbox = timeSlotToHBoxMap.computeIfAbsent(dateDebut + "_" + heureDebut, k -> new HBox(4));
             hbox.setMinWidth(100);
 
-            Button eventButton = new Button(representativeEvent.getSummary() + " (" + group.size() + ")");
+            Button eventButton = new Button(representativeEvent.getSummary() + " (" + group.size() + ")"+"\n"+representativeEvent.getEnseignant());
             eventButton.setMaxWidth(Double.MAX_VALUE);
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
             HBox.setMargin(eventButton, new Insets(3));
+            // je viens d'ajouter cette fonction pour lancer le mail
+            eventButton.setOnAction(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
+                    Parent root = loader.load();
+
+                    EmailFormController controller = loader.getController();
+                    controller.showEmailForm(representativeEvent);
+
+                } catch (IOException er) {
+                    er.printStackTrace();
+                }
+            });
+
 
             hbox.getChildren().add(eventButton);
 
@@ -231,4 +253,6 @@ public class SemaineControlleur {
         tooltip.setShowDelay(Duration.seconds(0.1));
         return tooltip;
     }
+
+
 }
