@@ -82,7 +82,7 @@
                   </Button>
                   <MenuButton fx:id="gestionEventBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" styleClass="Menubtn" text="ajout d'activité">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="reserver une salle" />
+                        <MenuItem mnemonicParsing="false" onAction="#reserverUneSalle"  text="reserver une salle" />
                         <MenuItem mnemonicParsing="false" onAction="#addNewEvent" text="ajouter un cours" />
                      </items>
                      <graphic>

@@ -42,6 +42,8 @@ public class PrincipaleControlleur {
     private Button Filtrer;
     public MenuButton gestionEventBtn;
 
+
+
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
@@ -198,6 +200,7 @@ public class PrincipaleControlleur {
             e.printStackTrace();
         }
     }
+
 //fonctions pour les filtres:
 @FXML
 private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
