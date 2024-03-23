@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+
+<?import java.lang.String?>
+<HBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <children>
+        <!-- Groupe -->
+        <ComboBox fx:id="groupeCombo" HBox.hgrow="ALWAYS" promptText="Groupe">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="M1-IA"/>
+                    <String fx:value="M2-IA"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Salle -->
+        <ComboBox fx:id="salleCombo" HBox.hgrow="ALWAYS" promptText="Salle">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="S3"/>
+                    <String fx:value="Amphi Blaise"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Type de cours -->
+        <ComboBox fx:id="typeCoursCombo" HBox.hgrow="ALWAYS" promptText="Type de cours">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="TD"/>
+                    <String fx:value="CM"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Matière -->
+        <ComboBox fx:id="matiereCombo" HBox.hgrow="ALWAYS" promptText="Matière">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Informatique"/>
+                    <String fx:value="Mathématiques"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Button fx:id="filtrer" prefHeight="23.0" prefWidth="27.0">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="35.0" preserveRatio="true">
+                    <image>
+                        <Image url="@principale/images/valide.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</HBox>
