@@ -1,17 +1,17 @@
 package com.example.calendrier_ceri_ines_maryem;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,26 +24,28 @@ import static com.example.calendrier_ceri_ines_maryem.CalendarService.downloadAn
 import static com.example.calendrier_ceri_ines_maryem.EventsCreateur.creationListEventsJson;
 
 public class PrincipaleControlleur {
-
-
-    public MenuButton gestionEventBtn;
-
-    public enum DisplayMode {
-        DAY, WEEK, MONTH
-    }
-
     private List<CalendarEvent> events = new ArrayList<>();
     // Mode par défaut
     private DisplayMode currentDisplayMode = DisplayMode.WEEK;
 
     @FXML private VBox centerVBox;
     @FXML private BorderPane mainPane;
-    @FXML
-    private Label prenomText;
+
     @FXML
     private Label fonctionText;
     @FXML
     private Label initialesText;
+
+    @FXML
+    private Label prenomText;
+    @FXML
+    private Button Filtrer;
+    public MenuButton gestionEventBtn;
+
+    public enum DisplayMode {
+        DAY, WEEK, MONTH
+    }
+
 
     public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
         prenomText.setText(prenom+" "+nom);
@@ -65,20 +67,40 @@ public class PrincipaleControlleur {
         }
 
     }
-
-    @FXML
-    private void onFormationM1_IA_CL() throws IOException {
-        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020091b8dcd18c4a880befa7fb87040d42d985c6fbcd0d3011d32156bb496675b547057ce8bd7ab394051c9dc7ddacf147330c2eb43c80b23b683441d94670e7378664fbde1a4c9b5d82690722604f6ede365c941a53","eventsM1-IA-CL.json");
-        events = creationListEventsJson("eventsM1-IA-CL.json");
-        setDisplayMode(currentDisplayMode);
+    public List<CalendarEvent> getEvents() {
+        return events;
     }
 
-    @FXML
-    private void onAmphi_ADA() throws IOException {
-        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def50200554dcd5e4c15e4dbcdd2e6a3afd78170c6171878a4c3a33cd9331302d645d787e3869758154caa878a55157b6514110371239edb1212a9e49714f269ed234d75d1efe47ca1a449724490e265a69e754d544c51999010d709","events-salle-ADA.json");
-        events = creationListEventsJson("events-salle-ADA.json");
-        setDisplayMode(currentDisplayMode);
+    public void updateEvents(List<CalendarEvent> newEvents) {
+        this.events.clear();
+        this.events.addAll(newEvents);
+        try {
+            setDisplayMode(currentDisplayMode);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+/*
+**************************************************** onclick sur formation ****************************************
+ */
+
+    @FXML
+    private void onFormationM1_IA() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020081984ebc4fc00ab58fd87071d1fa020cdbe66b532d29ba6e091d5a551d44c9fd89c1ab660e39233a747175a4b4153ec44062d2d4446141034f4aa7389a9769e531c44193b3b030461858a1fec7097a37e11206824c4af0f307","eventsM1-IA.json");
+        events = creationListEventsJson("eventsM1-IA.json");
+        setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedM2());
+    }
+    @FXML
+    private void onFormationM2_IA() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def50200a303ca2f94bb2afc033d868d6ebcf2b0575394e7dd91a2951d0a4fc7149eb789b680e05721adafbc64ea264aa7b7aa520f3882cfaef2e61c73b6d2753da6d7f3f94fa5c0f3656a6eb2c618c57f7a85c1e94c659a9f2dbb9fd51c722e60c9774854a7eeaa9391ef70701c83a266b7cfc1e266","eventsM2-IA.json");
+        events = creationListEventsJson("eventsM2-IA.json");
+        setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedM2());
+    }
+    /*
+     **************************************************** onclick sur Professeur ****************************************
+     */
 
     @FXML
     private void onNOE_CECILLON() throws IOException {
@@ -87,7 +109,20 @@ public class PrincipaleControlleur {
         List<CalendarEvent> eventsajouts = creationListEventsJson("events.json");
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
+
     }
+
+    /*
+     **************************************************** onclick sur Salle ****************************************
+     */
+    @FXML
+    private void onAmphi_ADA() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def50200554dcd5e4c15e4dbcdd2e6a3afd78170c6171878a4c3a33cd9331302d645d787e3869758154caa878a55157b6514110371239edb1212a9e49714f269ed234d75d1efe47ca1a449724490e265a69e754d544c51999010d709","events-salle-ADA.json");
+        events = creationListEventsJson("events-salle-ADA.json");
+        setDisplayMode(currentDisplayMode);
+    }
+
+
     @FXML
     private void onJourFilterButtonClicked() throws IOException {
         setDisplayMode(DisplayMode.DAY);
@@ -114,8 +149,6 @@ public class PrincipaleControlleur {
             case MONTH:
                 loadMoisView();
                 break;
-            default:
-                throw new IllegalStateException("Mode d'affichage non supporté: " + mode);
         }
     }
 
@@ -165,5 +198,30 @@ public class PrincipaleControlleur {
             e.printStackTrace();
         }
     }
+//fonctions pour les filtres:
+@FXML
+private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/filtreM2.fxml"));
+        Parent root = loader.load();
+
+        FiltrerControlleur reservationControlleur = loader.getController();
+        reservationControlleur.setMainController(this);
+
+        Stage stage = new Stage();
+        stage.setTitle("FOR");
+        stage.setScene(new Scene(root,679.0,59.0));
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(mainPane.getScene().getWindow());
+
+        stage.showAndWait();
+
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
 
 }

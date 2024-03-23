@@ -30,8 +30,8 @@
                 <VBox prefHeight="154.0" prefWidth="176.0" spacing="5">
                     <MenuButton fx:id="formationButton" layoutX="6.0" layoutY="111.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="184.0" styleClass="Menubtn" text="Formation">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#onFormationM1_IA_CL" styleClass="MenuITM" text="M1-IA-CLA" />
-                            <MenuItem mnemonicParsing="false" styleClass="MenuITM" text="Action 2" />
+                            <MenuItem mnemonicParsing="false" onAction="#onFormationM1_IA" styleClass="MenuITM" text="M1-IA" />
+                            <MenuItem mnemonicParsing="false" onAction="#onFormationM2_IA" styleClass="MenuITM" text="M2-IA" />
                         </items>
                         <graphic>
                             <ImageView fx:id="iconFormation" fitHeight="28.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -71,7 +71,7 @@
                 <Separator />
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="Filtrer" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" text="Filtre d'Evenements    ">
+                  <Button fx:id="Filtrer"  text="Filtre d'Evenements">
                      <graphic>
                         <ImageView fx:id="iconHelp1" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
