@@ -47,6 +47,18 @@ public class PrincipaleControlleur {
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
+    public void reserverUneSalle() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/reservation.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Réserver une salle");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
