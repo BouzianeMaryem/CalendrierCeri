@@ -56,26 +56,31 @@
     -fx-font-weight: bold;
 }
 .event-tp {
-    -fx-background-color: rgba(255, 160, 122, 0.6);
+    -fx-background-color: rgba(255, 160, 122, 0.4);
     -fx-text-fill: black;
+    -fx-border-color:rgba(255, 160, 122, 1);
 }
 
 .event-cm {
-    -fx-background-color: rgba(127, 255, 212, 0.6);
+    -fx-background-color: rgba(127, 255, 212,  0.4);
     -fx-text-fill: black;
+    -fx-border-color:rgba(127, 255, 212,  1);
 }
 
 .event-td {
-    -fx-background-color: rgba(173, 216, 230, 0.6);
+    -fx-background-color: rgba(173, 216, 230, 0.4);
+    -fx-border-color: rgba(173, 216, 230, 1);
     -fx-text-fill: black;
 }
 
 .event-evaluation {
-    -fx-background-color: rgba(250, 128, 114, 0.6);
+    -fx-background-color: rgba(250, 128, 114, 0.4);
+    -fx-border-color: rgba(250, 128, 114, 1);
     -fx-text-fill: black;
 }
 
 .event-autre {
-    -fx-background-color: rgba(211, 200, 200, 0.6);
+    -fx-background-color: rgba(211, 200, 200,0.4);
+     -fx-border-color: rgba(211, 200, 200, 1);
     -fx-text-fill: black;
 }

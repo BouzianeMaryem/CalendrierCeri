@@ -1,7 +1,10 @@
 package com.example.calendrier_ceri_ines_maryem;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -10,8 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -72,11 +77,14 @@ public class JourControlleur {
 
             long durationE1 = ChronoUnit.HOURS.between(e1.getHeureDebut(), e1.getHeureFin());
             long durationE2 = ChronoUnit.HOURS.between(e2.getHeureDebut(), e2.getHeureFin());
+            if (durationE1 == 4 && durationE2 != 4) return -1;
+            if (durationE1 != 4 && durationE2 == 4) return 1;
             if (durationE1 == 3 && durationE2 != 3) return -1;
             if (durationE1 != 3 && durationE2 == 3) return 1;
 
             return e1.getHeureDebut().compareTo(e2.getHeureDebut());
         });
+
 
         for (CalendarEvent event : events) {
             LocalTime heureDebut = event.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : event.getHeureDebut();
@@ -98,8 +106,21 @@ public class JourControlleur {
             applyEventStyle(event,eventButton);
             Tooltip tooltip = createEventTooltip(event);
             Tooltip.install(eventButton, tooltip);
-
             HBox.setMargin(eventButton, new Insets(2));
+
+            // je viens d'ajouter cette fonction pour lancer le mail
+            eventButton.setOnAction(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
+                    Parent root = loader.load();
+
+                    EmailFormController controller = loader.getController();
+                    controller.showEmailForm(event);
+
+                } catch (IOException er) {
+                    er.printStackTrace();
+                }
+            });
             hbox.getChildren().add(eventButton);
 
             if (!dynamicGridPane.getChildren().contains(hbox)) {
