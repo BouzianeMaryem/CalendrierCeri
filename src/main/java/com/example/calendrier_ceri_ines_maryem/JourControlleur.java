@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +64,20 @@ public class JourControlleur {
         int gridStartHour = 8;
         Map<String, HBox> timeSlotToHBoxMap = new HashMap<>();
 
+        events.sort((e1, e2) -> {
+            boolean isE1ReservationSalle = "Reservation de salles".equals(e1.getMatiere());
+            boolean isE2ReservationSalle = "Reservation de salles".equals(e2.getMatiere());
+            if (isE1ReservationSalle && !isE2ReservationSalle) return -1;
+            if (!isE1ReservationSalle && isE2ReservationSalle) return 1;
+
+            long durationE1 = ChronoUnit.HOURS.between(e1.getHeureDebut(), e1.getHeureFin());
+            long durationE2 = ChronoUnit.HOURS.between(e2.getHeureDebut(), e2.getHeureFin());
+            if (durationE1 == 3 && durationE2 != 3) return -1;
+            if (durationE1 != 3 && durationE2 == 3) return 1;
+
+            return e1.getHeureDebut().compareTo(e2.getHeureDebut());
+        });
+
         for (CalendarEvent event : events) {
             LocalTime heureDebut = event.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : event.getHeureDebut();
             LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(22, 0) : event.getHeureFin();
@@ -79,14 +94,13 @@ public class JourControlleur {
             eventButton.setMaxWidth(Double.MAX_VALUE);
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
-            eventButton.setStyle("-fx-text-fill: white;");
+            eventButton.setStyle("-fx-text-fill: black;");
             applyEventStyle(event,eventButton);
             Tooltip tooltip = createEventTooltip(event);
             Tooltip.install(eventButton, tooltip);
 
             HBox.setMargin(eventButton, new Insets(2));
             hbox.getChildren().add(eventButton);
-
 
             if (!dynamicGridPane.getChildren().contains(hbox)) {
                 GridPane.setConstraints(hbox, 1, startRowIndex, 1, rowSpan);
@@ -95,6 +109,7 @@ public class JourControlleur {
             }
         }
     }
+
     public void applyEventStyle(CalendarEvent event, Button eventButton) {
         if (event.getColor().equals("")) {
             String styleClass = switch (event.getType()) {
