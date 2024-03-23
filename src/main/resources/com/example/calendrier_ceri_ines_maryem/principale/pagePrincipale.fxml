@@ -72,6 +72,10 @@
                             </ImageView>
                         </graphic>
                     </MenuButton>
+
+                    <Button fx:id="Réserver" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" text="Réserver une salle" onAction="#handleReservationButton"/>
+
+
                 </VBox>
                 <Separator />
                 <VBox prefHeight="54.0" prefWidth="165.0" spacing="10">

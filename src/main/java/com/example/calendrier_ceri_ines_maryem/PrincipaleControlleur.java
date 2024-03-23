@@ -14,6 +14,9 @@ import java.util.List;
 import static com.example.calendrier_ceri_ines_maryem.CalendarService.downloadAndSaveJson;
 import static com.example.calendrier_ceri_ines_maryem.EventsCreateur.creationListEventsJson;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 public class PrincipaleControlleur {
 
 
@@ -33,6 +36,20 @@ public class PrincipaleControlleur {
     private void initialize() {
 
     }
+
+   public void handleReservationButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/salle.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Réserver une salle");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void onFormationM1_IA_CL() throws IOException {
