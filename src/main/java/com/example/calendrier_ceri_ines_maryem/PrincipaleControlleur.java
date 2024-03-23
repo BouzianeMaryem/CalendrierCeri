@@ -42,6 +42,8 @@ public class PrincipaleControlleur {
     private Button Filtrer;
     public MenuButton gestionEventBtn;
 
+    public void reserverUneSalle(ActionEvent actionEvent) {
+    }
 
 
     public enum DisplayMode {
