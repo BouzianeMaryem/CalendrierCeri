@@ -1,0 +1,67 @@
+/* General padding for all controls */
+.root {
+    -fx-padding: 20;
+}
+
+/* Label Styles */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* ChoiceBox Styles */
+.choice-box {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+}
+
+.choice-box .cell {
+    -fx-padding: 10px;
+}
+
+.choice-box:hover {
+    -fx-border-color: #aaa;
+}
+
+/* DatePicker Styles */
+.date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #eee;
+}
+
+.date-picker:hover {
+    -fx-border-color: #aaa;
+}
+
+/* TextField Styles */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+}
+
+.text-field:focused {
+    -fx-border-color: #9ecaed;
+    -fx-border-radius: 5;
+    -fx-background-color: white;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #41c039;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+}
+
+.button:hover {
+    -fx-background-color: #41c039;
+}

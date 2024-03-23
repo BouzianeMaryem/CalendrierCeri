@@ -52,7 +52,7 @@ public class PrincipaleControlleur {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/reservation.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root,400,300));
             stage.setTitle("Réserver une salle");
             stage.show();
         } catch (IOException e) {

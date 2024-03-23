@@ -37,6 +37,7 @@ public class reservationController {
     private Button checkAvailabilityButton;
 
 
+
     @FXML
     private void handleCheckAvailabilityAndReservation() {
         String selectedSalle = nomSalleChoiceBox.getValue();

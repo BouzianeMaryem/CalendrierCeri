@@ -11,41 +11,9 @@
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.calendrier_ceri_ines_maryem.reservationController"
           alignment="CENTER"
-          hgap="10" vgap="10">
+          hgap="10" vgap="10" stylesheets="@reserver.css">
 
-    <!-- Colonne vide à gauche -->
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" />
-    </columnConstraints>
 
-    <!-- Colonne pour centrer le formulaire -->
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" />
-    </columnConstraints>
-
-    <!-- Colonne vide à droite -->
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" />
-    </columnConstraints>
-
-    <!-- Ligne vide en haut -->
-    <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES" />
-    </rowConstraints>
-
-    <!-- Ligne pour centrer le formulaire -->
-    <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES" />
-    </rowConstraints>
-
-    <!-- Ligne vide en bas -->
-    <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES" />
-    </rowConstraints>
-    <!-- Ligne vide en bas -->
-    <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES" />
-    </rowConstraints>
     <Label text="Nom de la salle :" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     <ChoiceBox fx:id="nomSalleChoiceBox" GridPane.columnIndex="2" GridPane.rowIndex="2">
         <items>
