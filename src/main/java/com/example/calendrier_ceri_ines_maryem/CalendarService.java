@@ -69,6 +69,7 @@ public class CalendarService {
             if (line.startsWith("BEGIN:VEVENT")) {
                 currentEvent = new JSONObject();
                 descriptionBuilder = new StringBuilder(); // Reset the description builder
+
             } else if (line.startsWith("END:VEVENT") && currentEvent != null) {
                 processDescription(descriptionBuilder.toString(), currentEvent);
                 eventsArray.put(currentEvent);
@@ -101,6 +102,7 @@ public class CalendarService {
 
         return eventsArray.toString(4);
     }
+
 
     private static void processDescription(String description, JSONObject currentEvent) {
         String[] parts = description.split("<br/>");
