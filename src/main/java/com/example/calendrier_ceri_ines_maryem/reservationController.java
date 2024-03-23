@@ -41,15 +41,14 @@ public class reservationController {
     @FXML
     private void handleCheckAvailabilityAndReservation() {
         String selectedSalle = nomSalleChoiceBox.getValue();
-        if (dateDebutPicker.getValue() == null || heureDebutTextField.getText().isEmpty() ||
-                dateFinPicker.getValue() == null || heureFinTextField.getText().isEmpty()) {
+        if (dateDebutPicker.getValue() == null || heureDebutTextField.getText().isEmpty() || heureFinTextField.getText().isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.", Alert.AlertType.ERROR);
             return;
         }
 
         try {
             LocalDate dateDebut = dateDebutPicker.getValue();
-            LocalDate dateFin = dateFinPicker.getValue();
+            LocalDate dateFin = dateDebutPicker.getValue();
             LocalTime heureDebut = LocalTime.parse(heureDebutTextField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             LocalTime heureFin = LocalTime.parse(heureFinTextField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
 
@@ -98,6 +97,7 @@ public class reservationController {
             eventJson.put("HeureDebut", heureDebut.toString());
             eventJson.put("HeureFin", heureFin.toString());
             eventJson.put("Summary", "Reservation de salles");
+            eventJson.put("Matiere", "Reservation de salles");
             SessionManager sessionManager = SessionManager.getInstance();
             eventJson.put("Enseignant", sessionManager.getNom()+" "+sessionManager.getPrenom());
             eventJson.put("Salle", salle);

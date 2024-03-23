@@ -43,7 +43,6 @@ public class PrincipaleControlleur {
     public MenuButton gestionEventBtn;
 
 
-
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
@@ -133,6 +132,8 @@ public class PrincipaleControlleur {
     private void onAmphi_ADA() throws IOException {
         downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def50200554dcd5e4c15e4dbcdd2e6a3afd78170c6171878a4c3a33cd9331302d645d787e3869758154caa878a55157b6514110371239edb1212a9e49714f269ed234d75d1efe47ca1a449724490e265a69e754d544c51999010d709","events-salle-ADA.json");
         events = creationListEventsJson("events-salle-ADA.json");
+        List<CalendarEvent> eventsajouts = creationListEventsJson("amphiAda-reservation.json");
+        events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
     }
 
