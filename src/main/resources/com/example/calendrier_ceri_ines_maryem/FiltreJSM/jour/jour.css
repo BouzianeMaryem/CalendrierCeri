@@ -56,21 +56,26 @@
     -fx-font-weight: bold;
 }
 .event-tp {
-    -fx-background-color: #FFA07A;
+    -fx-background-color: rgba(255, 160, 122, 0.6);
+    -fx-text-fill: black;
 }
 
 .event-cm {
-    -fx-background-color: #7FFFD4;
+    -fx-background-color: rgba(127, 255, 212, 0.6);
+    -fx-text-fill: black;
 }
 
 .event-td {
-    -fx-background-color: #ADD8E6;
+    -fx-background-color: rgba(173, 216, 230, 0.6);
+    -fx-text-fill: black;
 }
 
 .event-evaluation {
-    -fx-background-color: #FA8072;
+    -fx-background-color: rgba(250, 128, 114, 0.6);
+    -fx-text-fill: black;
 }
 
 .event-autre {
-    -fx-background-color: #D3D3D3;
+    -fx-background-color: rgba(211, 200, 200, 0.6);
+    -fx-text-fill: black;
 }

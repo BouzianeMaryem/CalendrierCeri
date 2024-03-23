@@ -3,16 +3,20 @@ package com.example.calendrier_ceri_ines_maryem;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +31,6 @@ public class JourControlleur {
     private LocalDate currentDate;
     private List<CalendarEvent> events;
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    EmailFormController formManager = new EmailFormController();
-
 
     public void initialize() {
         currentDate = LocalDate.now();
@@ -63,6 +64,20 @@ public class JourControlleur {
         int gridStartHour = 8;
         Map<String, HBox> timeSlotToHBoxMap = new HashMap<>();
 
+        events.sort((e1, e2) -> {
+            boolean isE1ReservationSalle = "Reservation de salles".equals(e1.getMatiere());
+            boolean isE2ReservationSalle = "Reservation de salles".equals(e2.getMatiere());
+            if (isE1ReservationSalle && !isE2ReservationSalle) return -1;
+            if (!isE1ReservationSalle && isE2ReservationSalle) return 1;
+
+            long durationE1 = ChronoUnit.HOURS.between(e1.getHeureDebut(), e1.getHeureFin());
+            long durationE2 = ChronoUnit.HOURS.between(e2.getHeureDebut(), e2.getHeureFin());
+            if (durationE1 == 3 && durationE2 != 3) return -1;
+            if (durationE1 != 3 && durationE2 == 3) return 1;
+
+            return e1.getHeureDebut().compareTo(e2.getHeureDebut());
+        });
+
         for (CalendarEvent event : events) {
             LocalTime heureDebut = event.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : event.getHeureDebut();
             LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(22, 0) : event.getHeureFin();
@@ -75,31 +90,12 @@ public class JourControlleur {
             HBox hbox = timeSlotToHBoxMap.computeIfAbsent(key, k -> new HBox(2));
             hbox.setMinWidth(100);
 
-            // Création du bouton de l'événement avec le nom de l'enseignant
-            String eventText = event.getSummary() +
-                    (event.isAllDayEvent() ? "" : "\n" + heureDebut + " - " + heureFin) +
-                    "\n" + event.getEnseignant(); // Utilisation de getEnseignant() pour inclure le nom de l'enseignant
-            Button eventButton = new Button(eventText);
+            Button eventButton = new Button(event.getSummary() + (event.isAllDayEvent() ? "" : "\n" + heureDebut + " - " + heureFin));
             eventButton.setMaxWidth(Double.MAX_VALUE);
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
-            eventButton.setStyle("-fx-text-fill: white;");
-
-            // Ajout d'un gestionnaire d'événements pour traiter les clics sur le nom de l'enseignant
-            eventButton.setOnAction(e -> {
-                // Insérez ici la logique à exécuter lors du clic sur le nom de l'enseignant
-                System.out.println("Enseignant cliqué: " + event.getEnseignant());
-            });
-
-            // Configuration du style et du tooltip
-            String styleClass = switch (event.getType()) {
-                case "TP" -> "event-tp";
-                case "CM" -> "event-cm";
-                case "TD" -> "event-td";
-                case "Evaluation" -> "event-evaluation";
-                default -> "event-autre";
-            };
-            eventButton.getStyleClass().add(styleClass);
+            eventButton.setStyle("-fx-text-fill: black;");
+            applyEventStyle(event,eventButton);
             Tooltip tooltip = createEventTooltip(event);
             Tooltip.install(eventButton, tooltip);
 
@@ -111,12 +107,28 @@ public class JourControlleur {
                 GridPane.setVgrow(hbox, Priority.ALWAYS);
                 dynamicGridPane.getChildren().add(hbox);
             }
-            eventButton.setOnAction(e -> formManager.showEmailForm(event));
         }
     }
 
+    public void applyEventStyle(CalendarEvent event, Button eventButton) {
+        if (event.getColor().equals("")) {
+            String styleClass = switch (event.getType()) {
+                case "TP" -> "event-tp";
+                case "CM" -> "event-cm";
+                case "TD" -> "event-td";
+                case "Evaluation" -> "event-evaluation";
+                default -> "event-autre";
+            };
+            eventButton.getStyleClass().add(styleClass);
+        } else {
+            String hexColor = event.getColor();
 
+            double opacity = 0.9;
 
+            eventButton.setStyle(String.format("-fx-background-color: %s%02x;",
+                    hexColor, (int) (opacity * 255)));
+        }
+    }
 
     @FXML
     private void loadPreviousDay() {
