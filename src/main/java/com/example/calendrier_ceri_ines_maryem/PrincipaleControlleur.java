@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -24,6 +25,8 @@ import static com.example.calendrier_ceri_ines_maryem.EventsCreateur.creationLis
 
 public class PrincipaleControlleur {
 
+
+    public MenuButton gestionEventBtn;
 
     public enum DisplayMode {
         DAY, WEEK, MONTH
@@ -56,6 +59,10 @@ public class PrincipaleControlleur {
             setUserDetails(sessionManager.getNom(), sessionManager.getPrenom(), sessionManager.getFonction(), sessionManager.getPrenom().substring(0, 1) + sessionManager.getNom().substring(0, 1));
         }
         //System.out.println(sessionManager.getFonction());
+        if (!sessionManager.getFonction().equals("Enseignant")) {
+            gestionEventBtn.setDisable(true);
+            gestionEventBtn.setVisible(false);
+        }
 
     }
 
