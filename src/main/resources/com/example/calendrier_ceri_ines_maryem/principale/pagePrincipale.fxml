@@ -71,7 +71,7 @@
                 <Separator />
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="Filtrer"  text="Filtre d'Evenements">
+                  <Button fx:id="Filtrer"  onAction="#choisirTonEmploi" text="Filtre d'Evenements">
                      <graphic>
                         <ImageView fx:id="iconHelp1" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>

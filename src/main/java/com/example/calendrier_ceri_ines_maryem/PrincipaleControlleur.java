@@ -1,5 +1,6 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -14,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,18 @@ public class PrincipaleControlleur {
     private Button Filtrer;
     public MenuButton gestionEventBtn;
 
+    public void choisirTonEmploi() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Choix d'emploi");
+        alert.setHeaderText(null);
+        alert.setContentText("Veuillez choisir votre emploi dans l'application.");
+        alert.show();
+
+        // Crée une pause de 2 secondes
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> alert.close());
+        delay.play();
+    }
 
     public enum DisplayMode {
         DAY, WEEK, MONTH
