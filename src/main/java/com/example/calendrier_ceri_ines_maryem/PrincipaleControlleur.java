@@ -1,5 +1,6 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -7,13 +8,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,29 +53,15 @@ public class PrincipaleControlleur {
     public MenuButton gestionEventBtn;
 
 
+    public boolean isDarkMode = false;
+    @FXML
+    private ImageView iconeMode;
+
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
-    public void reserverUneSalle() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/reservation.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root,400,300));
-            stage.setTitle("Réserver une salle");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
-        prenomText.setText(prenom+" "+nom);
-        fonctionText.setText(fonction);
-        initialesText.setText(initiales);
-
-    }
     @FXML
     private void initialize() {
         SessionManager sessionManager = SessionManager.getInstance();
@@ -79,6 +74,47 @@ public class PrincipaleControlleur {
             gestionEventBtn.setDisable(true);
             gestionEventBtn.setVisible(false);
         }
+
+
+        mainPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                newValue.setOnKeyPressed(event -> {
+                    if (event.isControlDown() && event.getCode() == KeyCode.D) {
+                        // Ctrl+D
+                        isDarkMode = false;
+                        toggleDarkMode();
+                    } else if (event.isControlDown() && event.getCode() == KeyCode.L) {
+                        //  Ctrl+L
+                        isDarkMode = true;
+                        toggleDarkMode();
+                    }else if (event.isControlDown() && event.getCode() == KeyCode.E) {
+                        //  Ctrl+E
+                        Window currentWindow = mainPane.getScene().getWindow();
+                        SessionManager.getInstance().logoutUser(currentWindow);
+                    }
+                });
+            }
+        });
+
+    }
+    @FXML
+    private void toggleDarkMode() {
+        if (isDarkMode) {
+            mainPane.getStylesheets().clear();
+            mainPane.getStylesheets().add(getClass().getResource("principale/principaleLight.css").toExternalForm());
+            iconeMode.setImage(new Image(getClass().getResourceAsStream("principale/images/nightMode.png")));
+            isDarkMode = false;
+        } else {
+            mainPane.getStylesheets().clear();
+            mainPane.getStylesheets().add(getClass().getResource("principale/principaleDark.css").toExternalForm());
+            iconeMode.setImage(new Image(getClass().getResourceAsStream("principale/images/lightMode.png")));
+            isDarkMode = true;
+        }
+    }
+    public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
+        prenomText.setText(prenom+" "+nom);
+        fonctionText.setText(fonction);
+        initialesText.setText(initiales);
 
     }
     public List<CalendarEvent> getEvents() {
@@ -103,7 +139,7 @@ public class PrincipaleControlleur {
         downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020081984ebc4fc00ab58fd87071d1fa020cdbe66b532d29ba6e091d5a551d44c9fd89c1ab660e39233a747175a4b4153ec44062d2d4446141034f4aa7389a9769e531c44193b3b030461858a1fec7097a37e11206824c4af0f307","eventsM1-IA.json");
         events = creationListEventsJson("eventsM1-IA.json");
         setDisplayMode(currentDisplayMode);
-        Filtrer.setOnAction(event -> onFiltrerButtonClickedM2());
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedM1());
     }
     @FXML
     private void onFormationM2_IA() throws IOException {
@@ -123,6 +159,7 @@ public class PrincipaleControlleur {
         List<CalendarEvent> eventsajouts = creationListEventsJson("events.json");
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedProf());
 
     }
 
@@ -136,6 +173,17 @@ public class PrincipaleControlleur {
         List<CalendarEvent> eventsajouts = creationListEventsJson("amphiAda-reservation.json");
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedSalle());
+    }
+
+    @FXML
+    private void onSalleS3() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def5020067c53113622ab5cb8df37352ce1f7896738f2e260377892d3bcd6f36372c0eeab08e34522c71ea92310adb743d42ed0632d00cd75dd1a9baeb1a3eccc2faf484634a99f1731089a4ab923402b410076813d14e9eda46d0","events-salle-S3.json");
+        events = creationListEventsJson("events-salle-S3.json");
+        List<CalendarEvent> eventsajouts = creationListEventsJson("S3-reservation.json");
+        events.addAll(eventsajouts);
+        setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedSalle());
     }
 
 
@@ -174,6 +222,7 @@ public class PrincipaleControlleur {
         centerVBox.getChildren().setAll(content);
         JourControlleur jourController = loader.getController();
         jourController.setEvents(events);
+        jourController.setMainController(this);
     }
 
     private void loadSemaineView() throws IOException {
@@ -182,6 +231,7 @@ public class PrincipaleControlleur {
         centerVBox.getChildren().setAll(content);
         SemaineControlleur semaineController = loader.getController();
         semaineController.setEvents(events);
+        semaineController.setMainController(this);
     }
 
     private void loadMoisView() throws IOException {
@@ -190,6 +240,7 @@ public class PrincipaleControlleur {
         centerVBox.getChildren().setAll(content);
         MoisControlleur moisController = loader.getController();
         moisController.setEvents(events);
+
     }
 
     @FXML
@@ -197,14 +248,90 @@ public class PrincipaleControlleur {
        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/AddCourse.fxml"));
             Parent root = loader.load();
+           if (isDarkMode) {
+               root.getStylesheets().clear();
+               root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
 
+           } else {
+               root.getStylesheets().clear();
+               root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+           }
             EventDialogController eventDialogController = loader.getController();
             eventDialogController.setMainController(this);
+           Stage stage = new Stage();
+           stage.initStyle(StageStyle.UNDECORATED);
+           Scene scene = new Scene(root);
+           stage.setScene(scene);
+           stage.initOwner(mainPane.getScene().getWindow());
+
+           stage.showAndWait();
+
+
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+    }
+
+    public void reserverUneSalle() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/reservation.fxml"));
+            Parent root = loader.load();
+            if (isDarkMode) {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+
+            } else {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+            }
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    //fonctions pour les filtres:
+    public void choisirTonEmploi() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Choix d'emploi");
+        alert.setHeaderText(null);
+        alert.setContentText("Veuillez choisir votre emploi dans l'application.");
+        alert.show();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> alert.close());
+        delay.play();
+    }
+
+    //filtre pour M1
+    @FXML
+    private EventHandler<ActionEvent> onFiltrerButtonClickedM1() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/formation/filtreM1.fxml"));
+            Parent root = loader.load();
+            if (isDarkMode) {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+
+            } else {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+            }
+            FiltrerControlleur reservationControlleur = loader.getController();
+            reservationControlleur.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Ajouter un cours");
-            stage.setScene(new Scene(root,480,360));
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.initOwner(mainPane.getScene().getWindow());
 
             stage.showAndWait();
@@ -213,22 +340,29 @@ public class PrincipaleControlleur {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
-
-//fonctions pour les filtres:
+//filtre pour M2
 @FXML
 private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/filtreM2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/formation/filtreM2.fxml"));
         Parent root = loader.load();
+        if (isDarkMode) {
+            root.getStylesheets().clear();
+            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
 
+        } else {
+            root.getStylesheets().clear();
+            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+        }
         FiltrerControlleur reservationControlleur = loader.getController();
         reservationControlleur.setMainController(this);
 
         Stage stage = new Stage();
-        stage.setTitle("FOR");
-        stage.setScene(new Scene(root,679.0,59.0));
-        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.initOwner(mainPane.getScene().getWindow());
 
         stage.showAndWait();
@@ -239,6 +373,68 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     }
     return null;
 }
+    //filtre pour Prof
+    @FXML
+    private EventHandler<ActionEvent> onFiltrerButtonClickedProf() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/prof/filtreProf.fxml"));
+            Parent root = loader.load();
+            if (isDarkMode) {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+
+            } else {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+            }
+            FiltrerControlleur reservationControlleur = loader.getController();
+            reservationControlleur.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    //filtre pour Salle
+    @FXML
+    private EventHandler<ActionEvent> onFiltrerButtonClickedSalle() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreSalle.fxml"));
+            Parent root = loader.load();
+            if (isDarkMode) {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+
+            } else {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+            }
+            FiltrerControlleur filtreControlleur = loader.getController();
+            filtreControlleur.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

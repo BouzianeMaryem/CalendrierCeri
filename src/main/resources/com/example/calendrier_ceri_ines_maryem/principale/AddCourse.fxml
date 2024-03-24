@@ -1,44 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane stylesheets="@style1.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EventDialogController">
-    <VBox fx:id="mainVBox" alignment="CENTER" spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
-        <Label styleClass="form-title" text="Ajouter un cours" />
-        <GridPane alignment="CENTER" hgap="20" maxWidth="300" vgap="10">
-            <columnConstraints>
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <DatePicker fx:id="dateDebutField" prefWidth="100" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="heureDebutField" prefWidth="100" promptText="Heure de début" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="heureFinField" prefWidth="100" promptText="Heure de fin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <HBox spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
-                <ColorPicker fx:id="couleurPicker" minWidth="139.0" prefHeight="30.0" prefWidth="139.0" styleClass="color-picker" />
-                <TextField fx:id="salleField" promptText="Salle" HBox.hgrow="ALWAYS" />
-            </HBox>
-            <TextField fx:id="summaryField" maxWidth="300" promptText="Résumé" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-            <Button maxWidth="300" onAction="#handleSubmit" text="Ajouter" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-            <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
-    </VBox>
-</AnchorPane>
+<VBox prefHeight="83.0" prefWidth="738.0" styleClass="back" stylesheets="@reservationLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EventDialogController">
+<children>
+    <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="647.0" styleClass="HBox">
+        <Button onAction="#minimizeWindow" styleClass="btnBar">
+            <graphic>
+                <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/barre/close.png" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+        <Button onAction="#maximizeRestoreWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/barre/expand.png" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+        <Button onAction="#closeWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+            <graphic>
+                <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/barre/cross.png" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+    </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <VBox prefHeight="102.0" prefWidth="610.0">
+               <children>
+            
+                <HBox alignment="CENTER" prefHeight="51.0" prefWidth="842.0" spacing="10" styleClass="HBox">
+                    <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <children>
+            
+                        <DatePicker fx:id="dateDebutField" prefHeight="30.0" prefWidth="116.0" promptText="AAAA-MM-JJ" styleClass="field" />
+                        <TextField fx:id="heureDebutField" prefHeight="30.0" prefWidth="102.0" promptText="Debut HH:MM" styleClass="field" />
+                        <TextField fx:id="heureFinField" prefHeight="30.0" prefWidth="102.0" promptText="Fin HH:MM" styleClass="field" />
+                        <ComboBox fx:id="salleField" promptText="Salle" styleClass="combo">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="amphi ada" />
+                                 <String fx:value="S3" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <ColorPicker fx:id="couleurPicker" prefHeight="30.0" prefWidth="102.0" styleClass="combo" />
+            
+                    </children>
+                </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="842.0" spacing="10" styleClass="HBox">
+                     <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                     </padding>
+                     <children>
+                        <TextField fx:id="summaryField" maxWidth="588.0" prefHeight="30.0" prefWidth="566.0" promptText="Description" styleClass="field" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="102.0" prefWidth="129.0" styleClass="HBox">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+               <children>
+                  <Button onAction="#handleSubmit" prefHeight="27.0" prefWidth="191.0" styleClass="ValidBtn" text="Ajouter" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+</children>
+</VBox>

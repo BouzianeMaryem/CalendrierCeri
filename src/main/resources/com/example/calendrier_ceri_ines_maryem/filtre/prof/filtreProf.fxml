@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="back" stylesheets="@../formation/filtreLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.FiltrerControlleur">
+    <children>
+        <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="647.0" styleClass="HBox">
+            <Button onAction="#minimizeWindow" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../principale/images/barre/close.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+            <Button onAction="#maximizeRestoreWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../principale/images/barre/expand.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+            <Button onAction="#closeWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../principale/images/barre/cross.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+        </HBox>
+
+        <HBox alignment="CENTER" layoutY="50" prefHeight="37.0" prefWidth="647.0" spacing="10" styleClass="HBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+                <!-- Groupe -->
+                <ComboBox fx:id="groupeCombo" promptText="Groupe" styleClass="combo" HBox.hgrow="ALWAYS">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="L2 Info G2" />
+                            <String fx:value="L3INFO_TD1" />
+                            <String fx:value="M1-IA-IL-ALT" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <!-- Salle -->
+                <ComboBox fx:id="salleCombo" promptText="Salle" styleClass="combo" HBox.hgrow="ALWAYS">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="S3 = C 036" />
+                            <String fx:value="Amphi ADA" />
+                            <String fx:value="Stat 1" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <!-- Type de cours -->
+                <ComboBox fx:id="typeCoursCombo" promptText="Type de cours" styleClass="combo" HBox.hgrow="ALWAYS">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="CM" />
+                            <String fx:value="TD" />
+                            <String fx:value="Evaluation" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <!-- Matière -->
+                <ComboBox fx:id="matiereCombo" prefHeight="26.0" prefWidth="128.0" promptText="Matière" styleClass="combo" HBox.hgrow="ALWAYS">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="SOUTIEN DISCIPLINAIRE" />
+                            <String fx:value="PROTOTYPAGE ET INTERFAC" />
+                            <String fx:value="UE DBWEB 2" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <Button fx:id="filtre" onAction="#onValiderFiltres" prefHeight="26.0" prefWidth="105.0" styleClass="ValidBtn" text="Filtrer" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

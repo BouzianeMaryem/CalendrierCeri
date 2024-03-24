@@ -49,9 +49,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
-.semaineGrille{
-    -fx-background-color:white;
-}
+
 .moistitre{
     -fx-text-fill: #7BD759;
     -fx-font-size: 14px;

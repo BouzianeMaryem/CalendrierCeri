@@ -1,15 +1,15 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,17 +20,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class reservationController {
 
     @FXML
-    private ChoiceBox<String> nomSalleChoiceBox;
+    private ComboBox<String> nomSalleChoiceBox;
     @FXML
     private DatePicker dateDebutPicker;
     @FXML
     private TextField heureDebutTextField;
-    @FXML
-    private DatePicker dateFinPicker;
+
     @FXML
     private TextField heureFinTextField;
     @FXML
@@ -38,90 +38,116 @@ public class reservationController {
 
 
 
+
     @FXML
-    private void handleCheckAvailabilityAndReservation() {
+    private void handleCheckAvailability() {
         String selectedSalle = nomSalleChoiceBox.getValue();
-        if (dateDebutPicker.getValue() == null || heureDebutTextField.getText().isEmpty() || heureFinTextField.getText().isEmpty()) {
-            showAlert("Erreur", "Veuillez remplir tous les champs.", Alert.AlertType.ERROR);
-            return;
-        }
+        if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
+            if (dateDebutPicker.getValue() == null || heureDebutTextField.getText().isEmpty() || heureFinTextField.getText().isEmpty()) {
 
-        try {
-            LocalDate dateDebut = dateDebutPicker.getValue();
-            LocalDate dateFin = dateDebutPicker.getValue();
-            LocalTime heureDebut = LocalTime.parse(heureDebutTextField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-            LocalTime heureFin = LocalTime.parse(heureFinTextField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-
-            boolean isAvailable = checkAvailability(selectedSalle, dateDebut, heureDebut, dateFin, heureFin);
-
-            if (isAvailable) {
-                performReservation(selectedSalle, dateDebut, heureDebut, dateFin, heureFin);
-                showAlert("Réservation effectuée", "La salle a été réservée avec succès.", Alert.AlertType.INFORMATION);
-            } else {
-                showAlert("Non disponible", "La salle n'est pas disponible pour les dates et heures sélectionnées.", Alert.AlertType.ERROR);
+                return;
             }
 
-        } catch (DateTimeParseException e) {
-            showAlert("Erreur", "Format de date ou d'heure invalide.", Alert.AlertType.ERROR);
-        } catch (Exception e) {
-            showAlert("Erreur", "Une erreur est survenue lors du traitement de votre demande.", Alert.AlertType.ERROR);
-        }
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        closeCurrentWindow();
-    }
+                String dateDebutStr = dateDebutPicker.getValue().format(dateFormatter);
+                String dateFinStr = dateDebutPicker.getValue().format(dateFormatter);
+                LocalTime heureDebutUser = LocalTime.parse(heureDebutTextField.getText(), timeFormatter);
+                LocalTime heureFinUser = LocalTime.parse(heureFinTextField.getText(), timeFormatter);
 
+                String url;
+                String fileName;
+                String fileName2;
+                if ("S3".equals(selectedSalle)) {
+                    url = "https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def5020067c53113622ab5cb8df37352ce1f7896738f2e260377892d3bcd6f36372c0eeab08e34522c71ea92310adb743d42ed0632d00cd75dd1a9baeb1a3eccc2faf484634a99f1731089a4ab923402b410076813d14e9eda46d0";
+                    fileName2 = "s3-reservation.json";
+                    fileName= "events-salle-S3.json";
 
-    private boolean checkAvailability(String salle, LocalDate dateDebut, LocalTime heureDebut, LocalDate dateFin, LocalTime heureFin) {
+                } else {
+                    url = "https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def502004c59af25cab3f4851f0984ff3a68c7fd573df0f5e81d580f9ee7891f97296f848b0c22792d744abed70631908bdd6888904453c5e1fb34350435d5c614aa681093db1c96698851bc2d2a3a9eb51171bc8d035969707950eb";
+                    fileName2 = "amphiAda-reservation.json";
+                    fileName = "events-salle-ADA.json";
 
-        String fileName = salle.equals("S3") ? "S3-reservation.json" : "amphiAda-reservation.json";
-        List<CalendarEvent> events = EventsCreateur.creationListEventsJson(fileName);
-
-        return events.stream().noneMatch(event -> {
-            LocalDate eventDateDebut = event.getDateDebut();
-            LocalDate eventDateFin = event.getDateFin();
-            LocalTime eventHeureDebut = event.getHeureDebut();
-            LocalTime eventHeureFin = event.getHeureFin();
-
-            boolean isSameDay = !dateDebut.isAfter(eventDateFin) && !dateFin.isBefore(eventDateDebut);
-            boolean isTimeOverlap = heureDebut.isBefore(eventHeureFin) && heureFin.isAfter(eventHeureDebut);
-
-            return isSameDay && isTimeOverlap;
-        });
-    }
-
-    private void performReservation(String salle, LocalDate dateDebut, LocalTime heureDebut, LocalDate dateFin, LocalTime heureFin) {
-        try {
-            JSONObject eventJson = new JSONObject();
-            eventJson.put("DateDebut", dateDebut.toString());
-            eventJson.put("DateFin", dateDebut.toString());
-            eventJson.put("HeureDebut", heureDebut.toString());
-            eventJson.put("HeureFin", heureFin.toString());
-            eventJson.put("Summary", "Reservation de salles");
-            eventJson.put("Matiere", "Reservation de salles");
-            SessionManager sessionManager = SessionManager.getInstance();
-            eventJson.put("Enseignant", sessionManager.getNom()+" "+sessionManager.getPrenom());
-            eventJson.put("Salle", salle);
-
-
-            String fileName = salle.equals("S3") ? "S3-reservation.json" : "amphiAda-reservation.json";
-            Path filePath = Paths.get(fileName);
-
-            List<JSONObject> events = new ArrayList<>();
-            if (Files.exists(filePath)) {
-                String content = new String(Files.readAllBytes(filePath));
-                JSONArray jsonArray = new JSONArray(content);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    events.add(jsonArray.getJSONObject(i));
                 }
+
+                CalendarService.downloadAndSaveJson(url, fileName);
+
+                List<CalendarEvent> events = EventsCreateur.creationListEventsJson(fileName);
+                List<CalendarEvent> eventsres = EventsCreateur.creationListEventsJson(fileName2);
+                events.addAll(eventsres);
+                Optional<CalendarEvent> overlappingEvent = events.stream().filter(event -> {
+                    LocalTime eventStartTime = event.getHeureDebut();
+                    LocalTime eventEndTime = event.getHeureFin();
+
+                    LocalDate eventStartDate = event.getDateDebut();
+                    LocalDate eventEndDate = event.getDateFin();
+
+                    LocalDate parsedDateDebut = LocalDate.parse(dateDebutStr, dateFormatter);
+                    LocalDate parsedDateFin = LocalDate.parse(dateFinStr, dateFormatter);
+
+                    return eventStartDate.equals(parsedDateDebut) &&
+                            eventEndDate.equals(parsedDateFin) &&
+                            ((heureDebutUser.isBefore(eventEndTime) && heureDebutUser.isAfter(eventStartTime)) ||
+                                    (heureFinUser.isAfter(eventStartTime) && heureFinUser.isBefore(eventEndTime)) ||
+                                    (heureDebutUser.equals(eventStartTime) && heureFinUser.equals(eventEndTime)) ||
+                                    (heureDebutUser.isBefore(eventStartTime) && heureFinUser.isAfter(eventEndTime)));
+                }).findFirst();
+
+
+                if (overlappingEvent.isPresent()) {
+                    CalendarEvent event = overlappingEvent.get();
+                    LocalTime eventStartTime = event.getHeureDebut();
+                    LocalTime eventEndTime = event.getHeureFin();
+                    showAlert("Non disponible", "La salle n'est pas disponible pour les dates et heures sélectionnées.", Alert.AlertType.ERROR);
+                } else {
+                    performReservation();
+                    showAlert("Réservation effectuée", "La salle a été réservée avec succès.", Alert.AlertType.INFORMATION);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            events.add(eventJson);
-
-            JSONArray updatedJsonArray = new JSONArray(events);
-            Files.write(filePath, updatedJsonArray.toString(2).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (Exception e) {
-            e.printStackTrace();
+            closeCurrentWindow();
         }
+    }
+    @FXML
+    private void performReservation() {
+                String selectedSalle = nomSalleChoiceBox.getValue();
+                if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
+                    try {
+                        JSONObject eventJson = new JSONObject();
+                        eventJson.put("DateDebut", dateDebutPicker.getValue().toString());
+                        eventJson.put("DateFin",  dateDebutPicker.getValue().toString());
+                        eventJson.put("HeureDebut", heureDebutTextField.getText());
+                        eventJson.put("HeureFin", heureFinTextField.getText());
+                        eventJson.put("HeureFin", heureFinTextField.getText());
+                        eventJson.put("Summary", "Reservation de salles");
+                        eventJson.put("Matiere", "Reservation de salles");
+                        SessionManager sessionManager = SessionManager.getInstance();
+                        eventJson.put("Enseignant", sessionManager.getNom()+" "+sessionManager.getPrenom());
+                        eventJson.put("Salle", selectedSalle);
+
+                        String fileName = "S3".equals(selectedSalle) ? "s3-reservation.json" : "amphiAda-reservation.json";
+                        File file = new File(fileName);
+
+                        if (!file.exists() || file.length() == 0) {
+                            String content = "[\n  " + eventJson.toString(2) + "\n]";
+                            Files.write(Paths.get(fileName), content.getBytes(), StandardOpenOption.CREATE);
+                        } else {
+                            String content = new String(Files.readAllBytes(Paths.get(fileName)));
+                            content = content.substring(0, content.length() - 1) + ",\n  " + eventJson.toString(2) + "\n]";
+                            Files.write(Paths.get(fileName), content.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
     }
 
     private void showAlert(String title, String content, Alert.AlertType type) {
@@ -136,4 +162,43 @@ public class reservationController {
         Stage stage = (Stage) checkAvailabilityButton.getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    @FXML
+    private void maximizeRestoreWindow(ActionEvent event) {
+        Stage stage = ((Stage)((Button)event.getSource()).getScene().getWindow());
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            stage.setMaximized(true);
+        }
+    }
+
+    @FXML
+    private void closeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).close();
+    }
+    @FXML
+    private HBox titleBar;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    public void initialize() {
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage)((HBox)event.getSource()).getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
+
 }

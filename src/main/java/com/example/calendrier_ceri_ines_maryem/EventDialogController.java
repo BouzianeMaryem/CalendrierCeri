@@ -1,7 +1,9 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+        import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.scene.control.*;
+        import javafx.scene.layout.HBox;
         import javafx.scene.paint.Color;
         import javafx.stage.Stage;
 
@@ -19,7 +21,8 @@ public class EventDialogController {
     @FXML private TextField heureDebutField;
     @FXML private TextField heureFinField;
     @FXML private TextField summaryField;
-    @FXML private TextField salleField;
+    @FXML
+    private ComboBox<String> salleField;
     @FXML private ColorPicker couleurPicker;
     private List<String> eventList = new ArrayList<>();
 
@@ -34,12 +37,6 @@ public class EventDialogController {
     @FXML
     private void handleSubmit() {
         try {
-            if (dateDebutField.getValue() == null ||
-                    heureDebutField.getText().isEmpty() || heureFinField.getText().isEmpty() ||
-                    summaryField.getText().isEmpty() || salleField.getText().isEmpty()) {
-                showAlert("Tous les champs sont obligatoires.");
-                return;
-            }
             SessionManager sessionManager = SessionManager.getInstance();
             LocalDate dateDebut = dateDebutField.getValue();
             LocalDate dateFin = dateDebutField.getValue();
@@ -51,7 +48,7 @@ public class EventDialogController {
                     (int) (couleur.getGreen() * 255),
                     (int) (couleur.getBlue() * 255));
             String summary = summaryField.getText();
-            String salle = salleField.getText();
+            String salle = salleField.getValue();
             String enseignant = sessionManager.getNom()+" "+sessionManager.getPrenom();
             String jsonEvent = String.format(
                     "{\n" +
@@ -93,5 +90,49 @@ public class EventDialogController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    @FXML
+    private void maximizeRestoreWindow(ActionEvent event) {
+        Stage stage = ((Stage)((Button)event.getSource()).getScene().getWindow());
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            stage.setMaximized(true);
+        }
+    }
+
+    @FXML
+    private void closeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).close();
+    }
+    @FXML
+    private HBox titleBar;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    public void initialize() {
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage)((HBox)event.getSource()).getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
+
+    private void closeWindowAutomatically() {
+        Stage stage = (Stage) salleField.getScene().getWindow();
+        stage.close();
     }
 }
