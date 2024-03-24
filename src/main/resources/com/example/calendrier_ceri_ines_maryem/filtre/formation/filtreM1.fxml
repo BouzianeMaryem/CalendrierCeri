@@ -18,7 +18,7 @@
                 <graphic>
                     <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../images/close.png" />
+                            <Image url="@../../principale/images/barre/close.png" />
                         </image>
                     </ImageView>
                 </graphic></Button>
@@ -26,7 +26,7 @@
                 <graphic>
                     <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../images/expand.png" />
+                            <Image url="@../../principale/images/barre/expand.png" />
                         </image>
                     </ImageView>
                 </graphic></Button>
@@ -34,7 +34,7 @@
                 <graphic>
                     <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../images/cross.png" />
+                            <Image url="@../../principale/images/barre/cross.png" />
                         </image>
                     </ImageView>
                 </graphic></Button>

@@ -57,9 +57,12 @@ public class PrincipaleControlleur {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/reservation.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root,400,300));
-            stage.setTitle("Réserver une salle");
-            stage.show();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,19 +220,18 @@ public class PrincipaleControlleur {
 
             EventDialogController eventDialogController = loader.getController();
             eventDialogController.setMainController(this);
+           Stage stage = new Stage();
+           stage.initStyle(StageStyle.UNDECORATED);
+           Scene scene = new Scene(root);
+           stage.setScene(scene);
+           stage.initOwner(mainPane.getScene().getWindow());
 
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un cours");
-            stage.setScene(new Scene(root,480,360));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(mainPane.getScene().getWindow());
-
-            stage.showAndWait();
+           stage.showAndWait();
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
     }
 
 //fonctions pour les filtres:
@@ -297,7 +299,7 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     @FXML
     private EventHandler<ActionEvent> onFiltrerButtonClickedProf() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/formation/filtreProf.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/prof/filtreProf.fxml"));
             Parent root = loader.load();
 
             FiltrerControlleur reservationControlleur = loader.getController();
@@ -324,8 +326,8 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreSalle.fxml"));
             Parent root = loader.load();
 
-            FiltrerControlleur reservationControlleur = loader.getController();
-            reservationControlleur.setMainController(this);
+            FiltrerControlleur filtreControlleur = loader.getController();
+            filtreControlleur.setMainController(this);
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);

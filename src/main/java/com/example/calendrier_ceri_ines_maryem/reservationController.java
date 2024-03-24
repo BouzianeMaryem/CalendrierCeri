@@ -1,11 +1,9 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +25,7 @@ import java.util.Optional;
 public class reservationController {
 
     @FXML
-    private ChoiceBox<String> nomSalleChoiceBox;
+    private ComboBox<String> nomSalleChoiceBox;
     @FXML
     private DatePicker dateDebutPicker;
     @FXML
@@ -164,4 +162,43 @@ public class reservationController {
         Stage stage = (Stage) checkAvailabilityButton.getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    @FXML
+    private void maximizeRestoreWindow(ActionEvent event) {
+        Stage stage = ((Stage)((Button)event.getSource()).getScene().getWindow());
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            stage.setMaximized(true);
+        }
+    }
+
+    @FXML
+    private void closeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).close();
+    }
+    @FXML
+    private HBox titleBar;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    public void initialize() {
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage)((HBox)event.getSource()).getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
+
 }

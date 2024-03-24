@@ -1,19 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox xmlns:fx="http://javafx.com/fxml" spacing="10" fx:controller="com.example.calendrier_ceri_ines_maryem.EmailFormController" minWidth="300" minHeight="200">
+<VBox minHeight="200" minWidth="300" prefHeight="432.0" prefWidth="446.0" spacing="10" styleClass="HBox" stylesheets="@reservation.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EmailFormController">
     <padding>
-        <Insets top="15" right="20" bottom="10" left="10"/>
+        <Insets bottom="10" left="10" right="20" top="15" />
     </padding>
     <children>
-        <Label text="Envoyer un email à :" />
-        <TextField fx:id="emailField" editable="false"/>
-        <Label text="Sujet :" />
-        <TextField fx:id="subjectField" promptText="Sujet de l'e-mail"/>
-        <TextArea fx:id="messageArea" promptText="Votre message" VBox.vgrow="ALWAYS"/>
-        <Button text="Envoyer" onAction="#handleSendButton" maxWidth="Infinity"/>
+        <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="647.0" styleClass="HBox">
+            <Button onAction="#minimizeWindow" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/barre/close.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+            <Button onAction="#maximizeRestoreWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/barre/expand.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+            <Button onAction="#closeWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/barre/cross.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+        </HBox>
+      <VBox prefHeight="323.0" prefWidth="416.0" styleClass="HBox" spacing="10" >
+
+         <children>
+           <Label text="Envoyer un email à :" />
+           <TextField fx:id="emailField" editable="false" styleClass="field" />
+           <Label text="Sujet :" />
+           <TextField fx:id="subjectField" promptText="Sujet de l'e-mail" styleClass="field" />
+           <TextArea fx:id="messageArea" promptText="Votre message" styleClass="field" VBox.vgrow="ALWAYS" />
+           <Button maxWidth="Infinity" onAction="#handleSendButton" styleClass="ValidBtn" text="Envoyer" />
+         </children>
+      </VBox>
     </children>
 </VBox>

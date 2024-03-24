@@ -1,9 +1,12 @@
 package com.example.calendrier_ceri_ines_maryem;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
@@ -18,7 +21,7 @@ import java.io.IOException;
 import java.util.Properties;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-
+import javafx.stage.StageStyle;
 
 
 public class EmailFormController {
@@ -41,9 +44,12 @@ public class EmailFormController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
+            Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(loader.load()));
-            stage.show();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
 
             EmailFormController controller = loader.getController();
             controller.setEmailField(this.destinationEmail);
@@ -110,4 +116,46 @@ public class EmailFormController {
     }
 
 
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    @FXML
+    private void maximizeRestoreWindow(ActionEvent event) {
+        Stage stage = ((Stage)((Button)event.getSource()).getScene().getWindow());
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            stage.setMaximized(true);
+        }
+    }
+
+    @FXML
+    private void closeWindow(ActionEvent event) {
+        ((Stage)((Button)event.getSource()).getScene().getWindow()).close();
+    }
+    @FXML
+    private HBox titleBar;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    public void initialize() {
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage)((HBox)event.getSource()).getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
+
+    private void closeWindowAutomatically() {
+        Stage stage = (Stage) emailField.getScene().getWindow();
+        stage.close();
+    }
 }

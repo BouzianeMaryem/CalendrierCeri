@@ -14,6 +14,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -114,6 +115,7 @@ public class JourControlleur {
 
                     EmailFormController controller = loader.getController();
                     controller.showEmailForm(event);
+
 
                 } catch (IOException er) {
                     er.printStackTrace();

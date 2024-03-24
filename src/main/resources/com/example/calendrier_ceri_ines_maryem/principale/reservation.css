@@ -1,0 +1,31 @@
+.btnBar{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
+}
+.combo{
+-fx-background-color: transparent;
+ -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759) ;
+ -fx-border-width:  2 ;
+ -fx-border-radius : 30px;
+ -fx-border-style: solid;
+}
+.ValidBtn{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759) ;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius : 20px;
+}
+.field{
+ -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759) ;
+ -fx-border-width:  2 ;
+ -fx-border-style: solid;
+ -fx-border-radius : 5px;
+}
+.HBox{
+   -fx-background-color:white;
+
+}
