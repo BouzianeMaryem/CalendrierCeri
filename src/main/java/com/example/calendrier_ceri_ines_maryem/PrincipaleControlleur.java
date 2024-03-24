@@ -14,8 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -45,18 +47,7 @@ public class PrincipaleControlleur {
     private Button Filtrer;
     public MenuButton gestionEventBtn;
 
-    public void choisirTonEmploi() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Choix d'emploi");
-        alert.setHeaderText(null);
-        alert.setContentText("Veuillez choisir votre emploi dans l'application.");
-        alert.show();
 
-        // Crée une pause de 2 secondes
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> alert.close());
-        delay.play();
-    }
 
     public enum DisplayMode {
         DAY, WEEK, MONTH
@@ -230,19 +221,31 @@ public class PrincipaleControlleur {
     }
 
 //fonctions pour les filtres:
+    public void choisirTonEmploi() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Choix d'emploi");
+        alert.setHeaderText(null);
+        alert.setContentText("Veuillez choisir votre emploi dans l'application.");
+        alert.show();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> alert.close());
+        delay.play();
+    }
+//filtre pour M2
 @FXML
 private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/filtreM2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/formation/filtreM2.fxml"));
         Parent root = loader.load();
 
         FiltrerControlleur reservationControlleur = loader.getController();
         reservationControlleur.setMainController(this);
 
         Stage stage = new Stage();
-        stage.setTitle("FOR");
-        stage.setScene(new Scene(root,679.0,59.0));
-        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.initOwner(mainPane.getScene().getWindow());
 
         stage.showAndWait();

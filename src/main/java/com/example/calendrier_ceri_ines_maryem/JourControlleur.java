@@ -21,10 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class JourControlleur {
@@ -68,7 +65,7 @@ public class JourControlleur {
     public void displayEvent(List<CalendarEvent> events) {
         int gridStartHour = 8;
         Map<String, HBox> timeSlotToHBoxMap = new HashMap<>();
-
+        Set<String> eventKeysAdded = new HashSet<>();
         events.sort((e1, e2) -> {
             boolean isE1ReservationSalle = "Reservation de salles".equals(e1.getMatiere());
             boolean isE2ReservationSalle = "Reservation de salles".equals(e2.getMatiere());
@@ -87,10 +84,13 @@ public class JourControlleur {
 
 
         for (CalendarEvent event : events) {
+            LocalDate dateDebut = event.getDateDebut();
             LocalTime heureDebut = event.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : event.getHeureDebut();
             LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(22, 0) : event.getHeureFin();
-            String key = heureDebut.toString();
-
+            String key = dateDebut.toString() + "_" + heureDebut + "_" + heureFin+ "_" +event.getSummary()+ "_" +event.getGroupe();
+            if (!eventKeysAdded.add(key)) {
+                continue;
+            }
             int startRowIndex = (heureDebut.getHour() - gridStartHour) * 2 + (heureDebut.getMinute() / 30) + 9;
             int endRowIndex = (heureFin.getHour() - gridStartHour) * 2 + (heureFin.getMinute() / 30) + 9;
             int rowSpan = endRowIndex - startRowIndex;
@@ -107,8 +107,6 @@ public class JourControlleur {
             Tooltip tooltip = createEventTooltip(event);
             Tooltip.install(eventButton, tooltip);
             HBox.setMargin(eventButton, new Insets(2));
-
-            // je viens d'ajouter cette fonction pour lancer le mail
             eventButton.setOnAction(e -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
@@ -130,6 +128,8 @@ public class JourControlleur {
             }
         }
     }
+
+
 
     public void applyEventStyle(CalendarEvent event, Button eventButton) {
         if (event.getColor().equals("")) {

@@ -22,9 +22,8 @@ public class LoginController {
 
     // Liste d'utilisateurs
     private static final List<User> users = Arrays.asList(
-            new User("Noe", "Cecillon", "Enseignant", "Noececillon", "123456"),
-            new User("Naima", "elMamoudi", "Etudiant", "janesmith", "123456"),
-            new User("Sara", "Wardi", "Enseignant", "1", "1"));
+            new User("Noe", "Cecillon", "Enseignant", "1", "1"),
+            new User("Naima", "ElMamoudi", "Etudiant", "2", "2"));
 
     public void showCalendarPage(User user) {
         try {
