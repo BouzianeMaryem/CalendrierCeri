@@ -108,7 +108,7 @@ public class PrincipaleControlleur {
         downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020081984ebc4fc00ab58fd87071d1fa020cdbe66b532d29ba6e091d5a551d44c9fd89c1ab660e39233a747175a4b4153ec44062d2d4446141034f4aa7389a9769e531c44193b3b030461858a1fec7097a37e11206824c4af0f307","eventsM1-IA.json");
         events = creationListEventsJson("eventsM1-IA.json");
         setDisplayMode(currentDisplayMode);
-        Filtrer.setOnAction(event -> onFiltrerButtonClickedM2());
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedM1());
     }
     @FXML
     private void onFormationM2_IA() throws IOException {
@@ -128,6 +128,7 @@ public class PrincipaleControlleur {
         List<CalendarEvent> eventsajouts = creationListEventsJson("events.json");
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedProf());
 
     }
 
@@ -141,6 +142,17 @@ public class PrincipaleControlleur {
         List<CalendarEvent> eventsajouts = creationListEventsJson("amphiAda-reservation.json");
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedSalle());
+    }
+
+    @FXML
+    private void onSalleS3() throws IOException {
+        downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def5020067c53113622ab5cb8df37352ce1f7896738f2e260377892d3bcd6f36372c0eeab08e34522c71ea92310adb743d42ed0632d00cd75dd1a9baeb1a3eccc2faf484634a99f1731089a4ab923402b410076813d14e9eda46d0","events-salle-S3.json");
+        events = creationListEventsJson("events-salle-S3.json");
+        List<CalendarEvent> eventsajouts = creationListEventsJson("S3-reservation.json");
+        events.addAll(eventsajouts);
+        setDisplayMode(currentDisplayMode);
+        Filtrer.setOnAction(event -> onFiltrerButtonClickedSalle());
     }
 
 
@@ -232,6 +244,31 @@ public class PrincipaleControlleur {
         delay.setOnFinished(event -> alert.close());
         delay.play();
     }
+
+    //filtre pour M1
+    @FXML
+    private EventHandler<ActionEvent> onFiltrerButtonClickedM1() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/formation/filtreM1.fxml"));
+            Parent root = loader.load();
+
+            FiltrerControlleur reservationControlleur = loader.getController();
+            reservationControlleur.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 //filtre pour M2
 @FXML
 private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
@@ -256,6 +293,54 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     }
     return null;
 }
+    //filtre pour Prof
+    @FXML
+    private EventHandler<ActionEvent> onFiltrerButtonClickedProf() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/formation/filtreProf.fxml"));
+            Parent root = loader.load();
+
+            FiltrerControlleur reservationControlleur = loader.getController();
+            reservationControlleur.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    //filtre pour Salle
+    @FXML
+    private EventHandler<ActionEvent> onFiltrerButtonClickedSalle() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreSalle.fxml"));
+            Parent root = loader.load();
+
+            FiltrerControlleur reservationControlleur = loader.getController();
+            reservationControlleur.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

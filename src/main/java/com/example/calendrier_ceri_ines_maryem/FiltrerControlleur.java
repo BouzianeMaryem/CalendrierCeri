@@ -21,25 +21,54 @@ public class FiltrerControlleur {
     private ComboBox<String> typeCoursCombo;
     @FXML
     private ComboBox<String> matiereCombo;
+    @FXML
+    private ComboBox<String> enseignantCombo;
     public void setMainController(PrincipaleControlleur controller) {
         this.mainController = controller;
     }
 
     @FXML
     private void onValiderFiltres() {
-        String selectedGroupe = groupeCombo.getValue();
-        String selectedSalle = salleCombo.getValue();
-        String selectedTypeCours = typeCoursCombo.getValue();
-        String selectedMatiere = matiereCombo.getValue();
+        String selectedGroupe = null;
+        if (groupeCombo != null) {
+            selectedGroupe = groupeCombo.getValue();
+        }
 
+        String selectedSalle = null;
+        if (salleCombo != null) {
+            selectedSalle = salleCombo.getValue();
+        }
+
+        String selectedTypeCours = null;
+        if (typeCoursCombo != null) {
+            selectedTypeCours = typeCoursCombo.getValue();
+        }
+
+        String selectedMatiere = null;
+        if (matiereCombo != null) {
+            selectedMatiere = matiereCombo.getValue();
+        }
+        String selectedEnseignant = null;
+        if (enseignantCombo != null) {
+            selectedEnseignant = enseignantCombo.getValue();
+        }
+
+
+        String finalSelectedGroupe = selectedGroupe;
+        String finalSelectedSalle = selectedSalle;
+        String finalSelectedTypeCours = selectedTypeCours;
+        String finalSelectedMatiere = selectedMatiere;
+        String finalSelectedEnseignant = selectedEnseignant;
         List<CalendarEvent> filteredEvents = mainController.getEvents().stream()
-                .filter(event -> (selectedGroupe == null || event.getGroupe().contains(selectedGroupe)))
-                .filter(event -> (selectedSalle == null || event.getSalle().contains(selectedSalle)))
-                .filter(event -> (selectedTypeCours == null || event.getType().contains(selectedTypeCours)))
-                .filter(event -> (selectedMatiere == null || event.getMatiere().contains(selectedMatiere)))
+                .filter(event -> (finalSelectedGroupe == null || event.getGroupe().contains(finalSelectedGroupe)))
+                .filter(event -> (finalSelectedSalle == null || event.getSalle().contains(finalSelectedSalle)))
+                .filter(event -> (finalSelectedTypeCours == null || event.getType().contains(finalSelectedTypeCours)))
+                .filter(event -> (finalSelectedMatiere == null || event.getMatiere().contains(finalSelectedMatiere)))
+                .filter(event -> (finalSelectedEnseignant == null || event.getEnseignant().contains(finalSelectedEnseignant)))
                 .collect(Collectors.toList());
 
         mainController.updateEvents(filteredEvents);
+        closeWindowAutomatically();
     }
 
     @FXML
@@ -80,5 +109,9 @@ public class FiltrerControlleur {
         });
     }
 
+    private void closeWindowAutomatically() {
+        Stage stage = (Stage) groupeCombo.getScene().getWindow();
+        stage.close();
+    }
 
 }

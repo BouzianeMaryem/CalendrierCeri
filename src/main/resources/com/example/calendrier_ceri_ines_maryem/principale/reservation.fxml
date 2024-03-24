@@ -33,6 +33,6 @@
     <Label text="Heure de fin :" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     <TextField fx:id="heureFinTextField" promptText="HH:MM" GridPane.columnIndex="2" GridPane.rowIndex="5" />
 
-    <Button fx:id="checkAvailabilityButton" onAction="#handleCheckAvailabilityAndReservation" text="Vérifier la disponibilité" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+    <Button fx:id="checkAvailabilityButton" onAction="#handleCheckAvailability" text="Vérifier la disponibilité" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
 
 </GridPane>
