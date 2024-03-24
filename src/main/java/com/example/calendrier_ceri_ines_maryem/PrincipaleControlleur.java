@@ -24,6 +24,7 @@ import static com.example.calendrier_ceri_ines_maryem.CalendarService.downloadAn
 import static com.example.calendrier_ceri_ines_maryem.EventsCreateur.creationListEventsJson;
 
 public class PrincipaleControlleur {
+
     private List<CalendarEvent> events = new ArrayList<>();
     // Mode par défaut
     private DisplayMode currentDisplayMode = DisplayMode.WEEK;
