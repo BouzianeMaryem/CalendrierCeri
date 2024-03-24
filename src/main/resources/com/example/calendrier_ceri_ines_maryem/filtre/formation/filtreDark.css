@@ -1,0 +1,30 @@
+    .HBox{
+       -fx-background-color:#2E3C49;
+
+    }
+    .btnBar{
+        -fx-background-color: transparent;
+        -fx-border-color: transparent;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+
+    }
+.combo{
+ -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759) ;
+ -fx-border-width:  2 ;
+ -fx-border-radius : 30px;
+ -fx-border-style: solid;
+ -fx-background-radius : 30px;
+ -fx-background-color:#0097B2;
+ -fx-text-fill: white;
+  -fx-prompt-text-fill: white;
+ -fx-control-inner-background:#0097B2;
+}
+}
+    .ValidBtn{
+        -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759) ;
+        -fx-border-color: transparent;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-border-radius : 20px;
+    }

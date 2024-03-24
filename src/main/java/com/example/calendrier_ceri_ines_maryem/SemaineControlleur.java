@@ -67,7 +67,11 @@ public class SemaineControlleur {
 
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private PrincipaleControlleur mainController;
 
+    public void setMainController(PrincipaleControlleur mainController) {
+        this.mainController = mainController;
+    }
     public void setEvents(List<CalendarEvent> events) {
         for (CalendarEvent event : events) {
             LocalDate date = event.getDateDebut();
@@ -184,21 +188,18 @@ public class SemaineControlleur {
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
             HBox.setMargin(eventButton, new Insets(3));
-            // je viens d'ajouter cette fonction pour lancer le mail
             eventButton.setOnAction(e -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
                     Parent root = loader.load();
 
                     EmailFormController controller = loader.getController();
+                    controller.setIsDarkMode(mainController.isDarkMode);
                     controller.showEmailForm(representativeEvent);
-
-                } catch (IOException er) {
-                    er.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             });
-
-
             hbox.getChildren().add(eventButton);
 
             applyEventStyle(representativeEvent, eventButton);

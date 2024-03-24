@@ -206,9 +206,9 @@
                 <Button fx:id="moisFilterButton" onAction="#onMoisFilterButtonClicked" prefHeight="27.0" prefWidth="54.0" styleClass="button-filter" text="Mois" />
             </HBox>
             <HBox prefHeight="38.0" prefWidth="142.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0">
+            <Button  styleClass="buttonMode" onAction="#toggleDarkMode"   mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0">
                 <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="iconeMode" fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@images/nightMode.png" />
                         </image>

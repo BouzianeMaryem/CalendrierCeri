@@ -34,7 +34,11 @@ public class JourControlleur {
     private LocalDate currentDate;
     private List<CalendarEvent> events;
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private PrincipaleControlleur mainController;
 
+    public void setMainController(PrincipaleControlleur mainController) {
+        this.mainController = mainController;
+    }
     public void initialize() {
         currentDate = LocalDate.now();
         updateDisplayedDay();
@@ -114,11 +118,10 @@ public class JourControlleur {
                     Parent root = loader.load();
 
                     EmailFormController controller = loader.getController();
+                    controller.setIsDarkMode(mainController.isDarkMode);
                     controller.showEmailForm(event);
-
-
-                } catch (IOException er) {
-                    er.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             });
             hbox.getChildren().add(eventButton);

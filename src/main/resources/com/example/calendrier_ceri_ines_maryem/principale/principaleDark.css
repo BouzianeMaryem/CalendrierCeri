@@ -81,6 +81,7 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
     -fx-font-weight: bold;
 }
+
 .Menubtn{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -91,7 +92,9 @@
     -fx-background-radius: 40;
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759);
 }
-
+.header .buttonMode:hover {
+           -fx-background-color: transparent;
+       }
 
 .menu-item .label {
     -fx-pref-width: 170px;
@@ -116,3 +119,13 @@
     -fx-text-fill:white;
     -fx-font-weight: bold;
 }
+/* conteneurs */
+
+.jourGrille,.semaineGrille{
+        -fx-background-color:#1D2733;
+    }
+
+    .HBox{
+       -fx-background-color:#1D2733;
+
+    }

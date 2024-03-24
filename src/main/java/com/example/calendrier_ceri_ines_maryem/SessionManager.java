@@ -1,5 +1,13 @@
 package com.example.calendrier_ceri_ines_maryem;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.io.IOException;
+
 public class SessionManager {
     private static SessionManager instance = new SessionManager();
 
@@ -32,10 +40,23 @@ public class SessionManager {
         return fonction;
     }
 
-    public void logoutUser() {
+    public void logoutUser(Window currentWindow) {
         prenom = null;
         nom = null;
         fonction = null;
+        Stage stage = (Stage) currentWindow;
+        stage.close();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            Parent root = loader.load();
+
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -26,6 +26,7 @@ import javafx.stage.StageStyle;
 
 public class EmailFormController {
 
+
     @FXML
     private TextField emailField;
     @FXML
@@ -36,28 +37,41 @@ public class EmailFormController {
     private CalendarEvent selectedEvent;
 
     private String destinationEmail = "bouziane.meryem11@gmail.com";
+    private boolean isDarkMode;
 
+    public void setIsDarkMode(boolean isDarkMode) throws IOException {
+        this.isDarkMode = isDarkMode;
+    }
 
-    public void showEmailForm(CalendarEvent selectedEvent) {
+    public void setSelectedEvent(CalendarEvent selectedEvent) {
         this.selectedEvent = selectedEvent;
-        this.destinationEmail = selectedEvent.getEnseignant();
+    }
 
+    public void showEmailForm(CalendarEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.showAndWait();
 
             EmailFormController controller = loader.getController();
-            controller.setEmailField(this.destinationEmail);
+            controller.setIsDarkMode(this.isDarkMode);
+            controller.setEmailField(event.getEnseignant());
+            controller.setSelectedEvent(event);
+            Scene scene = new Scene(root);
+            if (controller.isDarkMode) {
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+            }else{
+
+                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+            }
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public void setEmailField(String email) {
         emailField.setText(email);
     }
@@ -154,8 +168,4 @@ public class EmailFormController {
         });
     }
 
-    private void closeWindowAutomatically() {
-        Stage stage = (Stage) emailField.getScene().getWindow();
-        stage.close();
-    }
 }

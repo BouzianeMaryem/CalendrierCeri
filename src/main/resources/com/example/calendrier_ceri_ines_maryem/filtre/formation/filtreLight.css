@@ -19,7 +19,8 @@
     -fx-font-weight: bold;
     -fx-border-radius : 20px;
 }
-.HBox{
-   -fx-background-color:white;
 
-}
+    .HBox{
+       -fx-background-color:white;
+
+    }

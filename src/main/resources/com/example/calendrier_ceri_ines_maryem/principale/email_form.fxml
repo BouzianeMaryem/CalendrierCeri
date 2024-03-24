@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="200" minWidth="300" prefHeight="432.0" prefWidth="446.0" spacing="10" styleClass="HBox" stylesheets="@reservation.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EmailFormController">
+<VBox minHeight="200" minWidth="300" prefHeight="432.0" prefWidth="446.0" spacing="10" styleClass="HBox" stylesheets="@reservationLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EmailFormController">
     <padding>
         <Insets bottom="10" left="10" right="20" top="15" />
     </padding>
@@ -41,14 +41,14 @@
                     </ImageView>
                 </graphic></Button>
         </HBox>
-      <VBox prefHeight="323.0" prefWidth="416.0" styleClass="HBox" spacing="10" >
+      <VBox prefHeight="323.0" prefWidth="416.0" spacing="10" styleClass="HBox">
 
          <children>
-           <Label text="Envoyer un email à :" />
-           <TextField fx:id="emailField" editable="false" styleClass="field" />
-           <Label text="Sujet :" />
-           <TextField fx:id="subjectField" promptText="Sujet de l'e-mail" styleClass="field" />
-           <TextArea fx:id="messageArea" promptText="Votre message" styleClass="field" VBox.vgrow="ALWAYS" />
+           <Label text="Envoyer un email à :" styleClass="label-style"/>
+           <TextField fx:id="emailField" editable="false" styleClass="field-Email" />
+           <Label text="Sujet :" styleClass="label-style" />
+           <TextField fx:id="subjectField" promptText="Sujet de l'e-mail" styleClass="field-Email" />
+           <TextArea fx:id="messageArea" promptText="Votre message" styleClass="field-Email" VBox.vgrow="ALWAYS" />
            <Button maxWidth="Infinity" onAction="#handleSendButton" styleClass="ValidBtn" text="Envoyer" />
          </children>
       </VBox>

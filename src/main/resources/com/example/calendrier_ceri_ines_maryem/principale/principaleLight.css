@@ -35,6 +35,12 @@
 -fx-border-width: 10;
 -fx-border-radius: 40;
 }
+.gradient-border{
+-fx-background-color:white;
+-fx-background-radius:40;
+-fx-border-width: 10;
+-fx-border-radius: 40;
+}
 .sidebar-margin .button:hover {
     -fx-text-fill: black;
     -fx-background-radius: 40;
@@ -105,3 +111,7 @@
     -fx-text-fill:black;
     -fx-font-weight: bold;
 }
+/* conteneurs */
+.jourGrille,.semaineGrille{
+        -fx-background-color:white;
+    }
