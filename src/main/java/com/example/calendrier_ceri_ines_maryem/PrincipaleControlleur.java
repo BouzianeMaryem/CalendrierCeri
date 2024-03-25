@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,12 +70,12 @@ public class PrincipaleControlleur {
             setUserDetails(sessionManager.getNom(), sessionManager.getPrenom(), sessionManager.getFonction(),
                     sessionManager.getPrenom().substring(0, 1) + sessionManager.getNom().substring(0, 1));
         }
-
+        loadModeFromFile();
         if (!"Enseignant".equals(sessionManager.getFonction())) {
             gestionEventBtn.setDisable(true);
             gestionEventBtn.setVisible(false);
         }
-
+        loadModeFromFile();
         mainPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 newValue.setOnKeyPressed(event -> {
@@ -94,13 +93,8 @@ public class PrincipaleControlleur {
             }
         });
 
-        try {
-            restorePreferences();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
     }
+
     private void savePreferencesForAction(String userId, String actionType, String actionValue) {
         Map<String, String> prefs = Preferences.loadPreferences(userId);
 
@@ -114,15 +108,32 @@ public class PrincipaleControlleur {
         prefs.put("lastActionType", actionType);
         prefs.put("view", currentDisplayMode.name());
 
+
         Preferences.savePreferences(userId, prefs);
     }
 
+
+    private void loadModeFromFile() {
+        SessionManager sessionManager = SessionManager.getInstance();
+        String userId = sessionManager.getNom();
+        Map<String, String> prefs = Preferences.loadPreferences(userId);
+
+        String mode = prefs.get("mode");
+        if (mode == null) {
+            isDarkMode = false;
+            saveModePreference(userId, "LIGHT");
+        } else {
+            isDarkMode = mode.equals("DARK");
+        }
+        toggleDarkMode();
+    }
 
     private void restorePreferences() {
         SessionManager sessionManager = SessionManager.getInstance();
         String userId = sessionManager.getNom();
 
         Map<String, String> prefs = Preferences.loadPreferences(userId);
+
 
         String lastActionType = prefs.get("lastActionType");
         try {
@@ -140,15 +151,8 @@ public class PrincipaleControlleur {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
 
-        }
-        String mode = prefs.get("mode");
-        if ("LIGHT".equals(mode)) {
-            isDarkMode = true;
-        } else {
-            isDarkMode = false;
-        }
-        toggleDarkMode();
     }
 
     private void restoreFormation(String formation) throws IOException {
@@ -175,8 +179,7 @@ public class PrincipaleControlleur {
         }
     }
 
-
-
+    private boolean userClickedModeIcon = false;
     @FXML
     private void toggleDarkMode() {
         isDarkMode = !isDarkMode;
@@ -199,6 +202,7 @@ public class PrincipaleControlleur {
         prefs.put("mode", mode);
         Preferences.savePreferences(userId, prefs);
     }
+
 
     public void setUserDetails(String nom, String prenom, String fonction,String initiales) {
         prenomText.setText(prenom+" "+nom);
