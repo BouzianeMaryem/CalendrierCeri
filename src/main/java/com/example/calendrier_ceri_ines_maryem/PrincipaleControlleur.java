@@ -132,7 +132,7 @@ public class PrincipaleControlleur {
 /*
 **************************************************** onclick sur formation ****************************************
  */
-
+//peut etre que je dois ajouter le rewrite des fichiers jsons
     @FXML
     private void onFormationM1_IA() throws IOException {
         downloadAndSaveJson("https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020081984ebc4fc00ab58fd87071d1fa020cdbe66b532d29ba6e091d5a551d44c9fd89c1ab660e39233a747175a4b4153ec44062d2d4446141034f4aa7389a9769e531c44193b3b030461858a1fec7097a37e11206824c4af0f307","eventsM1-IA.json");
