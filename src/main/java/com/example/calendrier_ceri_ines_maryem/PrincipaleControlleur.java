@@ -80,10 +80,10 @@ public class PrincipaleControlleur {
             if (newValue != null) {
                 newValue.setOnKeyPressed(event -> {
                     if (event.isControlDown() && event.getCode() == KeyCode.D) {
-                        isDarkMode = false;
+                        isDarkMode = true;
                         toggleDarkMode();
                     } else if (event.isControlDown() && event.getCode() == KeyCode.L) {
-                        isDarkMode = true;
+                        isDarkMode = false;
                         toggleDarkMode();
                     } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
                         Window currentWindow = mainPane.getScene().getWindow();
