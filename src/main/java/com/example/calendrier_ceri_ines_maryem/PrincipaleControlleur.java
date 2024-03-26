@@ -109,6 +109,11 @@ public class PrincipaleControlleur {
         toggleDarkMode();
 
         centerVBox.getChildren().clear();
+        try {
+            setDisplayMode(DisplayMode.WEEK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void savePreferencesForAction(String userId, String actionType, String actionValue) {
