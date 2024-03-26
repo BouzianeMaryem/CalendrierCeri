@@ -70,12 +70,12 @@ public class PrincipaleControlleur {
             setUserDetails(sessionManager.getNom(), sessionManager.getPrenom(), sessionManager.getFonction(),
                     sessionManager.getPrenom().substring(0, 1) + sessionManager.getNom().substring(0, 1));
         }
-        loadModeFromFile();
+
         if (!"Enseignant".equals(sessionManager.getFonction())) {
             gestionEventBtn.setDisable(true);
             gestionEventBtn.setVisible(false);
         }
-        loadModeFromFile();
+
         mainPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 newValue.setOnKeyPressed(event -> {
@@ -92,7 +92,7 @@ public class PrincipaleControlleur {
                 });
             }
         });
-
+        restorePreferences();
     }
 
     private void savePreferencesForAction(String userId, String actionType, String actionValue) {
@@ -113,20 +113,7 @@ public class PrincipaleControlleur {
     }
 
 
-    private void loadModeFromFile() {
-        SessionManager sessionManager = SessionManager.getInstance();
-        String userId = sessionManager.getNom();
-        Map<String, String> prefs = Preferences.loadPreferences(userId);
 
-        String mode = prefs.get("mode");
-        if (mode == null) {
-            isDarkMode = false;
-            saveModePreference(userId, "LIGHT");
-        } else {
-            isDarkMode = mode.equals("DARK");
-        }
-        toggleDarkMode();
-    }
 
     private void restorePreferences() {
         SessionManager sessionManager = SessionManager.getInstance();
@@ -148,6 +135,14 @@ public class PrincipaleControlleur {
             String viewMode = prefs.get("view");
             if (viewMode != null) {
                 setDisplayMode(DisplayMode.valueOf(viewMode.toUpperCase()));
+            }
+            String mode = prefs.get("mode");
+            if ("dark".equals(mode)) {
+                isDarkMode = true;
+                toggleDarkMode();
+            } else if ("light".equals(mode)) {
+                isDarkMode = false;
+                toggleDarkMode();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,22 +174,28 @@ public class PrincipaleControlleur {
         }
     }
 
-    private boolean userClickedModeIcon = false;
+
     @FXML
     private void toggleDarkMode() {
-        isDarkMode = !isDarkMode;
+        SessionManager sessionManager = SessionManager.getInstance();
+        String userId = sessionManager.getNom();
+
         if (isDarkMode) {
             // Apply the dark mode stylesheet
             mainPane.getStylesheets().clear();
             mainPane.getStylesheets().add(getClass().getResource("principale/principaleDark.css").toExternalForm());
             iconeMode.setImage(new Image(getClass().getResourceAsStream("principale/images/lightMode.png")));
+             isDarkMode=false;
+            saveModePreference(userId, "dark");
         } else {
             // Apply the light mode stylesheet
             mainPane.getStylesheets().clear();
             mainPane.getStylesheets().add(getClass().getResource("principale/principaleLight.css").toExternalForm());
             iconeMode.setImage(new Image(getClass().getResourceAsStream("principale/images/nightMode.png")));
+            isDarkMode=true;
+            saveModePreference(userId, "light");
         }
-        saveModePreference(SessionManager.getInstance().getNom(), isDarkMode ? "DARK" : "LIGHT");
+
     }
 
     private void saveModePreference(String userId, String mode) {
