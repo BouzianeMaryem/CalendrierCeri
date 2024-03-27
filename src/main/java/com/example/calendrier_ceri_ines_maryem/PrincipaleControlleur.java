@@ -88,7 +88,7 @@ public class PrincipaleControlleur {
                     } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
                         Window currentWindow = mainPane.getScene().getWindow();
                         SessionManager.getInstance().logoutUser(currentWindow);
-                    }else if (event.isControlDown() && event.getCode() == KeyCode.R) {
+                    } else if (event.isControlDown() && event.getCode() == KeyCode.R) {
                         clearPreferences(sessionManager.getNom());
                     }
                 });
@@ -109,7 +109,11 @@ public class PrincipaleControlleur {
         toggleDarkMode();
 
         centerVBox.getChildren().clear();
-
+        try {
+            loadSemaineView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
