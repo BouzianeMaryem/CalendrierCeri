@@ -180,14 +180,14 @@ public class SemaineControlleur {
             int endRowIndex = (heureFin.getHour() - gridStartHour) * 2 + (heureFin.getMinute() / 30) + 9;
             int rowSpan = endRowIndex - startRowIndex;
 
-            HBox hbox = timeSlotToHBoxMap.computeIfAbsent(dateDebut + "_" + heureDebut, k -> new HBox(4));
+            HBox hbox = timeSlotToHBoxMap.computeIfAbsent(dateDebut + "_" + heureDebut, k -> new HBox(2));
             hbox.setMinWidth(100);
 
             Button eventButton = new Button(representativeEvent.getSummary() + " (" + group.size() + ")"+"\n"+representativeEvent.getEnseignant());
             eventButton.setMaxWidth(Double.MAX_VALUE);
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
-            HBox.setMargin(eventButton, new Insets(3));
+            HBox.setMargin(eventButton, new Insets(2));
             eventButton.setOnAction(e -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));

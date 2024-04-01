@@ -37,7 +37,7 @@ public class EmailFormController {
     private CalendarEvent selectedEvent;
 
     private String destinationEmail = "bouziane.meryem11@gmail.com";
-    private boolean isDarkMode;
+    private static boolean isDarkMode;
 
     public void setIsDarkMode(boolean isDarkMode) throws IOException {
         this.isDarkMode = isDarkMode;
@@ -58,10 +58,10 @@ public class EmailFormController {
             controller.setSelectedEvent(event);
             Scene scene = new Scene(root);
             if (controller.isDarkMode) {
-                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
-            }else{
-
                 root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+
+            }else{
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
             }
 
             Stage stage = new Stage();
@@ -112,11 +112,13 @@ public class EmailFormController {
             Transport.send(message);
 
             System.out.println("E-mail envoyé avec succès !");
-            showAlert(AlertType.INFORMATION, "Succès", "E-mail envoyé avec succès !");
+            showMail();
         } catch (MessagingException e) {
             e.printStackTrace();
             System.err.println("Erreur lors de l'envoi de l'e-mail : " + e.getMessage());
             showAlert(AlertType.ERROR, "Erreur", "Erreur lors de l'envoi de l'e-mail.\nVeuillez vérifier vos informations d'identification.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -128,7 +130,23 @@ public class EmailFormController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    private static void showMail() throws IOException {
+        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/filtreAlert.fxml"));
+        Parent root = loader.load();
 
+        Scene scene = new Scene(root);
+        if (isDarkMode) {
+            root.getStylesheets().add(EmailFormController.class.getResource("principale/reservationLight.css").toExternalForm());
+
+        }else{
+            root.getStylesheets().add(EmailFormController.class.getResource("principale/reservationDark.css").toExternalForm());
+        }
+
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
 
     @FXML
     private void minimizeWindow(ActionEvent event) {

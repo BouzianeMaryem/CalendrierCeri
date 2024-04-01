@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
+<Pane prefHeight="648.0" prefWidth="1152.0 " style="-fx-background-color: cyan;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+    <ImageView fx:id="imageView">
+      <image>
+         <Image url="@../img/login1.gif" />
+      </image></ImageView>
+</Pane>

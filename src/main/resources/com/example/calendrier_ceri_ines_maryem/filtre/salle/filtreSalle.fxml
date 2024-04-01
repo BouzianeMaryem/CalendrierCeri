@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="back" stylesheets="@../formation/filtreLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.FiltrerControlleur">
+<VBox styleClass="back"  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.FiltrerControlleur">
     <children>
         <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="647.0" styleClass="HBox">
             <Button onAction="#minimizeWindow" styleClass="btnBar">

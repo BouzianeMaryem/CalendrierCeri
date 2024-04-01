@@ -403,11 +403,11 @@ public class PrincipaleControlleur {
             Parent root = loader.load();
            if (isDarkMode) {
                root.getStylesheets().clear();
-               root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+               root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
 
            } else {
                root.getStylesheets().clear();
-               root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+               root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
            }
             EventDialogController eventDialogController = loader.getController();
             eventDialogController.setMainController(this);
@@ -431,11 +431,11 @@ public class PrincipaleControlleur {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
             }
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -452,16 +452,17 @@ public class PrincipaleControlleur {
 
 
     //fonctions pour les filtres:
-    public void choisirTonEmploi() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Choix d'emploi");
-        alert.setHeaderText(null);
-        alert.setContentText("Veuillez choisir votre emploi dans l'application.");
-        alert.show();
+    public void choisirTonEmploi() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Alert/filtreAlert.fxml"));
+        Parent root = loader.load();
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> alert.close());
-        delay.play();
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initOwner(mainPane.getScene().getWindow());
+
+        stage.showAndWait();
     }
 
     //filtre pour M1
@@ -472,11 +473,11 @@ public class PrincipaleControlleur {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
             }
             FiltrerControlleur reservationControlleur = loader.getController();
             reservationControlleur.setMainController(this);
@@ -503,11 +504,11 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
         Parent root = loader.load();
         if (isDarkMode) {
             root.getStylesheets().clear();
-            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
         } else {
             root.getStylesheets().clear();
-            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
         }
         FiltrerControlleur reservationControlleur = loader.getController();
         reservationControlleur.setMainController(this);
@@ -534,11 +535,11 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
             }
             FiltrerControlleur reservationControlleur = loader.getController();
             reservationControlleur.setMainController(this);
@@ -561,15 +562,15 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     @FXML
     private EventHandler<ActionEvent> onFiltrerButtonClickedSalle() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreSalle.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreAlert.fxml"));
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
             }
             FiltrerControlleur filtreControlleur = loader.getController();
             filtreControlleur.setMainController(this);
@@ -589,5 +590,9 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
         return null;
     }
 
-
+ @FXML
+    private void deconnexion() {
+     Window currentWindow = mainPane.getScene().getWindow();
+     SessionManager.getInstance().logoutUser(currentWindow);
+ }
 }

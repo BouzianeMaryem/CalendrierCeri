@@ -1,0 +1,29 @@
+.input {
+    -fx-min-width: 300px;
+    -fx-min-height: 40px;
+    -fx-font-size: 16px;
+}
+
+.btnClick {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 4;
+    -fx-border-radius: 30px;
+    -fx-min-width: 100px;
+    -fx-min-height: 35px;
+    -fx-font-size: 14px;
+}
+
+.btnClick:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #0097B2;
+     -fx-font-weight: bold;
+        -fx-border-width: 4;
+        -fx-border-radius: 30px;
+        -fx-background-radius: 30px;
+        -fx-min-width: 100px;
+        -fx-min-height: 35px;
+        -fx-font-size: 14px;
+}

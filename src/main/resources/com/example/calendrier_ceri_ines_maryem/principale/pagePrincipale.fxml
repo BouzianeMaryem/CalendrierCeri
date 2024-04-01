@@ -125,7 +125,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="DeconnexionButton" layoutX="17.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="167.0" styleClass="button-filter" text="Déconnexion              ">
+                    <Button fx:id="DeconnexionButton" onAction="#deconnexion" layoutX="17.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="167.0" styleClass="button-filter" text="Déconnexion              ">
                         <graphic>
                             <ImageView fx:id="iconDeconnexion" fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                 <image>

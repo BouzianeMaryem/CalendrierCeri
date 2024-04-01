@@ -24,6 +24,7 @@
  -fx-border-width:  2 ;
  -fx-border-style: solid;
  -fx-border-radius : 5px;
+
 }
 .HBox{
    -fx-background-color:white;

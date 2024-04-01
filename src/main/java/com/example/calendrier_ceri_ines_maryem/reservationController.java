@@ -114,42 +114,54 @@ public class reservationController {
     }
     @FXML
     private void performReservation() {
-                String selectedSalle = nomSalleChoiceBox.getValue();
-                if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
-                    try {
-                        JSONObject eventJson = new JSONObject();
-                        eventJson.put("DateDebut", dateDebutPicker.getValue().toString());
-                        eventJson.put("DateFin",  dateDebutPicker.getValue().toString());
-                        eventJson.put("HeureDebut", heureDebutTextField.getText());
-                        eventJson.put("HeureFin", heureFinTextField.getText());
-                        eventJson.put("HeureFin", heureFinTextField.getText());
-                        eventJson.put("Summary", "Reservation de salles");
-                        eventJson.put("Matiere", "Reservation de salles");
-                        SessionManager sessionManager = SessionManager.getInstance();
-                        eventJson.put("Enseignant", sessionManager.getNom()+" "+sessionManager.getPrenom());
-                        eventJson.put("Salle", selectedSalle);
+        String selectedSalle = nomSalleChoiceBox.getValue();
+        if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
+            try {
+                JSONObject eventJson = new JSONObject();
+                eventJson.put("DateDebut", dateDebutPicker.getValue().toString());
+                eventJson.put("DateFin", dateDebutPicker.getValue().toString());
+                eventJson.put("HeureDebut", heureDebutTextField.getText());
+                eventJson.put("HeureFin", heureFinTextField.getText());
+                eventJson.put("HeureFin", heureFinTextField.getText());
+                eventJson.put("Summary", "Reservation de salles");
+                eventJson.put("Matiere", "Reservation de salles");
+                SessionManager sessionManager = SessionManager.getInstance();
+                eventJson.put("Enseignant", sessionManager.getNom() + " " + sessionManager.getPrenom());
+                eventJson.put("Salle", selectedSalle);
+                String fileName = "S3".equals(selectedSalle) ? "s3-reservation.json" : "amphiAda-reservation.json";
+                Path path = Paths.get(fileName);
 
-                        String fileName = "S3".equals(selectedSalle) ? "s3-reservation.json" : "amphiAda-reservation.json";
-                        File file = new File(fileName);
-
-                        if (!file.exists() || file.length() == 0) {
-                            String content = "[\n  " + eventJson.toString(2) + "\n]";
-                            Files.write(Paths.get(fileName), content.getBytes(), StandardOpenOption.CREATE);
-                        } else {
-                            String content = new String(Files.readAllBytes(Paths.get(fileName)));
-                            content = content.substring(0, content.length() - 1) + ",\n  " + eventJson.toString(2) + "\n]";
-                            Files.write(Paths.get(fileName), content.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                if (!Files.exists(path)) {
+                    Files.createFile(path);
                 }
 
-    }
+                // Lire le contenu existant du fichier
+                String content = new String(Files.readAllBytes(path));
+                JSONArray jsonArray;
 
+                // Si le fichier n'était pas vide, transformer son contenu en un JSONArray
+                if (!content.isEmpty()) {
+                    jsonArray = new JSONArray(content);
+                } else {
+                    jsonArray = new JSONArray();
+                }
+
+                // Ajouter le nouvel événement au JSONArray
+                jsonArray.put(eventJson);
+
+                // Écrire le JSONArray mis à jour dans le fichier
+                Files.write(path, jsonArray.toString(2).getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Gérer l'exception d'I/O ici
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Gérer les autres exceptions ici
+            }
+            // Ici, on pourrait mettre un bloc 'finally' si nécessaire
+        }
+    }
     private void showAlert(String title, String content, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
