@@ -72,51 +72,66 @@ public class JourControlleur {
         Map<String, HBox> timeSlotToHBoxMap = new HashMap<>();
         Set<String> eventKeysAdded = new HashSet<>();
         events.sort((e1, e2) -> {
+            if (e1.isAllDayEvent() && !e2.isAllDayEvent()) return -1;
+            if (!e1.isAllDayEvent() && e2.isAllDayEvent()) return 1;
+
             boolean isE1ReservationSalle = "Reservation de salles".equals(e1.getMatiere());
             boolean isE2ReservationSalle = "Reservation de salles".equals(e2.getMatiere());
             if (isE1ReservationSalle && !isE2ReservationSalle) return -1;
             if (!isE1ReservationSalle && isE2ReservationSalle) return 1;
 
-            long durationE1 = ChronoUnit.HOURS.between(e1.getHeureDebut(), e1.getHeureFin());
-            long durationE2 = ChronoUnit.HOURS.between(e2.getHeureDebut(), e2.getHeureFin());
+            if (e1.getHeureDebut() == null || e2.getHeureDebut() == null) {
+                return 0;
+            }
+
+            long durationE1 = e1.getHeureFin() != null ? ChronoUnit.HOURS.between(e1.getHeureDebut(), e1.getHeureFin()) : 0;
+            long durationE2 = e2.getHeureFin() != null ? ChronoUnit.HOURS.between(e2.getHeureDebut(), e2.getHeureFin()) : 0;
             if (durationE1 == 4 && durationE2 != 4) return -1;
             if (durationE1 != 4 && durationE2 == 4) return 1;
             if (durationE1 == 3 && durationE2 != 3) return -1;
             if (durationE1 != 3 && durationE2 == 3) return 1;
-
             return e1.getHeureDebut().compareTo(e2.getHeureDebut());
         });
-
 
         for (CalendarEvent event : events) {
             LocalDate dateDebut = event.getDateDebut();
             LocalTime heureDebut = event.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : event.getHeureDebut();
-            LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(22, 0) : event.getHeureFin();
-            String key = dateDebut.toString() + "_" + heureDebut + "_" + heureFin+ "_" +event.getSummary()+ "_" +event.getGroupe();
-            if (!eventKeysAdded.add(key)) {
+            LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(19, 0) : event.getHeureFin();
+
+            String uniqueEventKey = dateDebut.toString() + "_" + heureDebut + "_" + heureFin + "_" + event.getSummary();
+
+            if (!eventKeysAdded.add(uniqueEventKey)) {
                 continue;
             }
+
+            String timeSlotKey = dateDebut.toString() + "_" + heureDebut + "_" + heureFin;
+
             int startRowIndex = (heureDebut.getHour() - gridStartHour) * 2 + (heureDebut.getMinute() / 30) + 9;
             int endRowIndex = (heureFin.getHour() - gridStartHour) * 2 + (heureFin.getMinute() / 30) + 9;
             int rowSpan = endRowIndex - startRowIndex;
 
-            HBox hbox = timeSlotToHBoxMap.computeIfAbsent(key, k -> new HBox(2));
-            hbox.setMinWidth(100);
+            HBox hbox = timeSlotToHBoxMap.computeIfAbsent(timeSlotKey, k -> {
+                HBox newHbox = new HBox(3);
+                newHbox.setMinWidth(100);
+                GridPane.setConstraints(newHbox, 1, startRowIndex, 1, rowSpan);
+                GridPane.setVgrow(newHbox, Priority.ALWAYS);
+                dynamicGridPane.getChildren().add(newHbox);
+                return newHbox;
+            });
 
             Button eventButton = new Button(event.getSummary() + (event.isAllDayEvent() ? "" : "\n" + heureDebut + " - " + heureFin));
             eventButton.setMaxWidth(Double.MAX_VALUE);
             eventButton.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(eventButton, Priority.ALWAYS);
             eventButton.setStyle("-fx-text-fill: black;");
-            applyEventStyle(event,eventButton);
+            applyEventStyle(event, eventButton);
             Tooltip tooltip = createEventTooltip(event);
             Tooltip.install(eventButton, tooltip);
-            HBox.setMargin(eventButton, new Insets(2));
+            HBox.setMargin(eventButton, new Insets(3));
             eventButton.setOnAction(e -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
                     Parent root = loader.load();
-
                     EmailFormController controller = loader.getController();
                     controller.setIsDarkMode(mainController.isDarkMode);
                     controller.showEmailForm(event);
@@ -124,16 +139,10 @@ public class JourControlleur {
                     ex.printStackTrace();
                 }
             });
-            hbox.getChildren().add(eventButton);
 
-            if (!dynamicGridPane.getChildren().contains(hbox)) {
-                GridPane.setConstraints(hbox, 1, startRowIndex, 1, rowSpan);
-                GridPane.setVgrow(hbox, Priority.ALWAYS);
-                dynamicGridPane.getChildren().add(hbox);
-            }
+            hbox.getChildren().add(eventButton);
         }
     }
-
 
 
     public void applyEventStyle(CalendarEvent event, Button eventButton) {
@@ -149,7 +158,7 @@ public class JourControlleur {
         } else {
             String hexColor = event.getColor();
 
-            double opacity = 0.9;
+            double opacity = 0.5;
 
             eventButton.setStyle(String.format("-fx-background-color: %s%02x;",
                     hexColor, (int) (opacity * 255)));

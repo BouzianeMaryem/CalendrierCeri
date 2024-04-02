@@ -2,12 +2,17 @@ package com.example.calendrier_ceri_ines_maryem;
 
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
+        import javafx.fxml.FXMLLoader;
+        import javafx.scene.Parent;
+        import javafx.scene.Scene;
         import javafx.scene.control.*;
+        import javafx.scene.image.Image;
         import javafx.scene.layout.HBox;
         import javafx.scene.paint.Color;
         import javafx.stage.Stage;
 
         import java.io.File;
+        import java.io.IOException;
         import java.io.RandomAccessFile;
         import java.time.LocalDate;
         import java.time.LocalTime;
@@ -76,9 +81,7 @@ public class EventDialogController {
                 }
                 raf.writeBytes(jsonEvent + "\n]");
             }
-            Stage stage = (Stage) dateDebutField.getScene().getWindow();
-            stage.close();
-
+            showAddYes();
         } catch (Exception e) {
             showAlert("Une erreur est survenue: " + e.getMessage());
         }
@@ -92,7 +95,17 @@ public class EventDialogController {
         alert.showAndWait();
     }
 
-
+    private void showAddYes() throws IOException {
+        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/ajoutOK.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
     @FXML
     private void minimizeWindow(ActionEvent event) {
         ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);

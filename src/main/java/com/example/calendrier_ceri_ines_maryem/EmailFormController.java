@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +38,7 @@ public class EmailFormController {
     private CalendarEvent selectedEvent;
 
     private String destinationEmail = "bouziane.meryem11@gmail.com";
-    private boolean isDarkMode;
+    private static boolean isDarkMode;
 
     public void setIsDarkMode(boolean isDarkMode) throws IOException {
         this.isDarkMode = isDarkMode;
@@ -58,10 +59,10 @@ public class EmailFormController {
             controller.setSelectedEvent(event);
             Scene scene = new Scene(root);
             if (controller.isDarkMode) {
-                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
-            }else{
-
                 root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+
+            }else{
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
             }
 
             Stage stage = new Stage();
@@ -77,11 +78,11 @@ public class EmailFormController {
     }
 
     @FXML
-    protected void handleSendButton(ActionEvent event) {
+    protected void handleSendButton(ActionEvent event) throws IOException {
 
         sendEmail(this.destinationEmail, subjectField.getText(), messageArea.getText());
     }
-    public static void sendEmail(String to, String subject, String body) {
+    public static void sendEmail(String to, String subject, String body) throws IOException {
         String host = "smtp.gmail.com";
         String port = "587";
         String username = "inelmahi@gmail.com";
@@ -112,11 +113,13 @@ public class EmailFormController {
             Transport.send(message);
 
             System.out.println("E-mail envoyé avec succès !");
-            showAlert(AlertType.INFORMATION, "Succès", "E-mail envoyé avec succès !");
+            showMail();
         } catch (MessagingException e) {
             e.printStackTrace();
             System.err.println("Erreur lors de l'envoi de l'e-mail : " + e.getMessage());
-            showAlert(AlertType.ERROR, "Erreur", "Erreur lors de l'envoi de l'e-mail.\nVeuillez vérifier vos informations d'identification.");
+            MailNo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -125,11 +128,33 @@ public class EmailFormController {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
         alert.setContentText(content);
         alert.showAndWait();
     }
+    private static void showMail() throws IOException {
+        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/MailAlert.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
 
-
+    private static void MailNo() throws IOException {
+        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/MailNO.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
     @FXML
     private void minimizeWindow(ActionEvent event) {
         ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);

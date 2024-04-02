@@ -2,7 +2,11 @@ package com.example.calendrier_ceri_ines_maryem;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -25,7 +29,7 @@ import java.util.Optional;
 public class reservationController {
 
     @FXML
-    private ComboBox<String> nomSalleComboBox;
+    private ComboBox<String> nomSalleChoiceBox;
     @FXML
     private DatePicker dateDebutPicker;
     @FXML
@@ -41,7 +45,7 @@ public class reservationController {
 
     @FXML
     private void handleCheckAvailability() {
-        String selectedSalle = nomSalleComboBox.getValue();
+        String selectedSalle = nomSalleChoiceBox.getValue();
         if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
             if (dateDebutPicker.getValue() == null || heureDebutTextField.getText().isEmpty() || heureFinTextField.getText().isEmpty()) {
 
@@ -92,18 +96,17 @@ public class reservationController {
                             ((heureDebutUser.isBefore(eventEndTime) && heureDebutUser.isAfter(eventStartTime)) ||
                                     (heureFinUser.isAfter(eventStartTime) && heureFinUser.isBefore(eventEndTime)) ||
                                     (heureDebutUser.equals(eventStartTime) && heureFinUser.equals(eventEndTime)) ||
-                                    (heureDebutUser.isBefore(eventStartTime) && heureFinUser.isAfter(eventEndTime)));
+                                    (heureDebutUser.isBefore(eventStartTime) && (heureFinUser.isAfter(eventEndTime) || heureFinUser.equals(eventEndTime))));
+
                 }).findFirst();
 
 
                 if (overlappingEvent.isPresent()) {
-                    CalendarEvent event = overlappingEvent.get();
-                    LocalTime eventStartTime = event.getHeureDebut();
-                    LocalTime eventEndTime = event.getHeureFin();
-                    showAlert("Non disponible", "La salle n'est pas disponible pour les dates et heures sélectionnées.", Alert.AlertType.ERROR);
+                    showAlertNo();
+                    return;
                 } else {
                     performReservation();
-                    showAlert("Réservation effectuée", "La salle a été réservée avec succès.", Alert.AlertType.INFORMATION);
+                    showAlertYes();
                 }
 
             } catch (Exception e) {
@@ -114,50 +117,71 @@ public class reservationController {
     }
     @FXML
     private void performReservation() {
-                String selectedSalle = nomSalleComboBox.getValue();
-                if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
-                    try {
-                        JSONObject eventJson = new JSONObject();
-                        eventJson.put("DateDebut", dateDebutPicker.getValue().toString());
-                        eventJson.put("DateFin",  dateDebutPicker.getValue().toString());
-                        eventJson.put("HeureDebut", heureDebutTextField.getText());
-                        eventJson.put("HeureFin", heureFinTextField.getText());
-                        eventJson.put("HeureFin", heureFinTextField.getText());
-                        eventJson.put("Summary", "Reservation de salles");
-                        eventJson.put("Matiere", "Reservation de salles");
-                        SessionManager sessionManager = SessionManager.getInstance();
-                        eventJson.put("Enseignant", sessionManager.getNom()+" "+sessionManager.getPrenom());
-                        eventJson.put("Salle", selectedSalle);
+        String selectedSalle = nomSalleChoiceBox.getValue();
+        if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
+            try {
+                JSONObject eventJson = new JSONObject();
+                eventJson.put("DateDebut", dateDebutPicker.getValue().toString());
+                eventJson.put("DateFin", dateDebutPicker.getValue().toString());
+                eventJson.put("HeureDebut", heureDebutTextField.getText());
+                eventJson.put("HeureFin", heureFinTextField.getText());
+                eventJson.put("HeureFin", heureFinTextField.getText());
+                eventJson.put("Summary", "Reservation de salles");
+                eventJson.put("Matiere", "Reservation de salles");
+                SessionManager sessionManager = SessionManager.getInstance();
+                eventJson.put("Enseignant", sessionManager.getNom() + " " + sessionManager.getPrenom());
+                eventJson.put("Salle", selectedSalle);
+                String fileName = "S3".equals(selectedSalle) ? "s3-reservation.json" : "amphiAda-reservation.json";
+                Path path = Paths.get(fileName);
 
-                        String fileName = "S3".equals(selectedSalle) ? "s3-reservation.json" : "amphiAda-reservation.json";
-                        File file = new File(fileName);
-
-                        if (!file.exists() || file.length() == 0) {
-                            String content = "[\n  " + eventJson.toString(2) + "\n]";
-                            Files.write(Paths.get(fileName), content.getBytes(), StandardOpenOption.CREATE);
-                        } else {
-                            String content = new String(Files.readAllBytes(Paths.get(fileName)));
-                            content = content.substring(0, content.length() - 1) + ",\n  " + eventJson.toString(2) + "\n]";
-                            Files.write(Paths.get(fileName), content.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                if (!Files.exists(path)) {
+                    Files.createFile(path);
                 }
 
+                String content = new String(Files.readAllBytes(path));
+                JSONArray jsonArray;
+
+                if (!content.isEmpty()) {
+                    jsonArray = new JSONArray(content);
+                } else {
+                    jsonArray = new JSONArray();
+                }
+
+                jsonArray.put(eventJson);
+
+                Files.write(path, jsonArray.toString(2).getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
-    private void showAlert(String title, String content, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    private void showAlertNo() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Alert/reservationNO.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(getClass().getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
     }
-
+    private void showAlertYes() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Alert/reservationOK.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(getClass().getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
     private void closeCurrentWindow() {
         Stage stage = (Stage) checkAvailabilityButton.getScene().getWindow();
         stage.close();

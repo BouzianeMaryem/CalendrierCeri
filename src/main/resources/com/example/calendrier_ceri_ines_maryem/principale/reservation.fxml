@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="83.0" prefWidth="738.0" styleClass="back" stylesheets="@reservationLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.reservationController">
+<VBox prefHeight="83.0" prefWidth="738.0" styleClass="back"  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.reservationController">
 <children>
     <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="647.0" styleClass="HBox">
         <Button onAction="#minimizeWindow" styleClass="btnBar">
@@ -48,7 +48,7 @@
         </padding>
         <children>
             <!-- Salle -->
-            <ComboBox fx:id="nomSalleComboBox" promptText="Salle" styleClass="combo">
+            <ComboBox fx:id="nomSalleChoiceBox" promptText="Salle" styleClass="combo">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="amphi ada" />

@@ -83,5 +83,5 @@
     -fx-text-fill: black;
 }
 .event-allday{
--fx-background-color: rgba(211, 150, 200, 0.7);
+-fx-background-color: rgba(211, 150, 200, 0.5);
 }

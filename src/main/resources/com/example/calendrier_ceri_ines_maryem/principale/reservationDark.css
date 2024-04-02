@@ -12,13 +12,13 @@
  -fx-border-style: solid;
  -fx-background-radius : 30px;
  -fx-background-color:#0097B2;
- -fx-text-fill: white;
-  -fx-prompt-text-fill: white;
- -fx-control-inner-background:#0097B2;
+ -fx-text-fill: black;
+  -fx-prompt-text-fill: black;
+ -fx-control-inner-background:white;
 }
 
 .label-style {
-  -fx-text-fill: #ffffff;
+  -fx-text-fill: black;
 }
 
 
@@ -37,8 +37,8 @@
  -fx-border-radius : 5px;
 -fx-background-color:#0097B2;
 -fx-text-fill: white;
- -fx-prompt-text-fill: white;
--fx-control-inner-background:#0097B2;
+              -fx-prompt-text-fill: white;
+             -fx-control-inner-background:#0097B2;
 }
 .field-Email{
              -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #0097B2, #7BD759) ;
@@ -47,10 +47,9 @@
              -fx-border-radius : 5px;
             -fx-background-color:#1D2733;
             -fx-text-fill: white;
-             -fx-prompt-text-fill: white;
-            -fx-control-inner-background:#1D2733;
+              -fx-prompt-text-fill: white;
+             -fx-control-inner-background:#0097B2;
             }
-    .HBox{
+ .paneAide,.HBox{
        -fx-background-color:#2E3C49;
-
     }

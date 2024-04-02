@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="200" minWidth="300" prefHeight="432.0" prefWidth="446.0" spacing="10" styleClass="HBox" stylesheets="@reservationLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EmailFormController">
+<VBox minHeight="200" minWidth="300" prefHeight="432.0" prefWidth="446.0" spacing="10" styleClass="HBox"  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.EmailFormController">
     <padding>
         <Insets bottom="10" left="10" right="20" top="15" />
     </padding>
@@ -45,9 +45,9 @@
 
          <children>
            <Label text="Envoyer un email à :" styleClass="label-style"/>
-           <TextField fx:id="emailField" editable="false" styleClass="field-Email" />
+           <TextField fx:id="emailField" editable="false" styleClass="combo" />
            <Label text="Sujet :" styleClass="label-style" />
-           <TextField fx:id="subjectField" promptText="Sujet de l'e-mail" styleClass="field-Email" />
+           <TextField fx:id="subjectField" promptText="Sujet de l'e-mail" styleClass="combo" />
            <TextArea fx:id="messageArea" promptText="Votre message" styleClass="field-Email" VBox.vgrow="ALWAYS" />
            <Button maxWidth="Infinity" onAction="#handleSendButton" styleClass="ValidBtn" text="Envoyer" />
          </children>

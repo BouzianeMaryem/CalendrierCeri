@@ -48,7 +48,7 @@ public class SessionManager {
         stage.close();
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("login/fxml/login2.fxml"));
             Parent root = loader.load();
 
             Stage loginStage = new Stage();

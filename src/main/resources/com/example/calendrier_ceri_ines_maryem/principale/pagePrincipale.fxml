@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="mainPane" prefHeight="715.0" prefWidth="1023.0" styleClass="PanePere" stylesheets="@principaleLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.PrincipaleControlleur">
+<BorderPane fx:id="mainPane" prefHeight="715.0" prefWidth="1023.0" styleClass="PanePere" stylesheets="@principaleLight.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.PrincipaleControlleur">
     <left>
         <StackPane prefHeight="491.0" prefWidth="215.0" styleClass="sidebar-margin">
             <VBox prefHeight="552.0" prefWidth="195.0" spacing="10" styleClass="sidebar">
@@ -30,7 +21,7 @@
                         <children>
                                  <Pane fx:id="circleContainer" layoutX="5.0" layoutY="4.0" prefHeight="44.0" prefWidth="44.0" styleClass="container-icon">
                               <children>
-                                       <Label fx:id="initialesText" layoutX="16.0" layoutY="14.0" styleClass="user-icon-label" text="JS" />
+                                       <Label fx:id="initialesText" layoutX="14.0" layoutY="14.0" styleClass="user-icon-label" text="JS" />
                               </children>
                                  </Pane>
                         </children>
@@ -89,7 +80,7 @@
                <children>
                   <Button fx:id="Filtrer" onAction="#choisirTonEmploi" prefHeight="38.0" prefWidth="170.0" styleClass="button-filter" text="Filtre d'Evenements  ">
                      <graphic>
-                        <ImageView fx:id="iconHelp1" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="iconFilter" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/noHover/filter_calendar_white.png" />
                            </image>
@@ -102,7 +93,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#addNewEvent" text="ajouter un cours" />
                      </items>
                      <graphic>
-                        <ImageView fx:id="iconSalle1" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="iconAdd" fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/noHover/add_calendar_white.png" />
                            </image>
@@ -116,7 +107,7 @@
                     <padding>
                         <Insets bottom="0" left="0" right="0" top="0" />
                     </padding>
-                    <Button fx:id="aideButton" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" styleClass="button-filter" text="Aide                              ">
+                    <Button fx:id="aideButton" onAction="#aide" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" styleClass="button-filter" text="Aide                              ">
                         <graphic>
                             <ImageView fx:id="iconHelp" fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
@@ -125,7 +116,7 @@
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button fx:id="DeconnexionButton" layoutX="17.0" layoutY="434.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="167.0" styleClass="button-filter" text="Déconnexion              ">
+                    <Button fx:id="DeconnexionButton" layoutX="17.0" layoutY="434.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="29.0" prefWidth="167.0" styleClass="button-filter" text="Déconnexion              ">
                         <graphic>
                             <ImageView fx:id="iconDeconnexion" fitHeight="24.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
@@ -206,7 +197,7 @@
                 <Button fx:id="moisFilterButton" onAction="#onMoisFilterButtonClicked" prefHeight="27.0" prefWidth="54.0" styleClass="button-filter" text="Mois" />
             </HBox>
             <HBox prefHeight="38.0" prefWidth="142.0" HBox.hgrow="ALWAYS" />
-            <Button  styleClass="buttonMode" onAction="#toggleDarkMode"   mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0">
+            <Button mnemonicParsing="false" onAction="#toggleDarkMode" prefHeight="30.0" prefWidth="72.0" styleClass="buttonMode">
                 <graphic>
                     <ImageView fx:id="iconeMode" fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                         <image>

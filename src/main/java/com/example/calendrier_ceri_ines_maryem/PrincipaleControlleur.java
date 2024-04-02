@@ -50,17 +50,95 @@ public class PrincipaleControlleur {
     @FXML
     private Button Filtrer;
     public MenuButton gestionEventBtn;
+//button help hover
+    @FXML
+    private Button aideButton;
+    @FXML
+    private ImageView iconHelp;
+//button deconnexion
+@FXML
+private ImageView iconDeconnexion;
+    @FXML
+private Button DeconnexionButton;
 
+    //formation button
+    @FXML
+    private ImageView iconFormation;
+    @FXML
+    private MenuButton formationButton;
+//salle boutton :
+@FXML
+private ImageView iconSalle;
+    @FXML
+    private MenuButton salleButton;
+//prof boutton
+    @FXML
+    private ImageView iconProf;
+    @FXML
+    private MenuButton profButton;
 
+    //dark mode
     public boolean isDarkMode = false;
     @FXML
     private ImageView iconeMode;
+
+    @FXML
+    private ImageView iconFilter;
+    @FXML
+    private ImageView iconAdd;
+
 
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
 
+    @FXML
+public void hover(){
+    // configuration icone help
+    Image imageNormalHelp = new Image(getClass().getResourceAsStream("principale/images/noHover/helpWhite.png"));
+    Image imageHoverHelp = new Image(getClass().getResourceAsStream("principale/images/hover/help.png"));
 
+    aideButton.setOnMouseEntered(e -> iconHelp.setImage(imageHoverHelp)); // Change to hover image
+        aideButton.setOnMouseExited(e -> iconHelp.setImage(imageNormalHelp)); // Revert to normal image
+
+    //configuration icon deconnexion
+    Image imageNormalDeconnexion = new Image(getClass().getResourceAsStream("principale/images/noHover/deconnexionwhite.png"));
+    Image imageHoverDeconnexion = new Image(getClass().getResourceAsStream("principale/images/hover/deconnexionBlack.png"));
+
+    DeconnexionButton.setOnMouseEntered(e -> iconDeconnexion.setImage(imageHoverDeconnexion)); // Change to hover image
+    DeconnexionButton.setOnMouseExited(e -> iconDeconnexion.setImage(imageNormalDeconnexion)); // Revert to normal image
+    //configuration icon formation
+    Image imageNormalformation = new Image(getClass().getResourceAsStream("principale/images/noHover/formationIconeWhite.png"));
+    Image imageHoverformation = new Image(getClass().getResourceAsStream("principale/images/hover/formationIcone.png"));
+
+    formationButton.setOnMouseEntered(e -> iconFormation.setImage(imageHoverformation)); // Change to hover image
+    formationButton.setOnMouseExited(e -> iconFormation.setImage(imageNormalformation)); // Revert to normal image
+    //configuration icon salle
+    Image imageNormalsalle = new Image(getClass().getResourceAsStream("principale/images/noHover/salleIconeWhite.png"));
+    Image imageHoversalle = new Image(getClass().getResourceAsStream("principale/images/hover/salleIcon.png"));
+
+    salleButton.setOnMouseEntered(e -> iconSalle.setImage(imageHoversalle)); // Change to hover image
+    salleButton.setOnMouseExited(e -> iconSalle.setImage(imageNormalsalle)); // Revert to normal image
+    //configuration icon prof
+    Image imageNormalprof = new Image(getClass().getResourceAsStream("principale/images/noHover/profIconeWhite.png"));
+    Image imageHoverprof = new Image(getClass().getResourceAsStream("principale/images/hover/profIcon.png"));
+
+    profButton.setOnMouseEntered(e -> iconProf.setImage(imageHoverprof)); // Change to hover image
+    profButton.setOnMouseExited(e -> iconProf.setImage(imageNormalprof)); // Revert to normal image
+        //configuration icon filtre
+        Image imageNormalfiltre = new Image(getClass().getResourceAsStream("principale/images/noHover/filter_calendar_white.png"));
+        Image imageHoverfiltre = new Image(getClass().getResourceAsStream("principale/images/hover/filter_icon_black.png"));
+
+        Filtrer.setOnMouseEntered(e -> iconFilter.setImage(imageHoverfiltre)); // Change to hover image
+        Filtrer.setOnMouseExited(e -> iconFilter.setImage(imageNormalfiltre)); // Revert to normal image
+        //configuration icon ajout
+        Image imageNormalajout = new Image(getClass().getResourceAsStream("principale/images/noHover/add_calendar_white.png"));
+        Image imageHoverajout = new Image(getClass().getResourceAsStream("principale/images/hover/add_calendar_black.png"));
+
+        gestionEventBtn.setOnMouseEntered(e -> iconAdd.setImage(imageHoverajout)); // Change to hover image
+        gestionEventBtn.setOnMouseExited(e -> iconAdd.setImage(imageNormalajout)); // Revert to normal image
+
+}
     @FXML
     private void initialize() {
         SessionManager sessionManager = SessionManager.getInstance();
@@ -75,15 +153,15 @@ public class PrincipaleControlleur {
             gestionEventBtn.setDisable(true);
             gestionEventBtn.setVisible(false);
         }
-
+        hover();
         mainPane.sceneProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 newValue.setOnKeyPressed(event -> {
                     if (event.isControlDown() && event.getCode() == KeyCode.D) {
-                        isDarkMode = false;
+                        isDarkMode = true;
                         toggleDarkMode();
                     } else if (event.isControlDown() && event.getCode() == KeyCode.L) {
-                        isDarkMode = true;
+                        isDarkMode = false;
                         toggleDarkMode();
                     } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
                         Window currentWindow = mainPane.getScene().getWindow();
@@ -264,7 +342,7 @@ public class PrincipaleControlleur {
 /*
 **************************************************** onclick sur formation ****************************************
  */
-
+//peut etre que je dois ajouter le rewrite des fichiers jsons
     @FXML
     private void onFormationM1_IA() throws IOException {
         SessionManager sessionManager = SessionManager.getInstance();
@@ -448,11 +526,11 @@ public class PrincipaleControlleur {
             Parent root = loader.load();
            if (isDarkMode) {
                root.getStylesheets().clear();
-               root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+               root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
 
            } else {
                root.getStylesheets().clear();
-               root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+               root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
            }
             EventDialogController eventDialogController = loader.getController();
             eventDialogController.setMainController(this);
@@ -476,11 +554,11 @@ public class PrincipaleControlleur {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
             }
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -497,16 +575,19 @@ public class PrincipaleControlleur {
 
 
     //fonctions pour les filtres:
-    public void choisirTonEmploi() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Choix d'emploi");
-        alert.setHeaderText(null);
-        alert.setContentText("Veuillez choisir votre emploi dans l'application.");
-        alert.show();
+    public void choisirTonEmploi() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Alert/filtreAlert.fxml"));
+        Parent root = loader.load();
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> alert.close());
-        delay.play();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        Image icon = new Image(getClass().getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.initOwner(mainPane.getScene().getWindow());
+
+        stage.showAndWait();
     }
 
     //filtre pour M1
@@ -517,11 +598,11 @@ public class PrincipaleControlleur {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
             }
             FiltrerControlleur reservationControlleur = loader.getController();
             reservationControlleur.setMainController(this);
@@ -548,11 +629,11 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
         Parent root = loader.load();
         if (isDarkMode) {
             root.getStylesheets().clear();
-            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
         } else {
             root.getStylesheets().clear();
-            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+            root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
         }
         FiltrerControlleur reservationControlleur = loader.getController();
         reservationControlleur.setMainController(this);
@@ -579,11 +660,11 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
             }
             FiltrerControlleur reservationControlleur = loader.getController();
             reservationControlleur.setMainController(this);
@@ -610,11 +691,11 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
 
             } else {
                 root.getStylesheets().clear();
-                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreLight.css").toExternalForm());
+                root.getStylesheets().add(getClass().getResource("filtre/formation/filtreDark.css").toExternalForm());
             }
             FiltrerControlleur filtreControlleur = loader.getController();
             filtreControlleur.setMainController(this);
@@ -634,5 +715,37 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
         return null;
     }
 
+ @FXML
+    private void deconnexion() {
+     Window currentWindow = mainPane.getScene().getWindow();
+     SessionManager.getInstance().logoutUser(currentWindow);
+ }
+
+    public void aide(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/aide.fxml"));
+            Parent root = loader.load();
+            if (isDarkMode) {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+
+            } else {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+            }
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
