@@ -61,4 +61,70 @@
     "HeureDebut": "08:30",
     "Couleur": "#FFFFFF"
 }
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "11:30",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "10:00",
+    "Couleur": "#FFFFFF"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "10:00",
+    "Salle": "null",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "08:30",
+    "Couleur": "#001A80"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "16:00",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "14:00",
+    "Couleur": "#80334D"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "12:00",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "08:30",
+    "Couleur": "#994D66"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "10:00",
+    "Salle": "amphi ada",
+    "Summary": "test meme case",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "08:30",
+    "Couleur": "#990000"
+}
+,
+{
+    "DateFin": "2024-04-05",
+    "HeureFin": "10:00",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-05",
+    "HeureDebut": "08:30",
+    "Couleur": "#CC99CC"
+}
 ]
