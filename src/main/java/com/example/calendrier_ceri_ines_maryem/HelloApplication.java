@@ -44,7 +44,7 @@ public class HelloApplication extends Application {
         SequentialTransition sequentialTransition = new SequentialTransition(pause, parallelTransition);
         Image icon = new Image(getClass().getResourceAsStream("login/img/logo.png"));
         stage.getIcons().add(icon);
-
+        stage.setTitle("UniAgenda : Gérez Votre Vie Étudiante & Professionelle !");
         stage.setScene(scene);
         stage.show();
 

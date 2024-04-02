@@ -1,2 +1,10 @@
-[
-]
+[{
+  "DateFin": "2024-04-04",
+  "HeureFin": "17:30",
+  "Matiere": "Reservation de salles",
+  "Salle": "S3",
+  "Summary": "Reservation de salles",
+  "Enseignant": "Noe Cecillon",
+  "DateDebut": "2024-04-04",
+  "HeureDebut": "16:00"
+}]

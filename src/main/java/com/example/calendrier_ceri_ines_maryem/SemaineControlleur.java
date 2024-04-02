@@ -27,11 +27,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -141,9 +139,19 @@ public class SemaineControlleur {
         int gridStartHour = 8;
         int totalGridHours = 14;
         Map<String, HBox> timeSlotToHBoxMap = new HashMap<>();
-        Map<String, List<CalendarEvent>> groupedEvents = events.stream()
-                .collect(Collectors.groupingBy(e -> e.getDateDebut() + "_" + e.getHeureDebut() + "_" + e.getHeureFin() + "_" + e.getSummary()));
+        // filtre l'unicité des evenements
+        //car j'ai identifié des doublons dans le lien source
+        List<CalendarEvent> filteredEvents = events.stream()
+                .collect(Collectors.toMap(
+                        e -> e.getDateDebut() + "_" + e.getHeureDebut() + "_" + e.getHeureFin() + "_" + e.getSummary(),
+                        Function.identity(),
+                        (existing, replacement) -> existing,
+                        LinkedHashMap::new
+                )).values().stream().collect(Collectors.toList());
 
+       //regroupement selon la durée
+        Map<String, List<CalendarEvent>> groupedEvents = filteredEvents.stream()
+                .collect(Collectors.groupingBy(e -> e.getDateDebut() + "_" + e.getHeureDebut() + "_" + e.getHeureFin()));
         List<List<CalendarEvent>> sortedGroupedEvents = groupedEvents.values().stream()
                 .sorted((list1, list2) -> {
                     boolean list1HasReservation = list1.stream().anyMatch(e -> "Reservation de salles".equals(e.getMatiere()));
@@ -166,8 +174,6 @@ public class SemaineControlleur {
                 })
                 .collect(Collectors.toList());
 
-
-
         sortedGroupedEvents.forEach(group -> {
             CalendarEvent representativeEvent = group.get(0);
 
@@ -179,32 +185,35 @@ public class SemaineControlleur {
             int startRowIndex = (heureDebut.getHour() - gridStartHour) * 2 + (heureDebut.getMinute() / 30) + 9;
             int endRowIndex = (heureFin.getHour() - gridStartHour) * 2 + (heureFin.getMinute() / 30) + 9;
             int rowSpan = endRowIndex - startRowIndex;
-
-            HBox hbox = timeSlotToHBoxMap.computeIfAbsent(dateDebut + "_" + heureDebut, k -> new HBox(2));
+            String timeSlotKey = dateDebut + "_" + heureDebut + "_" + heureFin;
+            HBox hbox = timeSlotToHBoxMap.computeIfAbsent(timeSlotKey, k -> new HBox(2));
             hbox.setMinWidth(100);
 
-            Button eventButton = new Button(representativeEvent.getSummary() + " (" + group.size() + ")"+"\n"+representativeEvent.getEnseignant());
-            eventButton.setMaxWidth(Double.MAX_VALUE);
-            eventButton.setMaxHeight(Double.MAX_VALUE);
-            HBox.setHgrow(eventButton, Priority.ALWAYS);
-            HBox.setMargin(eventButton, new Insets(2));
-            eventButton.setOnAction(e -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
-                    Parent root = loader.load();
+            group.forEach(event -> {
+                Button eventButton = new Button(event.getSummary() + " (" + group.size() + ")"+"\n"+event.getEnseignant());
+                eventButton.setMaxWidth(Double.MAX_VALUE);
+                eventButton.setMaxHeight(Double.MAX_VALUE);
+                HBox.setHgrow(eventButton, Priority.ALWAYS);
+                HBox.setMargin(eventButton, new Insets(2));
+                eventButton.setOnAction(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/email_form.fxml"));
+                        Parent root = loader.load();
 
-                    EmailFormController controller = loader.getController();
-                    controller.setIsDarkMode(mainController.isDarkMode);
-                    controller.showEmailForm(representativeEvent);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                        EmailFormController controller = loader.getController();
+                        controller.setIsDarkMode(mainController.isDarkMode);
+                        controller.showEmailForm(event);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                hbox.getChildren().add(eventButton);
+
+                applyEventStyle(event, eventButton);
+                Tooltip tooltip = createEventTooltip(event);
+                Tooltip.install(eventButton, tooltip);
             });
-            hbox.getChildren().add(eventButton);
 
-            applyEventStyle(representativeEvent, eventButton);
-            Tooltip tooltip = createEventTooltip(representativeEvent);
-            Tooltip.install(eventButton, tooltip);
 
             if (!dynamicGridPane.getChildren().contains(hbox)) {
                 GridPane.setConstraints(hbox, dayIndex + 1, startRowIndex, 1, rowSpan);

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -127,24 +128,19 @@ public class EmailFormController {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
         alert.setContentText(content);
         alert.showAndWait();
     }
     private static void showMail() throws IOException {
-        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/filtreAlert.fxml"));
+        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/MailAlert.fxml"));
         Parent root = loader.load();
-
         Scene scene = new Scene(root);
-        if (isDarkMode) {
-            root.getStylesheets().add(EmailFormController.class.getResource("principale/reservationLight.css").toExternalForm());
-
-        }else{
-            root.getStylesheets().add(EmailFormController.class.getResource("principale/reservationDark.css").toExternalForm());
-        }
-
         Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
         stage.showAndWait();
     }
 

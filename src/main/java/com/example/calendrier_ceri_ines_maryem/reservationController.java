@@ -2,7 +2,11 @@ package com.example.calendrier_ceri_ines_maryem;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -92,18 +96,17 @@ public class reservationController {
                             ((heureDebutUser.isBefore(eventEndTime) && heureDebutUser.isAfter(eventStartTime)) ||
                                     (heureFinUser.isAfter(eventStartTime) && heureFinUser.isBefore(eventEndTime)) ||
                                     (heureDebutUser.equals(eventStartTime) && heureFinUser.equals(eventEndTime)) ||
-                                    (heureDebutUser.isBefore(eventStartTime) && heureFinUser.isAfter(eventEndTime)));
+                                    (heureDebutUser.isBefore(eventStartTime) && (heureFinUser.isAfter(eventEndTime) || heureFinUser.equals(eventEndTime))));
+
                 }).findFirst();
 
 
                 if (overlappingEvent.isPresent()) {
-                    CalendarEvent event = overlappingEvent.get();
-                    LocalTime eventStartTime = event.getHeureDebut();
-                    LocalTime eventEndTime = event.getHeureFin();
-                    showAlert("Non disponible", "La salle n'est pas disponible pour les dates et heures sélectionnées.", Alert.AlertType.ERROR);
+                    showAlertNo();
+                    return;
                 } else {
                     performReservation();
-                    showAlert("Réservation effectuée", "La salle a été réservée avec succès.", Alert.AlertType.INFORMATION);
+                    showAlertYes();
                 }
 
             } catch (Exception e) {
@@ -135,41 +138,50 @@ public class reservationController {
                     Files.createFile(path);
                 }
 
-                // Lire le contenu existant du fichier
                 String content = new String(Files.readAllBytes(path));
                 JSONArray jsonArray;
 
-                // Si le fichier n'était pas vide, transformer son contenu en un JSONArray
                 if (!content.isEmpty()) {
                     jsonArray = new JSONArray(content);
                 } else {
                     jsonArray = new JSONArray();
                 }
 
-                // Ajouter le nouvel événement au JSONArray
                 jsonArray.put(eventJson);
 
-                // Écrire le JSONArray mis à jour dans le fichier
                 Files.write(path, jsonArray.toString(2).getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
 
             } catch (IOException e) {
                 e.printStackTrace();
-                // Gérer l'exception d'I/O ici
             } catch (Exception e) {
                 e.printStackTrace();
-                // Gérer les autres exceptions ici
             }
-            // Ici, on pourrait mettre un bloc 'finally' si nécessaire
+
         }
     }
-    private void showAlert(String title, String content, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 
+    private void showAlertNo() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Alert/reservationNO.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(getClass().getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
+    private void showAlertYes() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Alert/reservationOK.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(getClass().getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
     private void closeCurrentWindow() {
         Stage stage = (Stage) checkAvailabilityButton.getScene().getWindow();
         stage.close();

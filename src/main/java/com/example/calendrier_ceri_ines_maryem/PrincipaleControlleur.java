@@ -457,9 +457,11 @@ public class PrincipaleControlleur {
         Parent root = loader.load();
 
         Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        Image icon = new Image(getClass().getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
         stage.initOwner(mainPane.getScene().getWindow());
 
         stage.showAndWait();
@@ -562,7 +564,7 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
     @FXML
     private EventHandler<ActionEvent> onFiltrerButtonClickedSalle() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreAlert.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filtre/salle/filtreSalle.fxml"));
             Parent root = loader.load();
             if (isDarkMode) {
                 root.getStylesheets().clear();
