@@ -1,3 +1,12 @@
 [
-
+  {
+  "DateFin": "2024-04-12",
+  "HeureFin": "15:00",
+  "Matiere": "Reservation de salles",
+  "Salle": "S3",
+  "Summary": "Reservation de salles",
+  "Enseignant": "Noe Cecillon",
+  "DateDebut": "2024-04-12",
+  "HeureDebut": "11:00"
+}
 ]

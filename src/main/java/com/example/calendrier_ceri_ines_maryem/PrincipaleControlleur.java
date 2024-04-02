@@ -278,6 +278,7 @@ public class PrincipaleControlleur {
             prefs.put("lastActionType", "formation");
             prefs.put("formation", "M1_IA");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark"); // Ajout de cette ligne
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -297,6 +298,7 @@ public class PrincipaleControlleur {
             prefs.put("lastActionType", "formation");
             prefs.put("formation", "M2_IA");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark"); // Ajout de cette ligne
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -341,6 +343,7 @@ public class PrincipaleControlleur {
             prefs.put("lastActionType", "salle");
             prefs.put("salle", "Amphi_Ada");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark");
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -363,6 +366,7 @@ public class PrincipaleControlleur {
             prefs.put("lastActionType", "salle");
             prefs.put("salle", "S3");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark");
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();

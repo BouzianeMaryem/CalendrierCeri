@@ -25,7 +25,7 @@ import java.util.Optional;
 public class reservationController {
 
     @FXML
-    private ComboBox<String> nomSalleChoiceBox;
+    private ComboBox<String> nomSalleComboBox;
     @FXML
     private DatePicker dateDebutPicker;
     @FXML
@@ -41,7 +41,7 @@ public class reservationController {
 
     @FXML
     private void handleCheckAvailability() {
-        String selectedSalle = nomSalleChoiceBox.getValue();
+        String selectedSalle = nomSalleComboBox.getValue();
         if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
             if (dateDebutPicker.getValue() == null || heureDebutTextField.getText().isEmpty() || heureFinTextField.getText().isEmpty()) {
 
@@ -114,7 +114,7 @@ public class reservationController {
     }
     @FXML
     private void performReservation() {
-                String selectedSalle = nomSalleChoiceBox.getValue();
+                String selectedSalle = nomSalleComboBox.getValue();
                 if ("S3".equals(selectedSalle) || "amphi ada".equals(selectedSalle)) {
                     try {
                         JSONObject eventJson = new JSONObject();
