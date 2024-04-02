@@ -279,7 +279,7 @@ public void hover(){
 
     private void restoreSalle(String salle) throws IOException {
         switch (salle) {
-            case "Amphi_ADA":
+            case "ADA":
                 onAmphi_ADA();
                 break;
             case "S3":
@@ -419,7 +419,7 @@ public void hover(){
         Filtrer.setOnAction(event -> onFiltrerButtonClickedSalle());
             Map<String, String> prefs = new HashMap<>();
             prefs.put("lastActionType", "salle");
-            prefs.put("salle", "Amphi_Ada");
+            prefs.put("salle", "ADA");
             prefs.put("view", currentDisplayMode.name());
             prefs.put("mode", isDarkMode ? "light" : "dark");
             Preferences.savePreferences(userId, prefs);
