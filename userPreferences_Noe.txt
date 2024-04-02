@@ -1,0 +1,4 @@
+mode:light
+view:WEEK
+formation:M1_IA
+lastActionType:formation

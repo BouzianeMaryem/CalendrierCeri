@@ -1,0 +1,130 @@
+[
+{
+    "TD": "IIHHIOOIH",
+    "DateFin": "2024-02-21",
+    "Type": "HIHIOH",
+    "HeureFin": "15:30",
+    "Salle": "UHOIHIO",
+    "Summary": "GFTYFYUF78F78FYFYFP",
+    "Mati�re": "IHIOHHI",
+    "Enseignant": "LIOJJJ",
+    "ID": 0,
+    "DateDebut": "2024-02-21",
+    "HeureDebut": "14:00",
+    "Couleur": "#FFCC66"
+}
+,
+{
+    "TD": "NOPJOIJ",
+    "DateFin": "2023-06-23",
+    "Type": "GYUGYULGYU",
+    "HeureFin": "18:00",
+    "Salle": "LKNOKN",
+    "Summary": "OKOKOKKKK",
+    "Mati�re": "KJOIJOIJ",
+    "Enseignant": "FTYFYUF",
+    "ID": 0,
+    "DateDebut": "2023-06-23",
+    "HeureDebut": "14:00",
+    "Couleur": "#FFFFFF"
+}
+,
+{
+    "DateFin": "2024-03-22",
+    "HeureFin": "13:00",
+    "Salle": "amphi Blaise",
+    "Summary": "cours tests",
+    "Enseignant": "Sara Wardi",
+    "DateDebut": "2024-03-22",
+    "HeureDebut": "11:30",
+    "Couleur": "#FFFFFF"
+}
+,
+{
+    "DateFin": "2024-03-21",
+    "HeureFin": "10:00",
+    "Salle": "blaise",
+    "Summary": "nefjnejnfjzenfjnzej",
+    "Enseignant": "Sara Wardi",
+    "DateDebut": "2024-03-21",
+    "HeureDebut": "08:30",
+    "Couleur": "#FFFFFF"
+}
+,
+{
+    "DateFin": "2024-03-18",
+    "HeureFin": "10:00",
+    "Salle": "null",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-03-18",
+    "HeureDebut": "08:30",
+    "Couleur": "#FFFFFF"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "11:30",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "10:00",
+    "Couleur": "#FFFFFF"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "10:00",
+    "Salle": "null",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "08:30",
+    "Couleur": "#001A80"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "16:00",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "14:00",
+    "Couleur": "#80334D"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "12:00",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "08:30",
+    "Couleur": "#994D66"
+}
+,
+{
+    "DateFin": "2024-04-02",
+    "HeureFin": "10:00",
+    "Salle": "amphi ada",
+    "Summary": "test meme case",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-02",
+    "HeureDebut": "08:30",
+    "Couleur": "#990000"
+}
+,
+{
+    "DateFin": "2024-04-05",
+    "HeureFin": "10:00",
+    "Salle": "amphi ada",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-05",
+    "HeureDebut": "08:30",
+    "Couleur": "#CC99CC"
+}
+]
