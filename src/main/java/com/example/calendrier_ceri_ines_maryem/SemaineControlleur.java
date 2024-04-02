@@ -192,7 +192,8 @@ public class SemaineControlleur {
             hbox.setMinWidth(100);
 
             group.forEach(event -> {
-                Button eventButton = new Button(event.getSummary() + " (" + group.size() + ")"+"\n"+event.getEnseignant());
+                Button eventButton = new Button(event.getSummary() + " (" + group.size() + ")" + "\n" + event.getEnseignant());
+
                 eventButton.setMaxWidth(Double.MAX_VALUE);
                 eventButton.setMaxHeight(Double.MAX_VALUE);
                 HBox.setHgrow(eventButton, Priority.ALWAYS);
@@ -225,7 +226,6 @@ public class SemaineControlleur {
         });
     }
 
-
     public void applyEventStyle(CalendarEvent event, Button eventButton) {
         if ("Reservation de salles".equals(event.getMatiere())) {
             eventButton.getStyleClass().add("event-allday");
@@ -240,7 +240,7 @@ public class SemaineControlleur {
             eventButton.getStyleClass().add(styleClass);
         } else {
             String hexColor = event.getColor();
-            double opacity = 0.9;
+            double opacity = 0.5;
             eventButton.setStyle(String.format("-fx-background-color: %s%02x;", hexColor, (int) (opacity * 255)));
         }
     }

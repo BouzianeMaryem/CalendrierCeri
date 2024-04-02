@@ -107,7 +107,7 @@
                     <padding>
                         <Insets bottom="0" left="0" right="0" top="0" />
                     </padding>
-                    <Button fx:id="aideButton" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" styleClass="button-filter" text="Aide                              ">
+                    <Button fx:id="aideButton" onAction="#aide" layoutX="15.0" layoutY="397.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="182.0" styleClass="button-filter" text="Aide                              ">
                         <graphic>
                             <ImageView fx:id="iconHelp" fitHeight="21.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                 <image>

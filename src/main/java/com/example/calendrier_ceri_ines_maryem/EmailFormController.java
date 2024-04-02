@@ -78,11 +78,11 @@ public class EmailFormController {
     }
 
     @FXML
-    protected void handleSendButton(ActionEvent event) {
+    protected void handleSendButton(ActionEvent event) throws IOException {
 
         sendEmail(this.destinationEmail, subjectField.getText(), messageArea.getText());
     }
-    public static void sendEmail(String to, String subject, String body) {
+    public static void sendEmail(String to, String subject, String body) throws IOException {
         String host = "smtp.gmail.com";
         String port = "587";
         String username = "inelmahi@gmail.com";
@@ -117,7 +117,7 @@ public class EmailFormController {
         } catch (MessagingException e) {
             e.printStackTrace();
             System.err.println("Erreur lors de l'envoi de l'e-mail : " + e.getMessage());
-            showAlert(AlertType.ERROR, "Erreur", "Erreur lors de l'envoi de l'e-mail.\nVeuillez vérifier vos informations d'identification.");
+            MailNo();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -144,6 +144,17 @@ public class EmailFormController {
         stage.showAndWait();
     }
 
+    private static void MailNo() throws IOException {
+        FXMLLoader loader = new FXMLLoader(EmailFormController.class.getResource("Alert/MailNO.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        Image icon = new Image(EmailFormController.class.getResourceAsStream("Alert/bell.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("notification !");
+        stage.showAndWait();
+    }
     @FXML
     private void minimizeWindow(ActionEvent event) {
         ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);

@@ -158,7 +158,7 @@ public class JourControlleur {
         } else {
             String hexColor = event.getColor();
 
-            double opacity = 0.9;
+            double opacity = 0.5;
 
             eventButton.setStyle(String.format("-fx-background-color: %s%02x;",
                     hexColor, (int) (opacity * 255)));

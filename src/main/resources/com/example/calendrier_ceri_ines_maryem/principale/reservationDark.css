@@ -50,7 +50,6 @@
               -fx-prompt-text-fill: white;
              -fx-control-inner-background:#0097B2;
             }
-    .HBox{
+ .paneAide,.HBox{
        -fx-background-color:#2E3C49;
-
     }

@@ -86,6 +86,8 @@ private ImageView iconSalle;
     private ImageView iconFilter;
     @FXML
     private ImageView iconAdd;
+
+
     public enum DisplayMode {
         DAY, WEEK, MONTH
     }
@@ -673,4 +675,32 @@ private EventHandler<ActionEvent> onFiltrerButtonClickedM2() {
      Window currentWindow = mainPane.getScene().getWindow();
      SessionManager.getInstance().logoutUser(currentWindow);
  }
+
+    public void aide(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principale/aide.fxml"));
+            Parent root = loader.load();
+            if (isDarkMode) {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("principale/reservationLight.css").toExternalForm());
+
+            } else {
+                root.getStylesheets().clear();
+                root.getStylesheets().add(getClass().getResource("principale/reservationDark.css").toExternalForm());
+            }
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initOwner(mainPane.getScene().getWindow());
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

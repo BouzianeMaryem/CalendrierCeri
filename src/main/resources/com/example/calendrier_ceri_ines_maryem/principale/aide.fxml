@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="609.0" prefWidth="561.0" styleClass="back" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.calendrier_ceri_ines_maryem.reservationController">
+    <children>
+        <HBox fx:id="titleBar" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="663.0" styleClass="HBox">
+            <Button onAction="#minimizeWindow" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/barre/close.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+            <Button onAction="#maximizeRestoreWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/barre/expand.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+            <Button onAction="#closeWindow" prefHeight="32.0" prefWidth="29.0" styleClass="btnBar">
+                <graphic>
+                    <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/barre/cross.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
+        </HBox>
+      <Pane prefHeight="98.0" prefWidth="562.0" styleClass="paneAide">
+         <children>
+            <Text fill="#0097b2" layoutX="199.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre guide" wrappingWidth="145.39996337890625">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fill="#0097b2" layoutX="147.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="pour gagner de temps" wrappingWidth="266.63043212890625">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="335.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/chronometre.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="503.0" prefWidth="562.0" styleClass="paneAide">
+         <children>
+            <Text fill="#7bd759" layoutX="61.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utilisez nos raccourcis :" wrappingWidth="417.41949462890625">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="10.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/clavier.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="79.0" layoutX="228.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/ctrl.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="350.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/lettre-l.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="49.0" layoutX="350.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/lettre-d.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="79.0" layoutX="228.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/ctrl.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="49.0" layoutX="350.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/lettre-r.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="49.0" layoutX="350.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/lettre-e.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="79.0" layoutX="228.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/ctrl.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="79.0" layoutX="228.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/ctrl.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="78.0" fitWidth="38.0" layoutX="306.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/plus.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="78.0" fitWidth="38.0" layoutX="306.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/plus.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="78.0" fitWidth="38.0" layoutX="306.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/plus.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="78.0" fitWidth="38.0" layoutX="306.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/plus.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="14.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mode clair :" wrappingWidth="145.39996337890625">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="0.5921568870544434" blue="0.6980392336845398" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.48235294222831726" green="0.843137264251709" blue="0.3490196168422699" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+            <Text layoutX="14.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mode sombre :" wrappingWidth="169.39996337890625">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="0.5921568870544434" blue="0.6980392336845398" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.48235294222831726" green="0.843137264251709" blue="0.3490196168422699" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+            <Text layoutX="12.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reset préférences :" wrappingWidth="213.3999481201172">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="0.5921568870544434" blue="0.6980392336845398" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.48235294222831726" green="0.843137264251709" blue="0.3490196168422699" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+            <Text layoutX="12.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Déconnexion :" wrappingWidth="189.3999481201172">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="0.5921568870544434" blue="0.6980392336845398" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.48235294222831726" green="0.843137264251709" blue="0.3490196168422699" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+            <Text fill="#7bd759" layoutX="55.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utilisez click souris :" wrappingWidth="417.41949462890625">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="38.0" fitWidth="36.0" layoutX="13.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/click-gauche.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="14.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" sur le nom d'un prof sur l'emploi , et envoyez lui :" wrappingWidth="400.5999336242676">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color green="0.5921568870544434" blue="0.6980392336845398" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.48235294222831726" green="0.843137264251709" blue="0.3490196168422699" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
+            <ImageView fitHeight="71.0" fitWidth="81.0" layoutX="415.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/aide/email-envoye.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+    </children>
+</VBox>

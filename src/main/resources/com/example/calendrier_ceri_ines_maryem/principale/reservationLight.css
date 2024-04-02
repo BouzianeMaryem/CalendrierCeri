@@ -26,7 +26,10 @@
  -fx-border-radius : 5px;
 
 }
-.HBox{
+ .paneAide,.HBox{
    -fx-background-color:white;
 
 }
+ .paneAide{
+        -fx-background-color:white;
+    }
