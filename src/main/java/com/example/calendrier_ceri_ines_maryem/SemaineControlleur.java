@@ -179,13 +179,15 @@ public class SemaineControlleur {
 
             LocalDate dateDebut = representativeEvent.getDateDebut();
             LocalTime heureDebut = representativeEvent.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : representativeEvent.getHeureDebut();
-            LocalTime heureFin = representativeEvent.getHeureFin() == null ? LocalTime.of(gridStartHour + totalGridHours - 1, 59) : representativeEvent.getHeureFin();
+            LocalTime heureFin = representativeEvent.getHeureFin() == null ? LocalTime.of(19, 0) : representativeEvent.getHeureFin();
+
 
             int dayIndex = dateDebut.getDayOfWeek().getValue() - 1;
             int startRowIndex = (heureDebut.getHour() - gridStartHour) * 2 + (heureDebut.getMinute() / 30) + 9;
             int endRowIndex = (heureFin.getHour() - gridStartHour) * 2 + (heureFin.getMinute() / 30) + 9;
             int rowSpan = endRowIndex - startRowIndex;
             String timeSlotKey = dateDebut + "_" + heureDebut + "_" + heureFin;
+            System.out.println(timeSlotKey);
             HBox hbox = timeSlotToHBoxMap.computeIfAbsent(timeSlotKey, k -> new HBox(2));
             hbox.setMinWidth(100);
 

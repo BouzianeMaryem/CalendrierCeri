@@ -96,7 +96,7 @@ public class JourControlleur {
         for (CalendarEvent event : events) {
             LocalDate dateDebut = event.getDateDebut();
             LocalTime heureDebut = event.getHeureDebut() == null ? LocalTime.of(gridStartHour, 0) : event.getHeureDebut();
-            LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(22, 0) : event.getHeureFin();
+            LocalTime heureFin = event.getHeureFin() == null ? LocalTime.of(19, 0) : event.getHeureFin();
 
             String uniqueEventKey = dateDebut.toString() + "_" + heureDebut + "_" + heureFin + "_" + event.getSummary();
 
