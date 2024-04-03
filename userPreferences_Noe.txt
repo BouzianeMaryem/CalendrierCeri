@@ -1,4 +1,4 @@
-mode:light
+mode:dark
 view:WEEK
-formation:M1_IA
-lastActionType:formation
+salle:S3
+lastActionType:salle
