@@ -3,6 +3,7 @@ package com.example.calendrier_ceri_ines_maryem;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -53,6 +54,9 @@ public class SessionManager {
 
             Stage loginStage = new Stage();
             loginStage.setScene(new Scene(root));
+            Image icon = new Image(getClass().getResourceAsStream("login/img/logo.png"));
+            loginStage.getIcons().add(icon);
+            loginStage.setTitle("UniAgenda : Gérez Votre Vie Étudiante & Professionelle !");
             loginStage.show();
         } catch (IOException e) {
             e.printStackTrace();

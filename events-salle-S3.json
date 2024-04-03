@@ -3259,18 +3259,6 @@
         "HeureDebut": "13:00"
     },
     {
-        "TD": "L3INFO_TD3",
-        "DateFin": "2024-04-16",
-        "Type": "TD",
-        "HeureFin": "14:30",
-        "Salle": "S3 = C 036",
-        "Summary": "UE GRAPHES ET PROGRAMMATION - FIGUEIREDO Rosa - L3INFO_",
-        "Matière": "UE GRAPHES ET PROGRAMMATION",
-        "Enseignant": "FIGUEIREDO Rosa",
-        "DateDebut": "2024-04-16",
-        "HeureDebut": "13:00"
-    },
-    {
         "TD": "M1-ILSEN-cla-Gr1",
         "DateFin": "2024-01-08",
         "Type": "TP",
@@ -3844,13 +3832,13 @@
         "TD": "ANGLAIS TD GR 3",
         "DateFin": "2024-04-04",
         "Type": "TD",
-        "HeureFin": "19:00",
+        "HeureFin": "17:30",
         "Salle": "S3 = C 036",
         "Summary": "UE ANGLAIS - RONDIN Lilian - ANGLAIS TD GR 3 - TD",
         "Matière": "UE ANGLAIS",
         "Enseignant": "RONDIN Lilian",
         "DateDebut": "2024-04-04",
-        "HeureDebut": "17:30"
+        "HeureDebut": "16:00"
     },
     {
         "DateFin": "2024-02-15",
