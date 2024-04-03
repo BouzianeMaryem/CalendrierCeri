@@ -953,17 +953,6 @@
         "HeureDebut": "16:00"
     },
     {
-        "DateFin": "2024-04-17",
-        "Type": "TD",
-        "HeureFin": "17:30",
-        "Salle": "S7 = C 032",
-        "Summary": "ANALYSE EN LIGNE (OLAP) ET VI - M1 GOUVERNANCE DES DONN",
-        "Matière": "ANALYSE EN LIGNE (OLAP) ET VI",
-        "Enseignant": "CECILLON Noe",
-        "DateDebut": "2024-04-17",
-        "HeureDebut": "16:00"
-    },
-    {
         "DateFin": "2024-04-19",
         "Type": "TD",
         "HeureFin": "16:00",
