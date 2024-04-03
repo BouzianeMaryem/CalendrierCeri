@@ -1,4 +1,1 @@
-mode:dark
-view:WEEK
-salle:ADA
-lastActionType:salle
+mode:light
