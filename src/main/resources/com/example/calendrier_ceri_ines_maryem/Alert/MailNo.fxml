@@ -15,7 +15,7 @@
                         <Image url="@no-task.png" />
                     </image>
                 </ImageView>
-                <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Echec d'envoie de Mail, Réesayer!" textAlignment="CENTER" wrappingWidth="443.7366027832031">
+                <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Echec d'envoie de Mail, Réessayer!" textAlignment="CENTER" wrappingWidth="443.7366027832031">
                     <font>
                         <Font  size="24.0" />
                     </font>

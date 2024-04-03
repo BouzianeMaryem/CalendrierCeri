@@ -166,11 +166,33 @@ public void hover(){
                     } else if (event.isControlDown() && event.getCode() == KeyCode.E) {
                         Window currentWindow = mainPane.getScene().getWindow();
                         SessionManager.getInstance().logoutUser(currentWindow);
+                    } else if (event.isControlDown() && event.getCode() == KeyCode.R) {
+                        clearPreferences(sessionManager.getNom());
                     }
                 });
             }
         });
         restorePreferences();
+    }
+    private void clearPreferences(String userId) {
+        Map<String, String> emptyPrefs = new HashMap<>();
+        Preferences.savePreferences(userId, emptyPrefs);
+        resetUI();
+    }
+
+    private void resetUI() {
+
+        events.clear();
+        isDarkMode = false;
+        toggleDarkMode();
+
+        centerVBox.getChildren().clear();
+        try {
+            loadSemaineView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void savePreferencesForAction(String userId, String actionType, String actionValue) {
@@ -179,17 +201,22 @@ public void hover(){
         if ("formation".equals(actionType)) {
             prefs.put("formation", actionValue);
             prefs.remove("salle");
+            prefs.remove("instructor");
         } else if ("salle".equals(actionType)) {
             prefs.put("salle", actionValue);
             prefs.remove("formation");
+            prefs.remove("instructor");
+        } else if ("instructor".equals(actionType)) {
+            prefs.put("instructor", actionValue);
+            prefs.remove("formation");
+            prefs.remove("salle");
         }
+
         prefs.put("lastActionType", actionType);
         prefs.put("view", currentDisplayMode.name());
 
-
         Preferences.savePreferences(userId, prefs);
     }
-
 
 
 
@@ -208,6 +235,9 @@ public void hover(){
             } else if ("salle".equals(lastActionType)) {
                 String salle = prefs.get("salle");
                 restoreSalle(salle);
+            } else if ("instructor".equals(lastActionType)) {
+                String instructor = prefs.get("instructor");
+                restoreInstructor(instructor);
             }
 
             String viewMode = prefs.get("view");
@@ -228,6 +258,13 @@ public void hover(){
 
     }
 
+    private void restoreInstructor(String instructor) throws IOException {
+        if ("NOE_CECILLON".equals(instructor)) {
+            onNOE_CECILLON();
+        }
+
+    }
+
     private void restoreFormation(String formation) throws IOException {
         switch (formation) {
             case "M1_IA":
@@ -242,7 +279,7 @@ public void hover(){
 
     private void restoreSalle(String salle) throws IOException {
         switch (salle) {
-            case "Amphi_ADA":
+            case "ADA":
                 onAmphi_ADA();
                 break;
             case "S3":
@@ -319,6 +356,7 @@ public void hover(){
             prefs.put("lastActionType", "formation");
             prefs.put("formation", "M1_IA");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark"); // Ajout de cette ligne
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -338,6 +376,7 @@ public void hover(){
             prefs.put("lastActionType", "formation");
             prefs.put("formation", "M2_IA");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark"); // Ajout de cette ligne
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -356,6 +395,10 @@ public void hover(){
         events.addAll(eventsajouts);
         setDisplayMode(currentDisplayMode);
         Filtrer.setOnAction(event -> onFiltrerButtonClickedProf());
+
+        SessionManager sessionManager = SessionManager.getInstance();
+        String userId = sessionManager.getNom();
+        savePreferencesForAction(userId, "instructor", "NOE_CECILLON");
 
     }
 
@@ -376,8 +419,9 @@ public void hover(){
         Filtrer.setOnAction(event -> onFiltrerButtonClickedSalle());
             Map<String, String> prefs = new HashMap<>();
             prefs.put("lastActionType", "salle");
-            prefs.put("salle", "Amphi_Ada");
+            prefs.put("salle", "ADA");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark");
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -400,6 +444,7 @@ public void hover(){
             prefs.put("lastActionType", "salle");
             prefs.put("salle", "S3");
             prefs.put("view", currentDisplayMode.name());
+            prefs.put("mode", isDarkMode ? "light" : "dark");
             Preferences.savePreferences(userId, prefs);
         } catch (Exception e) {
             e.printStackTrace();

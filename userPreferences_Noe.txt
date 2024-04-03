@@ -1,4 +1,4 @@
 mode:dark
 view:WEEK
-salle:S3
+salle:ADA
 lastActionType:salle
