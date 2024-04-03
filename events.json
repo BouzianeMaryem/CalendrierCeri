@@ -127,4 +127,15 @@
     "HeureDebut": "08:30",
     "Couleur": "#CC99CC"
 }
+,
+{
+    "DateFin": "2024-04-08",
+    "HeureFin": "15:00",
+    "Salle": "S3",
+    "Summary": "",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-08",
+    "HeureDebut": "08:00",
+    "Couleur": "#999999"
+}
 ]

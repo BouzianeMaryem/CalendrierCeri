@@ -1,4 +1,5 @@
-[{
+[
+  {
     "DateFin": "2024-04-04",
     "HeureFin": "17:30",
     "Matiere": "Reservation de salles",
@@ -17,5 +18,15 @@
     "Enseignant": "Noe Cecillon",
     "DateDebut": "2024-04-02",
     "HeureDebut": "08:30"
+  },
+  {
+    "DateFin": "2024-04-12",
+    "HeureFin": "15:00",
+    "Matiere": "Reservation de salles",
+    "Salle": "amphi ada",
+    "Summary": "Reservation de salles",
+    "Enseignant": "Noe Cecillon",
+    "DateDebut": "2024-04-12",
+    "HeureDebut": "13:00"
   }
 ]
